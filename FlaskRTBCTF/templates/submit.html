@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="content-section">
-    <form method="POST" action="">
+    <form method="POST" action="/validateUserHash">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">User Hash</legend>
@@ -23,7 +23,7 @@
             {{ userHashForm.submit(class="btn btn-outline-info") }}
         </div>
     </form>
-    <form method="POST" action="">
+    <form method="POST" action="/validateRootHash">
         {{ rootHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">System Hash</legend>

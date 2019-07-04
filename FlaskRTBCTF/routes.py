@@ -1,16 +1,18 @@
-''' views / routes ''' 
+''' views / routes '''
 
 from flask import render_template, url_for, flash, redirect, request
 from FlaskRTBCTF import app, db, bcrypt
 from FlaskRTBCTF.forms import RegistrationForm, LoginForm, UserHashForm, RootHashForm
-from FlaskRTBCTF.models import User
+from FlaskRTBCTF.models import User, Score
 from flask_login import login_user, current_user, logout_user, login_required
-from FlaskRTBCTF.config import ctfname
+from FlaskRTBCTF.config import ctfname, userHash, rootHash, userScore, rootScore
+
 
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html', ctfname=ctfname)
+
 
 @app.route("/scoreboard")
 @login_required
@@ -31,9 +33,13 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        user = User(username=form.username.data,
+                    email=form.email.data, password=hashed_password)
+        score = Score(userid=user.id, userHash=False, rootHash=False, score=0)
         db.session.add(user)
+        db.session.add(score)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
@@ -63,19 +69,57 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route("/account")
 @login_required
 def account():
     return render_template('account.html', title='Account', ctfname=ctfname)
 
-@app.route("/submit",methods=['GET','POST'])
+
+@app.route("/submit", methods=['GET', 'POST'])
 @login_required
 def submit():
-    userHashForm=UserHashForm()
-    rootHashForm=RootHashForm()
-    if request.method=='POST':
-        flash('Correct hash','success')
+    userHashForm = UserHashForm()
+    rootHashForm = RootHashForm()
+    return render_template('submit.html', userHashForm=userHashForm,
+                           rootHashForm=rootHashForm, ctfname=ctfname)
+
+
+@app.route("/validateRootHash", methods=['POST'])
+def validateRootHash():
+    rootHashForm = RootHashForm()
+    if rootHashForm.validate_on_submit():
+        if rootHashForm.rootHash.data == rootHash:
+            score = Score.query.filter_by(userid=current_user.id).first()
+            if score.rootHash:
+                flash("You already own System", "success")
+            else:
+                score.rootHash = True
+                score.score += rootScore
+                db.session.commit()
+                flash("Congrats! correct system hash", "success")
+        else:
+            flash("Sorry! Wrong system hash", "danger")
         return redirect(url_for('submit'))
     else:
-        return render_template('submit.html', ctfname=ctfname, 
-                                userHashForm=userHashForm, rootHashForm=rootHashForm)
+        return redirect(url_for('submit'))
+
+
+@app.route("/validateUserHash", methods=['POST'])
+def validateUserHash():
+    userHashForm = UserHashForm()
+    if userHashForm.validate_on_submit():
+        if userHashForm.userHash.data == userHash:
+            score = Score.query.filter_by(userid=current_user.id).first()
+            if score.userHash:
+                flash("You already own User", "success")
+            else:
+                score.userHash = True
+                score.score += userScore
+                db.session.commit()
+                flash("Congrats! correct user hash", "success")
+        else:
+            flash("Sorry! Wrong user hash", "danger")
+        return redirect(url_for('submit'))
+    else:
+        return redirect(url_for('submit'))
