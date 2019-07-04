@@ -13,6 +13,7 @@ from datetime import datetime
 def home():
     return render_template('home.html', ctfname=ctfname)
 
+''' Scoreboard and machine info '''
 
 @app.route("/scoreboard")
 @login_required
@@ -25,7 +26,60 @@ def machine():
     return render_template('scoreboard.html', scores=userNameScoreList, ctfname=ctfname)
 
 
-''' Register/login/logout management '''
+''' Hash Submission Management '''
+
+@app.route("/submit", methods=['GET', 'POST'])
+@login_required
+def submit():
+    userHashForm = UserHashForm()
+    rootHashForm = RootHashForm()
+    return render_template('submit.html', userHashForm=userHashForm,
+                           rootHashForm=rootHashForm, ctfname=ctfname)
+
+
+@app.route("/validateRootHash", methods=['POST'])
+def validateRootHash():
+    rootHashForm = RootHashForm()
+    if rootHashForm.validate_on_submit():
+        if rootHashForm.rootHash.data == rootHash:
+            score = Score.query.get(current_user.id)
+            if score.rootHash:
+                flash("You already own System", "success")
+            else:
+                score.rootHash = True
+                score.score += rootScore
+                score.timestamp = datetime.utcnow()
+                db.session.commit()
+                flash("Congrats! correct system hash", "success")
+        else:
+            flash("Sorry! Wrong system hash", "danger")
+        return redirect(url_for('submit'))
+    else:
+        return redirect(url_for('submit'))
+
+
+@app.route("/validateUserHash", methods=['POST'])
+def validateUserHash():
+    userHashForm = UserHashForm()
+    if userHashForm.validate_on_submit():
+        if userHashForm.userHash.data == userHash:
+            score = Score.query.get(current_user.id)
+            if score.userHash:
+                flash("You already own User", "success")
+            else:
+                score.userHash = True
+                score.score += userScore
+                score.timestamp = datetime.utcnow()
+                db.session.commit()
+                flash("Congrats! correct user hash", "success")
+        else:
+            flash("Sorry! Wrong user hash", "danger")
+        return redirect(url_for('submit'))
+    else:
+        return redirect(url_for('submit'))
+
+
+''' Register/login/logout/account management '''
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -78,52 +132,3 @@ def account():
     return render_template('account.html', title='Account', ctfname=ctfname)
 
 
-@app.route("/submit", methods=['GET', 'POST'])
-@login_required
-def submit():
-    userHashForm = UserHashForm()
-    rootHashForm = RootHashForm()
-    return render_template('submit.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
-
-
-@app.route("/validateRootHash", methods=['POST'])
-def validateRootHash():
-    rootHashForm = RootHashForm()
-    if rootHashForm.validate_on_submit():
-        if rootHashForm.rootHash.data == rootHash:
-            score = Score.query.filter_by(userid=current_user.id).first()
-            if score.rootHash:
-                flash("You already own System", "success")
-            else:
-                score.rootHash = True
-                score.score += rootScore
-                score.timestamp = datetime.utcnow()
-                db.session.commit()
-                flash("Congrats! correct system hash", "success")
-        else:
-            flash("Sorry! Wrong system hash", "danger")
-        return redirect(url_for('submit'))
-    else:
-        return redirect(url_for('submit'))
-
-
-@app.route("/validateUserHash", methods=['POST'])
-def validateUserHash():
-    userHashForm = UserHashForm()
-    if userHashForm.validate_on_submit():
-        if userHashForm.userHash.data == userHash:
-            score = Score.query.filter_by(userid=current_user.id).first()
-            if score.userHash:
-                flash("You already own User", "success")
-            else:
-                score.userHash = True
-                score.score += userScore
-                score.timestamp = datetime.utcnow()
-                db.session.commit()
-                flash("Congrats! correct user hash", "success")
-        else:
-            flash("Sorry! Wrong user hash", "danger")
-        return redirect(url_for('submit'))
-    else:
-        return redirect(url_for('submit'))
