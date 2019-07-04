@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
 <div class="content-section">
-    <form method="POST" action="{{ url_for('validateUserHash')}}">
+
+    <!-- User Hash Form -->
+    <form method="POST" action="{{ url_for('validateUserHash') }}">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">User Hash</legend>
@@ -23,7 +26,9 @@
             {{ userHashForm.submit(class="btn btn-outline-info") }}
         </div>
     </form>
-    <form method="POST" action="/validateRootHash">
+
+    <!-- System Hash Form-->
+    <form method="POST" action="{{ url_for('validateRootHash') }}">
         {{ rootHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">System Hash</legend>
@@ -44,6 +49,8 @@
             {{ rootHashForm.submit(class="btn btn-outline-info") }}
         </div>
     </form>
+
+    
 </div>
 
 {% endblock content %}
