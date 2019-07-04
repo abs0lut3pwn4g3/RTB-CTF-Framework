@@ -1,4 +1,10 @@
 {% extends "layout.html" %}
+
+
 {% block content %}
-    <h1>{{ current_user.username }}</h1>
+ 
+    <div class="content-section">
+        <h1>{{ current_user }}</h1>
+    </div>
+
 {% endblock content %}
