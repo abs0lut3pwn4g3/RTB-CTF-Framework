@@ -6,7 +6,7 @@ from FlaskRTBCTF.forms import RegistrationForm, LoginForm, UserHashForm, RootHas
 from FlaskRTBCTF.models import User, Score
 from flask_login import login_user, current_user, logout_user, login_required
 from FlaskRTBCTF.config import ctfname, userHash, rootHash, userScore, rootScore
-
+from datetime import datetime
 
 @app.route("/")
 @app.route("/home")
@@ -17,10 +17,12 @@ def home():
 @app.route("/scoreboard")
 @login_required
 def machine():
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
-    users_sorted_by_score = User.query.order_by(User.score).all()
-    return render_template('scoreboard.html', users=users_sorted_by_score, ctfname=ctfname)
+    users = User.query.order_by(User.id).all()
+    scores = Score.query.order_by(Score.score, Score.timestamp).all()
+    userNameScoreList = []
+    for score in scores:
+        userNameScoreList.append({'username':users[score.userid-1].username,'score':score.score})
+    return render_template('scoreboard.html', scores=userNameScoreList, ctfname=ctfname)
 
 
 ''' Register/login/logout management '''
@@ -96,6 +98,7 @@ def validateRootHash():
             else:
                 score.rootHash = True
                 score.score += rootScore
+                score.timestamp = datetime.utcnow()
                 db.session.commit()
                 flash("Congrats! correct system hash", "success")
         else:
@@ -116,6 +119,7 @@ def validateUserHash():
             else:
                 score.userHash = True
                 score.score += userScore
+                score.timestamp = datetime.utcnow()
                 db.session.commit()
                 flash("Congrats! correct user hash", "success")
         else:
