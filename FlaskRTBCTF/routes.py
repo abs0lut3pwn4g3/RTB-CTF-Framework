@@ -13,7 +13,8 @@ def home():
 
 @app.route("/machine")
 def machine():
-    return render_template('machine.html')
+    users_sorted_by_score = User.query.order_by(User.score).all()
+    return render_template('machine.html', users=users_sorted_by_score)
 
 
 ''' Register/login/logout management '''
@@ -46,7 +47,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
+            flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 

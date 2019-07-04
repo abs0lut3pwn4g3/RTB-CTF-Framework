@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
+    {% if users %}
+        <h2>Scoreboard</h2>
+        <ol>
+        {% for user in users %}
+            <li>{{ user.username }} | {{ user.email }} | {{ user.score }}</li>
+        {% endfor %}
+        </ol>
+    {% endif %}
 
 {% endblock content %}
