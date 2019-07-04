@@ -20,10 +20,16 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+<<<<<<< HEAD
 class UserHashForm(FlaskForm):
     userHash = StringField('User hash', validators=[DataRequired(), Length(min=32, max=32)])
     submit = SubmitField('Submit')
 
 class RootHashForm(FlaskForm):
     rootHash = StringField('Root hash', validators=[DataRequired, Length(min=32, max=32)])
+=======
+class SubmitHashForm(FlaskForm):
+    hash = StringField('Hash',
+                        validators=[DataRequired(), Length(min=5, max=20)])
+>>>>>>> dedbd463cf91e2bb398bf5042472d3f62a3dc422
     submit = SubmitField('Submit')

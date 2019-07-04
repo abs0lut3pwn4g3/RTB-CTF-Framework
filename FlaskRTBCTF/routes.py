@@ -15,6 +15,8 @@ def home():
 @app.route("/scoreboard")
 @login_required
 def machine():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
     users_sorted_by_score = User.query.order_by(User.score).all()
     return render_template('scoreboard.html', users=users_sorted_by_score, ctfname=ctfname)
 
@@ -25,6 +27,7 @@ def machine():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
+        flash('Already Authenticated', 'info')
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -40,6 +43,7 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
+        flash('Already Authenticated', 'info')
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
