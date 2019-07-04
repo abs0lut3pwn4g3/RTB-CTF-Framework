@@ -9,4 +9,5 @@ root-the-box-ctf-framework
 - [ ] make better UI for `machine.html` 
 - [ ] Need to implement `account.html` (not a priority)
 <hr/>
+
 - [x] Login/logout/registration works fine.
