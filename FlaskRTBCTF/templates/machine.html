@@ -1,12 +1,50 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Submit Hash</legend>
+                <div class="form-group">
+                    {{ form.hash.label(class="form-control-label") }}
+                    {% if form.hash.errors %}
+                        {{ form.hash(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.hash.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.hash(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
     {% if users %}
         <h2>Scoreboard</h2>
-        <ol>
-        {% for user in users %}
-            <li>{{ user.username }} | {{ user.email }} | {{ user.score }}</li>
-        {% endfor %}
-        </ol>
+        <div class="table-responsive">
+            <table class="table table-striped table-dark table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.score }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 
 {% endblock content %}

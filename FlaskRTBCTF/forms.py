@@ -19,3 +19,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class SubmitHashForm(FlaskForm):
+    hash = StringField('Hash',
+                        validators=[DataRequired(), Length(min=5, max=20)])
+    submit = SubmitField('Submit')
