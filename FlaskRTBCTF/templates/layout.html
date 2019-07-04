@@ -11,9 +11,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}"> 
 
     {% if title %}
-        <title>RootTheBox CTF - {{ title }}</title>
+        <title>{{ ctfname }} - {{ title }}</title>
     {% else %}
-        <title>RootTheBox CTF</title>
+        <title>{{ ctfname }}</title>
     {% endif %}
 </head>
 <body>
@@ -21,14 +21,14 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">RootTheBox CTF</a>
+          <a class="navbar-brand mr-4" href="/">{{ ctfname }}</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-              <a class="nav-item nav-link" href="{{ url_for('machine') }}">Machine</a>
+              <a class="nav-item nav-link" href="{{ url_for('machine') }}">Scoreboard</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -59,16 +59,6 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>DEFCON 91120</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-              </ul>
-            </p>
-          </div>
         </div>
       </div>
     </main>

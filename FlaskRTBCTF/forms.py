@@ -19,3 +19,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class UserHashForm(FlaskForm):
+    userHash = StringField('User hash', validators=[DataRequired(), Length(min=32, max=32)])
+    submit = SubmitField('Submit')
+
+class RootHashForm(FlaskForm):
+    rootHash = StringField('Root hash', validators=[DataRequired, Length(min=32, max=32)])
+    submit = SubmitField('Submit')

@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class='home-title'>
+    <h1 class='welcome-message'> Welcome to {{ ctfname }}</h1>
+    {% if current_user.is_authenticated %}
+        <p>If you owned the box then you can submit the hash <a href="{{ url_for('submit') }}">here</a></p>
+    {% else %}
+        <p>You need to login first</p>
+    {% endif %}
+</div>
 {% endblock content %}

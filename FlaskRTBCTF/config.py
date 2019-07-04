@@ -1,0 +1,1 @@
+ctfname = "RootTheBox CTF"

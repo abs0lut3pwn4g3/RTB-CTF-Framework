@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ userHashForm.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">User Hash</legend>
+            <div class="form-group">
+                {% if userHashForm.userHash.errors %}
+                {{ userHashForm.userHash(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in userHashForm.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ userHashForm.userHash(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ userHashForm.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    <form method="POST" action="">
+        {{ rootHashForm.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">System Hash</legend>
+            <div class="form-group">
+                {% if rootHashForm.rootHash.errors %}
+                {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in rootHashForm.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ rootHashForm.rootHash(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ rootHashForm.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
