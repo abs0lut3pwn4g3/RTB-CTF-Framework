@@ -2,20 +2,20 @@
 
 {% block content %}
 <div class="content-section">
-    <form method="POST" action="/validateUserHash">
+    <form method="POST" action="{{ url_for('validateUserHash')}}">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">User Hash</legend>
             <div class="form-group">
                 {% if userHashForm.userHash.errors %}
-                {{ userHashForm.userHash(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in userHashForm.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
+                    {{ userHashForm.userHash(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in userHashForm.userHash.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
                 {% else %}
-                {{ userHashForm.userHash(class="form-control form-control-lg") }}
+                        {{ userHashForm.userHash(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
         </fieldset>
@@ -29,14 +29,14 @@
             <legend class="border-bottom mb-4">System Hash</legend>
             <div class="form-group">
                 {% if rootHashForm.rootHash.errors %}
-                {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in rootHashForm.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
+                    {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in rootHashForm.rootHash.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
                 {% else %}
-                {{ rootHashForm.rootHash(class="form-control form-control-lg") }}
+                    {{ rootHashForm.rootHash(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
         </fieldset>
