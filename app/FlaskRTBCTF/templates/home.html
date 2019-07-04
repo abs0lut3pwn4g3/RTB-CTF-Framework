@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="content-section">
 <div class='home-title'>
     <h1 class='welcome-message'> Welcome to {{ ctfname }}</h1>
     {% if current_user.is_authenticated %}
@@ -8,6 +9,7 @@
     {% else %}
         <p>You need to <a class="red-underlined-link" href="{{ url_for('login') }}">login</a> first.</p>
     {% endif %}
+</div>
 </div>
 
 {% endblock content %}

@@ -1,23 +1,23 @@
 body {
-  background: #fafafa;
-  color: #333333;
+  background: #efefef;
+  color: #111111;
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+  color: #bbbbbb;
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #121212;
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+  color: #bbbbbb;
 }
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+  color: #ce1b28;
 }
 
 .site-header .navbar-nav .nav-link.active {
@@ -25,47 +25,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ffffff;
+  background: #121212;
   padding: 10px 20px;
-  border: 1px solid #dddddd;
+  color: #bbbbbb;
+  border: 1px solid #efefef;
   border-radius: 3px;
   margin-bottom: 20px;
-}
-
-.article-title {
-  color: #444444;
-}
-
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
-}
-
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:hover {
-  color: #333;
-  text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
 }
 
 .account-img {
@@ -77,4 +42,24 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+a.red-underlined-link {
+  color: #ce1b28 !important;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #ce1b28 !important;
+  text-decoration: none !important;
+}
+
+ul.list-group a.list-group-item {
+  background: #121212;
+  color: #bbbbbb;
+  border: 0.01px solid #efefef !important;
+}
+
+.title-heading {
+  color: #111111 !important;
 }
