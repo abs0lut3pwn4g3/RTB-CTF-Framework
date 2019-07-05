@@ -19,7 +19,7 @@ def home():
 @login_required
 def scoreboard():
     users = User.query.order_by(User.id).all()
-    scores = Score.query.order_by(Score.score, Score.timestamp).all()
+    scores = Score.query.order_by(Score.score.desc(), Score.timestamp).all()
     userNameScoreList = []
     for score in scores:
         userNameScoreList.append({'username':users[score.userid-1].username,'score':score.score})
@@ -28,15 +28,16 @@ def scoreboard():
 
 ''' Hash Submission Management '''
 
-@app.route("/submit", methods=['GET', 'POST'])
+@app.route("/machine", methods=['GET', 'POST'])
 @login_required
-def submit():
+def machine():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
-    return render_template('submit.html', userHashForm=userHashForm,
+    return render_template('machine.html', userHashForm=userHashForm,
                            rootHashForm=rootHashForm, ctfname=ctfname)
 
 
+@login_required
 @app.route("/validateRootHash", methods=['POST'])
 def validateRootHash():
     rootHashForm = RootHashForm()
@@ -53,11 +54,12 @@ def validateRootHash():
                 flash("Congrats! correct system hash.", "success")
         else:
             flash("Sorry! Wrong system hash", "danger")
-        return redirect(url_for('submit'))
+        return redirect(url_for('machine'))
     else:
-        return redirect(url_for('submit'))
+        return redirect(url_for('machine'))
 
 
+@login_required
 @app.route("/validateUserHash", methods=['POST'])
 def validateUserHash():
     userHashForm = UserHashForm()
@@ -74,9 +76,9 @@ def validateUserHash():
                 flash("Congrats! correct user hash.", "success")
         else:
             flash("Sorry! Wrong user hash", "danger")
-        return redirect(url_for('submit'))
+        return redirect(url_for('machine'))
     else:
-        return redirect(url_for('submit'))
+        return redirect(url_for('machine'))
 
 
 ''' Register/login/logout/account management '''
@@ -89,16 +91,21 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(
-            form.password.data).decode('utf-8')
-        user = User(username=form.username.data,
-                    email=form.email.data, password=hashed_password)
-        score = Score(userid=user.id, userHash=False, rootHash=False, score=0)
-        db.session.add(user)
-        db.session.add(score)
-        db.session.commit()
-        flash('Your account has been created! You are now able to log in.', 'success')
-        return redirect(url_for('login'))
+        user = User.query.filter_by(username=form.username.data).first() or User.query.filter_by(email=form.email.data).first()
+        if user:
+            flash("User with same username or email already exists!", "danger")
+            return redirect(url_for('register'))
+        else:
+            hashed_password = bcrypt.generate_password_hash(
+                form.password.data).decode('utf-8')
+            user = User(username=form.username.data,
+                        email=form.email.data, password=hashed_password)
+            score = Score(userid=user.id, userHash=False, rootHash=False, score=0)
+            db.session.add(user)
+            db.session.add(score)
+            db.session.commit()
+            flash('Your account has been created! You are now able to log in.', 'success')
+            return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form, ctfname=ctfname)
 
 
