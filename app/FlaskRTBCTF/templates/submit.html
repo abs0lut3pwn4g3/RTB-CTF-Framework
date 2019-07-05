@@ -11,19 +11,19 @@
             <legend class="border-bottom mb-4">User Hash</legend>
             <div class="form-group">
                 {% if userHashForm.userHash.errors %}
-                    {{ userHashForm.userHash(class="form-control form-control-lg is-invalid") }}
+                    {{ userHashForm.userHash(class="form-control form-control-lg is-invalid", autocomplete="off") }}
                     <div class="invalid-feedback">
                         {% for error in userHashForm.userHash.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                        {{ userHashForm.userHash(class="form-control form-control-lg") }}
+                        {{ userHashForm.userHash(class="form-control form-control-lg", autocomplete="off") }}
                 {% endif %}
             </div>
         </fieldset>
         <div class="form-group">
-            {{ userHashForm.submit(class="btn btn-outline-light") }}
+            {{ userHashForm.submit(class="btn btn-dark btn-hover-red") }}
         </div>
     </form>
 
@@ -34,19 +34,19 @@
             <legend class="border-bottom mb-4">System Hash</legend>
             <div class="form-group">
                 {% if rootHashForm.rootHash.errors %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid") }}
+                    {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid", autocomplete="off") }}
                     <div class="invalid-feedback">
                         {% for error in rootHashForm.rootHash.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-lg") }}
+                    {{ rootHashForm.rootHash(class="form-control form-control-lg", autocomplete="off") }}
                 {% endif %}
             </div>
         </fieldset>
         <div class="form-group">
-            {{ rootHashForm.submit(class="btn btn-outline-light") }}
+            {{ rootHashForm.submit(class="btn btn-dark btn-hover-red") }}
         </div>
     </form>
 

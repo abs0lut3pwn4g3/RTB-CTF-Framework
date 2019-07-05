@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Required meta tags -->
+    <!-- "Metadata. The story behind the data" ~ Elliot Alderson -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}"> 
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- local css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <!-- Title --> 
     {% if title %}
         <title>{{ ctfname }} - {{ title }}</title>
     {% else %}
@@ -28,7 +30,8 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-              <a class="nav-item nav-link" href="{{ url_for('machine') }}">Scoreboard</a>
+              <a class="nav-item nav-link" href="{{ url_for('scoreboard') }}">Scoreboard</a>
+              <a class="nav-item nav-link" href="{{ url_for('submit') }}">Submit Hashes</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -51,7 +54,15 @@
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
+                
                 <div class="alert alert-{{ category }}">
+                    {% if category == "danger" %}
+                      <i class="fas fa-exclamation-triangle"></i>
+                    {% elif category == "success" %}
+                      <i class="far fa-check-circle"></i>
+                    {% else %}
+                      <i class="fas fa-info-circle"></i>
+                    {% endif %}
                   {{ message }}
                 </div>
               {% endfor %}
@@ -64,7 +75,7 @@
               <h3>DEFCON 91120</h3>
               <p class='text-muted'>Delhi/NCR based DCG
                 <ul class="list-group">
-                  <a target="_blank" href="https://dc91120.org/" class="list-group-item list-group-item-action">Offical DC91120 Website</a>
+                  <a target="_blank" href="https://dc91120.org/" class="list-group-item list-group-item-action">Official DC91120 Website</a>
                   <a target="_blank" href="https://dc91120.org/events.html" class="list-group-item list-group-item-action">Events</a>
                   <a target="_blank" href="https://dc91120.org/#footer" class="list-group-item list-group-item-action">About Us</a>
                 </ul>

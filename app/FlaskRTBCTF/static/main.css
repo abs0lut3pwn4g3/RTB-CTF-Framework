@@ -1,15 +1,24 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600");
+
 body {
-  background: #efefef;
-  color: #111111;
+  background: #2c2f36;
+  color: #C9D3E7 !important;
   margin-top: 5rem;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+  font-size: 12pt;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #bbbbbb;
+  color: #C9D3E7;
+}
+
+hr {
+  background-color: #C9D3E7;
 }
 
 .bg-steel {
-  background-color: #121212;
+  background-color: #101010;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -25,10 +34,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #121212;
+  background: rgba(35,36,39,0.95);
   padding: 10px 20px;
-  color: #bbbbbb;
-  border: 1px solid #efefef;
+  color: #C9D3E7;
+  border: 1px solid #2c2f36;
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25);
+  box-sizing: border-box;
   border-radius: 3px;
   margin-bottom: 20px;
 }
@@ -49,17 +60,45 @@ a.red-underlined-link {
   text-decoration: underline;
 }
 
-a:hover {
+a:hover, .btn-hover-red:hover {
   color: #ce1b28 !important;
   text-decoration: none !important;
 }
 
 ul.list-group a.list-group-item {
-  background: #121212;
-  color: #bbbbbb;
-  border: 0.01px solid #efefef !important;
+  background: #2c2f36;
+  color: #C9D3E7;
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25);
+  box-sizing: border-box;
 }
 
 .title-heading {
-  color: #111111 !important;
+  color: #C9D3E7 !important;
+}
+
+/*
+.alert-success {
+  color: #ce1b28 !important;
+  background-color: #101010 !important;
+  border: 1px solid #2c2f36 !important;
+  box-sizing: border-box;
+  border-radius: 3px;
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25) !important;
+}
+*/
+
+.alert-info, .alert-danger, .alert-success {
+  color: #101010 !important;
+  background-color: #ce1b28 !important;
+  opacity: 0.8;
+  filter: alpha(opacity=30);
+  border: 1px solid #2c2f36 !important;
+  box-sizing: border-box;
+  border-radius: 3px;
+  box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25) !important;
+}
+
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after{
+  background-color: #ce1b28 !important;
 }
