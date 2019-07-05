@@ -8,6 +8,7 @@ root-the-box-ctf-framework
 - [ ] More info for `home.html`
 - [ ] Need to implement `account.html` (not a priority)
 <hr/>
+
 - [x] Finalize black theme?
 - [x] Error messages not appearing in `/submit`
 - [x] Implement `machine.html` to server a page where one can download machines
