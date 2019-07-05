@@ -17,7 +17,7 @@ def home():
 
 @app.route("/scoreboard")
 @login_required
-def machine():
+def scoreboard():
     users = User.query.order_by(User.id).all()
     scores = Score.query.order_by(Score.score, Score.timestamp).all()
     userNameScoreList = []
@@ -44,13 +44,13 @@ def validateRootHash():
         if rootHashForm.rootHash.data == rootHash:
             score = Score.query.get(current_user.id)
             if score.rootHash:
-                flash("You already own System", "success")
+                flash("You already own System.", "success")
             else:
                 score.rootHash = True
                 score.score += rootScore
                 score.timestamp = datetime.utcnow()
                 db.session.commit()
-                flash("Congrats! correct system hash", "success")
+                flash("Congrats! correct system hash.", "success")
         else:
             flash("Sorry! Wrong system hash", "danger")
         return redirect(url_for('submit'))
@@ -65,13 +65,13 @@ def validateUserHash():
         if userHashForm.userHash.data == userHash:
             score = Score.query.get(current_user.id)
             if score.userHash:
-                flash("You already own User", "success")
+                flash("You already own User.", "success")
             else:
                 score.userHash = True
                 score.score += userScore
                 score.timestamp = datetime.utcnow()
                 db.session.commit()
-                flash("Congrats! correct user hash", "success")
+                flash("Congrats! correct user hash.", "success")
         else:
             flash("Sorry! Wrong user hash", "danger")
         return redirect(url_for('submit'))
@@ -97,7 +97,7 @@ def register():
         db.session.add(user)
         db.session.add(score)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash('Your account has been created! You are now able to log in.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form, ctfname=ctfname)
 
@@ -115,7 +115,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful. Please check username and password', 'danger')
+            flash('Login Unsuccessful. Please check username and password.', 'danger')
     return render_template('login.html', title='Login', form=form, ctfname=ctfname)
 
 
@@ -123,6 +123,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash("Logged out.", "info")
     return redirect(url_for('home'))
 
 
