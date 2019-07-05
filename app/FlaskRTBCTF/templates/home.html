@@ -2,14 +2,16 @@
 {% block content %}
 
 <div class="content-section">
-<div class='home-title'>
-    <h1 class='welcome-message'> Welcome to {{ ctfname }}</h1>
-    {% if current_user.is_authenticated %}
-        <p>If you owned the box then you can submit the hashes <a class="red-underlined-link" href="{{ url_for('machine') }}">here</a>.</p>
-    {% else %}
-        <p>You need to <a class="red-underlined-link" href="{{ url_for('login') }}">login</a> first.</p>
-    {% endif %}
-</div>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+            <h1 class="display-5">Welcome to {{ ctfname }}</h1>
+            {% if current_user.is_authenticated %}
+                <p class="lead">If you owned the box then you can submit the hashes <a class="red-underlined-link" href="{{ url_for('machine') }}">here</a>.</p>
+            {% else %}
+                <p class="lead">You need to <a class="red-underlined-link" href="{{ url_for('login') }}">login</a> first.</p>
+            {% endif %}
+      </div>
+    </div>
 </div>
 
 {% endblock content %}

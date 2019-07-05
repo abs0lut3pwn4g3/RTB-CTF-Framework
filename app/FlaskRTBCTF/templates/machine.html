@@ -4,21 +4,56 @@
 
 <div class="content-section">
 
+    <!-- Machine Info -->
+
+    <div class="machine-heading">{{ box['name'] }}</div>
+    <hr/>
+    <div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">IP</div>  
+          <h5 class="card-title">{{ box['ip'] }}</h5>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">OS</div>   
+          <h5 class="card-title">{{ box['os'] }}</h5>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">Points</div> 
+            <h5 class="card-title">User: {{ box['points']['user'] }} | Root: {{ box['points']['root'] }}</h5>
+        </div>
+    </div> 
+    <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">Difficulty Level</div>   
+          <h5 class="card-title">{{ box['hardness'] }}</h5>
+        </div>
+    </div>       
+    </div>
+
+    <hr/>
+
     <!-- User Hash Form -->
-    <form method="POST" action="">
+    <form class="form-inline" method="POST" action="{{ url_for('validateUserHash') }}">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">User Hash</legend>
             <div class="form-group">
+                {{ userHashForm.userHash.label(class="form-control-label") }}
                 {% if userHashForm.userHash.errors %}
-                    {{ userHashForm.userHash(class="form-control form-control-lg is-invalid", autocomplete="off") }}
+                    {{ userHashForm.userHash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
                     <div class="invalid-feedback">
                         {% for error in userHashForm.userHash.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                        {{ userHashForm.userHash(class="form-control form-control-lg", autocomplete="off") }}
+                        {{ userHashForm.userHash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
                 {% endif %}
             </div>
         </fieldset>
@@ -26,22 +61,22 @@
             {{ userHashForm.submit(class="btn btn-dark btn-hover-red") }}
         </div>
     </form>
-
+    <hr/>
     <!-- System Hash Form-->
-    <form method="POST" action="">
+    <form class="form-inline" method="POST" action="{{ url_for('validateRootHash') }}">
         {{ rootHashForm.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">System Hash</legend>
             <div class="form-group">
+                {{ rootHashForm.rootHash.label(class="form-control-label") }}
                 {% if rootHashForm.rootHash.errors %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-lg is-invalid", autocomplete="off") }}
+                    {{ rootHashForm.rootHash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
                     <div class="invalid-feedback">
                         {% for error in rootHashForm.rootHash.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-lg", autocomplete="off") }}
+                    {{ rootHashForm.rootHash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
                 {% endif %}
             </div>
         </fieldset>

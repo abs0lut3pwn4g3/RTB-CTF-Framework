@@ -5,15 +5,18 @@ from FlaskRTBCTF import app, db, bcrypt
 from FlaskRTBCTF.forms import RegistrationForm, LoginForm, UserHashForm, RootHashForm
 from FlaskRTBCTF.models import User, Score
 from flask_login import login_user, current_user, logout_user, login_required
-from FlaskRTBCTF.config import ctfname, userHash, rootHash, userScore, rootScore
+from FlaskRTBCTF.config import ctfname, box, userHash, rootHash, userScore, rootScore
 from datetime import datetime
+import json
+
+''' Index page '''
 
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html', ctfname=ctfname)
 
-''' Scoreboard and machine info '''
+''' Scoreboard '''
 
 @app.route("/scoreboard")
 @login_required
@@ -25,12 +28,46 @@ def scoreboard():
         userNameScoreList.append({'username':users[score.userid-1].username,'score':score.score})
     return render_template('scoreboard.html', scores=userNameScoreList, ctfname=ctfname)
 
+''' Machine Info '''
+
+@app.route("/machine")
+@login_required
+def machine():
+    userHashForm = UserHashForm()
+    rootHashForm = RootHashForm()
+    return render_template('machine.html', userHashForm=userHashForm,
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
 
 ''' Hash Submission Management '''
 
-@app.route("/machine", methods=['GET', 'POST'])
+@app.route("/validateRootHash", methods=['POST'])
 @login_required
-def machine():
+def validateRootHash():
+    userHashForm = UserHashForm()
+    rootHashForm = RootHashForm()
+    if rootHashForm.validate_on_submit():
+        if rootHashForm.rootHash.data == rootHash:
+            score = Score.query.get(current_user.id)
+            if score.rootHash:
+                flash("You already own System.", "success")
+            else:
+                score.rootHash = True
+                score.score += rootScore
+                score.timestamp = datetime.utcnow()
+                db.session.commit()
+                flash("Congrats! correct system hash.", "success")
+        else:
+            flash("Sorry! Wrong system hash", "danger")
+        return render_template('machine.html', userHashForm=userHashForm,
+                           rootHashForm=rootHashForm, ctfname=ctfname)
+    else:
+        return render_template('machine.html', userHashForm=userHashForm,
+                           rootHashForm=rootHashForm, ctfname=ctfname)
+
+
+@app.route("/validateUserHash", methods=['POST'])
+@login_required
+def validateUserHash():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     if userHashForm.validate_on_submit():
@@ -47,25 +84,10 @@ def machine():
         else:
             flash("Sorry! Wrong user hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                                rootHashForm=rootHashForm, ctfname=ctfname)
-    elif rootHashForm.validate_on_submit():
-        if rootHashForm.rootHash.data == rootHash:
-            score = Score.query.get(current_user.id)
-            if score.rootHash:
-                flash("You already own System.", "success")
-            else:
-                score.rootHash = True
-                score.score += rootScore
-                score.timestamp = datetime.utcnow()
-                db.session.commit()
-                flash("Congrats! correct system hash.", "success")
-        else:
-            flash("Sorry! Wrong system hash", "danger")
-        return render_template('machine.html', userHashForm=userHashForm,
-                                rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname)
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                                rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname)
 
 
 ''' Register/login/logout/account management '''
