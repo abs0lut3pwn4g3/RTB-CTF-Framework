@@ -5,7 +5,7 @@
 <div class="content-section">
 
     <!-- User Hash Form -->
-    <form method="POST" action="{{ url_for('validateUserHash') }}">
+    <form method="POST" action="">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">User Hash</legend>
@@ -28,7 +28,7 @@
     </form>
 
     <!-- System Hash Form-->
-    <form method="POST" action="{{ url_for('validateRootHash') }}">
+    <form method="POST" action="">
         {{ rootHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">System Hash</legend>

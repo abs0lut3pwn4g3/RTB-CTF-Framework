@@ -33,36 +33,6 @@ def scoreboard():
 def machine():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
-    return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
-
-
-@login_required
-@app.route("/validateRootHash", methods=['POST'])
-def validateRootHash():
-    rootHashForm = RootHashForm()
-    if rootHashForm.validate_on_submit():
-        if rootHashForm.rootHash.data == rootHash:
-            score = Score.query.get(current_user.id)
-            if score.rootHash:
-                flash("You already own System.", "success")
-            else:
-                score.rootHash = True
-                score.score += rootScore
-                score.timestamp = datetime.utcnow()
-                db.session.commit()
-                flash("Congrats! correct system hash.", "success")
-        else:
-            flash("Sorry! Wrong system hash", "danger")
-        return redirect(url_for('machine'))
-    else:
-        return redirect(url_for('machine'))
-
-
-@login_required
-@app.route("/validateUserHash", methods=['POST'])
-def validateUserHash():
-    userHashForm = UserHashForm()
     if userHashForm.validate_on_submit():
         if userHashForm.userHash.data == userHash:
             score = Score.query.get(current_user.id)
@@ -76,9 +46,26 @@ def validateUserHash():
                 flash("Congrats! correct user hash.", "success")
         else:
             flash("Sorry! Wrong user hash", "danger")
-        return redirect(url_for('machine'))
+        return render_template('machine.html', userHashForm=userHashForm,
+                                rootHashForm=rootHashForm, ctfname=ctfname)
+    elif rootHashForm.validate_on_submit():
+        if rootHashForm.rootHash.data == rootHash:
+            score = Score.query.get(current_user.id)
+            if score.rootHash:
+                flash("You already own System.", "success")
+            else:
+                score.rootHash = True
+                score.score += rootScore
+                score.timestamp = datetime.utcnow()
+                db.session.commit()
+                flash("Congrats! correct system hash.", "success")
+        else:
+            flash("Sorry! Wrong system hash", "danger")
+        return render_template('machine.html', userHashForm=userHashForm,
+                                rootHashForm=rootHashForm, ctfname=ctfname)
     else:
-        return redirect(url_for('machine'))
+        return render_template('machine.html', userHashForm=userHashForm,
+                                rootHashForm=rootHashForm, ctfname=ctfname)
 
 
 ''' Register/login/logout/account management '''
