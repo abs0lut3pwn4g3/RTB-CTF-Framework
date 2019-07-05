@@ -12,6 +12,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+
+from flask_sslify import SSLify
+	if 'DYNO' in os.environ:  # only trigger SSLify if the app is running on Heroku
+		sslify = SSLify(app)
+
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
