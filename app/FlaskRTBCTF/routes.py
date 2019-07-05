@@ -59,10 +59,10 @@ def validateRootHash():
         else:
             flash("Sorry! Wrong system hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
 
 
 @app.route("/validateUserHash", methods=['POST'])
@@ -84,10 +84,10 @@ def validateUserHash():
         else:
             flash("Sorry! Wrong user hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname)
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
 
 
 ''' Register/login/logout/account management '''
