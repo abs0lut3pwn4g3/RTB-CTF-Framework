@@ -4,7 +4,9 @@
     <!-- "Metadata. The story behind the data" ~ Elliot Alderson -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Favicon -->
+  	<link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='favicon.ico')}}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -36,7 +38,7 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
-                  <a class="nav-item nav-link red-link" href="{{ url_for('account') }}">@{{ current_user.username }}</a>
+                  <a class="nav-item nav-link" href="{{ url_for('account') }}">@{{ current_user.username }}</a>
                   <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                 {% else %}
                   <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
