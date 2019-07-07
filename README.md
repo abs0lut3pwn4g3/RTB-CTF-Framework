@@ -32,7 +32,7 @@ For Heroku,
 
 ## To-do
 
-- [ ] isAdmin column in User table and Admin views
+- [ ] isAdmin column in User table and Admin views (priority)
 - [ ] Support for more hashes
 - [ ] Testing Password reset functionality
 - [ ] More info for `home.html`
