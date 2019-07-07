@@ -32,15 +32,15 @@ For Heroku,
 
 ## To-do
 
-- [ ] admin views
+- [ ] isAdmin column in User table and Admin views
 - [ ] Support for more hashes
+- [ ] Testing Password reset functionality
 - [ ] More info for `home.html`
 - [ ] Need to implement `account.html` (not a priority)
 
 <hr/>
 
 - [x] Use Flask Blueprinsts
-- [x] Password reset functionality
 - [x] Finalize black theme?
 - [x] Error messages not appearing in `/submit`
 - [x] Implement `machine.html` to server a page where one can download/serve machines
