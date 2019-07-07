@@ -51,5 +51,5 @@ For Heroku,
 ## Screenshots
 
 <img src="screenshots/home_ss.png" width=400 />
-<img src="screenshots/home_ss.png" width=400 />
-<img src="screenshots/home_ss.png" width=400 />
+<img src="screenshots/scoreboard_ss.png" width=400 />
+<img src="screenshots/machine_ss.png" width=400 />
