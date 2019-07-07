@@ -13,6 +13,12 @@ A CTF framework(in flask) for HackTheBox style machines.
 
 ## How To Use
 
+	$ git clone https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework
+	$ cd RTB-CTF-Framework/
+	$ virtualenv -p /usr/bin/python3 venv
+	$ pip install -r requirements.txt 
+	$ python run.py
+
 Using this as simple as anything. Just configure your CTF settings in `config.py`.
 
 #### Creating database instance file
