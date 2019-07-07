@@ -31,18 +31,18 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-              <a class="nav-item nav-link" href="{{ url_for('scoreboard') }}">Scoreboard</a>
-              <a class="nav-item nav-link" href="{{ url_for('machine') }}">Machine</a>
+              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('ctf.scoreboard') }}">Scoreboard</a>
+              <a class="nav-item nav-link" href="{{ url_for('ctf.machine') }}">Machine</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
-                  <a class="nav-item nav-link" href="{{ url_for('account') }}">@{{ current_user.username }}</a>
-                  <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  <a class="nav-item nav-link" href="{{ url_for('users.account') }}">@{{ current_user.username }}</a>
+                  <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
                 {% else %}
-                  <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                  <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                  <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+                  <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
                 {% endif %}
             </div>
           </div>
@@ -91,6 +91,5 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
 </body>
 </html>

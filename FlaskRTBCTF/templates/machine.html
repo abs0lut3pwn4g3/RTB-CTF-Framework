@@ -13,6 +13,12 @@
         <div class="card">
           <div class="card-header">IP</div>  
           <h5 class="card-title">{{ box['ip'] }}</h5>
+          <!--
+          <div class="card-body">
+          <p class="card-text">WIFI: </p>
+        </div>
+          -->
+
         </div>
     </div>
     <div class="col-sm-6">
@@ -40,7 +46,7 @@
     <hr/>
 
     <!-- User Hash Form -->
-    <form class="form-inline" method="POST" action="{{ url_for('validateUserHash') }}">
+    <form class="form-inline" method="POST" action="{{ url_for('ctf.validateUserHash') }}">
         {{ userHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <div class="form-group">
@@ -63,7 +69,7 @@
     </form>
     <hr/>
     <!-- System Hash Form-->
-    <form class="form-inline" method="POST" action="{{ url_for('validateRootHash') }}">
+    <form class="form-inline" method="POST" action="{{ url_for('ctf.validateRootHash') }}">
         {{ rootHashForm.hidden_tag() }}
         <fieldset class="form-group">
             <div class="form-group">

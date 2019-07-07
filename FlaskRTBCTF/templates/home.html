@@ -6,9 +6,9 @@
       <div class="container">
             <h1 class="display-5">Welcome to {{ ctfname }}</h1>
             {% if current_user.is_authenticated %}
-                <p class="lead">If you owned the box then you can submit the hashes <a class="red-underlined-link" href="{{ url_for('machine') }}">here</a>.</p>
+                <p class="lead">If you owned the box then you can submit the hashes <a class="red-underlined-link" href="{{ url_for('ctf.machine') }}">here</a>.</p>
             {% else %}
-                <p class="lead">You need to <a class="red-underlined-link" href="{{ url_for('login') }}">login</a> first.</p>
+                <p class="lead">You need to <a class="red-underlined-link" href="{{ url_for('users.login') }}">login</a> first.</p>
             {% endif %}
       </div>
     </div>
@@ -18,11 +18,13 @@
     <h2 class="title-heading">Rules</h2>
     <hr/>
     <ul>
+        <li>Running time: <code>{{ RunningTime['from'] }}</code> to <code>{{ RunningTime['to'] }}</code> (All times in {{ RunningTime['TimeZone'] }})</li>
         <li>Needless to say: no bruteforcing (you'll never guess, anyway)</li>
         <li>Automated vulnerability scanners will get you nowhere(we know cz we made the machine)</li>
         <li>Attacking this CTF infrastructure website is unnecessary. There are no hints.
             This website is for the sole purpose of registration, hash submission and management.</li>
-        <li>Have fun!</li>
+        <li>We have tested the machine multiple, I repeat multiple times so if you are receiving a status code of 404 or 301. Figure it out yourself!</li>    
+        <li>Have fun! :)</li>
     </ul>
 </div>
 

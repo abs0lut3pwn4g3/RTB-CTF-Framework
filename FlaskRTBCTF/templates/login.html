@@ -40,14 +40,14 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-dark btn-hover-red") }}
             </div>
-            <!-- <small>
-                <a href="#" class="red-underlined-link">Forgot Password?</a>
-            </small> -->
+            <small>
+                <a href="{{ url_for('users.reset_request') }}" class="red-underlined-link">Forgot Password?</a>
+            </small>
         </form>
     </div>
     <div class="border-top pt-3">
         <small class="text-light">
-            Need An Account? <a class="ml-2 red-underlined-link" href="{{ url_for('register') }}">Sign Up Now</a>
+            Need An Account? <a class="ml-2 red-underlined-link" href="{{ url_for('users.register') }}">Sign Up Now</a>
         </small>
     </div>
     
