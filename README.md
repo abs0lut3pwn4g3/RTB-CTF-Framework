@@ -46,3 +46,10 @@ For Heroku,
 - [x] Implement `machine.html` to server a page where one can download/serve machines
 - [x] Add basic info and stuff to `layout.html`
 - [x] User is able to submit hash multiple times and keep increasing score, so need to implement limitations
+
+
+## Screenshots
+
+<img src="screenshots/home_ss.png" width=400 />
+<img src="screenshots/home_ss.png" width=400 />
+<img src="screenshots/home_ss.png" width=400 />
