@@ -43,9 +43,9 @@ $ python3 # open python interpreter
 For Heroku, 
 
 ```bash
-	$ heroku run python
-	>>> from FlaskRTBCTF import db, create_app
-	>>> db.create_all(app=create_app())
+$ heroku run python
+>>> from FlaskRTBCTF import db, create_app
+>>> db.create_all(app=create_app())
 ```
 
 ## To-do
