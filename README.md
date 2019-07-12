@@ -13,12 +13,19 @@ A CTF framework(in flask) for HackTheBox style machines.
 
 ## How To Use
 
-	$ git clone https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework
-	$ cd RTB-CTF-Framework/src/
-	$ virtualenv -p /usr/bin/python3 venv
-	$ source venv/bin/activate
-	[venv]$ pip install -r requirements.txt 
-	[venv]$ python run.py
+### Requirements
+
+* `Python 3.7.3` or atleast `> 3.6`.
+* Packages: [`src/requirements.txt`](src/requirements.txt).
+
+```bash
+$ git clone https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework
+$ cd RTB-CTF-Framework/src/
+$ virtualenv -p /usr/bin/python3 venv
+$ source venv/bin/activate
+[venv]$ pip install -r requirements.txt 
+[venv]$ python run.py
+```
 
 Using this as simple as anything. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
@@ -26,16 +33,20 @@ Using this as simple as anything. Just configure your CTF settings in [`config.p
 
 Locally or for docker,
 
-	$ source venv/bin/activate
-	$ python3 # open python interpreter
-	>>> from FlaskRTBCTF import db, create_app
-	>>> db.create_all(app=create_app())
+```bash
+$ source venv/bin/activate
+$ python3 # open python interpreter
+>>> from FlaskRTBCTF import db, create_app
+>>> db.create_all(app=create_app())
+```
 
 For Heroku, 
 
+```bash
 	$ heroku run python
 	>>> from FlaskRTBCTF import db, create_app
 	>>> db.create_all(app=create_app())
+```
 
 ## To-do
 
