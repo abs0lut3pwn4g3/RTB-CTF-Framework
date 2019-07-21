@@ -19,6 +19,8 @@ A CTF framework(in flask) for HackTheBox style machines.
 * `Python 3.7.3` or atleast `> 3.6`.
 * Packages: [`src/requirements.txt`](src/requirements.txt).
 
+### Installation
+
 1. Git clone the repo and `cd ` into it
 
 ```bash
@@ -40,6 +42,8 @@ $ cd src/
 [venv]$ python create_db.py # Only required on first run
 [venv]$ python run.py
 ```
+
+### For Your CTF
 
 Using this as simple as anything. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
