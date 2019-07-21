@@ -35,7 +35,7 @@ $ cd src/
 
 3. With `virtual environment` activated, install requirements, init db and run !
 
-```python
+```bash
 [venv]$ pip install -r requirements.txt 
 [venv]$ python create_db.py # Only required on first run
 [venv]$ python run.py
