@@ -43,7 +43,7 @@ $ cd src/
 
 Using this as simple as anything. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
-> Note: DO NOT FORGET to change admin credentials from [create_db.py]((https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
+> Note: DO NOT FORGET to change admin credentials from [create_db.py](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
 
 #### Creating database instance file
 
