@@ -15,6 +15,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    confirmed_at = db.Column(db.DateTime())
+    isAdmin = db.Column(db.Boolean, default=False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -42,6 +44,8 @@ class Score(db.Model):
 
     def __repr__(self):
         return f"Score('{self.userid}', '{self.score}')"
+
+
     
 
 
