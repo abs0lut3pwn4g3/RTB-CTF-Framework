@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+    {% for notif in notifs %}
+        <div class="content-section">
+            <h3 class="title-heading">{{ notif['title'] }}</h3>
+            <div class="float-right">
+            <small>Notification #{{ notif['id'] }} - posted at <code>{{ notif['timestamp'].strftime("%Y-%m-%d %I:%M %p") }} UTC</code></small>
+            </div><br/>
+            <hr/>
+            <p>{{ notif['body'] }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
