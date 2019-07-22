@@ -16,11 +16,18 @@ ctf = Blueprint('ctf', __name__)
 @ctf.route("/scoreboard")
 @login_required
 def scoreboard():
-    users = User.query.order_by(User.id).all()
-    scores = Score.query.order_by(Score.score.desc(), Score.timestamp).all()
+    #users = User.query.order_by(User.id).all()
+    scores = Score.query.order_by(Score.points.desc(), Score.timestamp).all()
     userNameScoreList = []
     for score in scores:
-        userNameScoreList.append({'username':users[score.userid-1].username,'score':score.score})
+        userNameScoreList.append({'username': User.query.get(score.user_id).username,'score':score.points})
+    '''
+    scores = Score.query.order_by(Score.points.desc(), Score.timestamp).all()
+    userNameScoreList = []
+    for score in scores:
+         userNameScoreList.append({'username': score.query.with_parent(user).username,'score':score.points})
+    print(userNameScoreList)
+    '''
     return render_template('scoreboard.html', scores=userNameScoreList, ctfname=ctfname)
 
 ''' Machine Info '''
@@ -47,7 +54,7 @@ def validateRootHash():
                 flash("You already own System.", "success")
             else:
                 score.rootHash = True
-                score.score += rootScore
+                score.points += rootScore
                 score.timestamp = datetime.utcnow()
                 db.session.commit()
                 flash("Congrats! correct system hash.", "success")
@@ -72,7 +79,7 @@ def validateUserHash():
                 flash("You already own User.", "success")
             else:
                 score.userHash = True
-                score.score += userScore
+                score.points += userScore
                 score.timestamp = datetime.utcnow()
                 db.session.commit()
                 flash("Congrats! correct user hash.", "success")
