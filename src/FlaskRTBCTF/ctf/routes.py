@@ -16,18 +16,11 @@ ctf = Blueprint('ctf', __name__)
 @ctf.route("/scoreboard")
 @login_required
 def scoreboard():
-    #users = User.query.order_by(User.id).all()
     scores = Score.query.order_by(Score.points.desc(), Score.timestamp).all()
     userNameScoreList = []
     for score in scores:
         userNameScoreList.append({'username': User.query.get(score.user_id).username,'score':score.points})
-    '''
-    scores = Score.query.order_by(Score.points.desc(), Score.timestamp).all()
-    userNameScoreList = []
-    for score in scores:
-         userNameScoreList.append({'username': score.query.with_parent(user).username,'score':score.points})
-    print(userNameScoreList)
-    '''
+
     return render_template('scoreboard.html', scores=userNameScoreList, ctfname=ctfname)
 
 ''' Machine Info '''
