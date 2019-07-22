@@ -2,7 +2,7 @@ import datetime
 
 from FlaskRTBCTF import create_app, db, bcrypt
 from FlaskRTBCTF.models import User, Score, Notification
-from FlaskRTBCTF.config import ctfname
+from FlaskRTBCTF.config import organization
 
 app = create_app()
 
@@ -23,7 +23,7 @@ with app.app_context():
     db.session.add(admin_score)
 
     notif = Notification(
-        title=f"Welcome to {ctfname}",
+        title=f"Welcome to {organization['ctfname']}",
         body = "The CTF is live now. Please read rules!"
     )
     db.session.add(notif)
