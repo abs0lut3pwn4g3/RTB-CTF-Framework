@@ -21,7 +21,7 @@ with app.app_context():
     score = Score(userid=admin_user.id, userHash=False, rootHash=False, score=0)
     notif = Notification(
         title=f"Welcome to {ctfname}",
-        body = "The RTB CTF is live now. Please read rules!"
+        body = "The CTF is live now. Please read rules!"
     )
     db.session.add(admin_user)
     db.session.add(score)
