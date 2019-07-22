@@ -76,6 +76,7 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 
 ## To-do
 
+- [ ] Freeze Scoreboard automatically past running time specified
 - [ ] Support for more hashes
 - [ ] Testing Password reset functionality
 - [ ] More info for `home.html`
