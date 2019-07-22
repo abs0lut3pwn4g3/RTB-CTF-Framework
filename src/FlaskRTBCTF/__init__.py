@@ -25,9 +25,10 @@ def create_app(config_class=Config):
 	admin_manager.init_app(app)
 	# Add model views
 	from FlaskRTBCTF.admin.views import MyModelView
-	from FlaskRTBCTF.models import User, Score
+	from FlaskRTBCTF.models import User, Score, Notification
 	admin_manager.add_view(MyModelView(User, db.session))
 	admin_manager.add_view(MyModelView(Score, db.session))
+	admin_manager.add_view(MyModelView(Notification, db.session))
 	mail.init_app(app)
 
 	from flask_sslify import SSLify
