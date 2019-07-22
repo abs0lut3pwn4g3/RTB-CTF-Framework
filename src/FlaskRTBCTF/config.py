@@ -17,9 +17,24 @@ class Config:
 
 ''' CTF related Configuration '''
 
-# Specify CTF Name
+# Add some information about organization and specify CTF name
 
-ctfname = "RootTheBox CTF"
+organization = {
+    "ctfname": "RootTheBox CTF",
+    "name": "DEF CON 91120",
+    "website": { 
+        "url": "https://dc91120.org/",
+        "name": "Official DC91120 Website"
+    }, 
+    "website_2": { 
+        "url": "https://dc91120.org/events.html",
+        "name": "Events"
+    }, 
+    "website_3": { 
+        "url": "https://dc91120.org/#footer",
+        "name": "About Us"
+    }
+}     
 
 # Specify CTFs Running Time
 
@@ -29,12 +44,12 @@ RunningTime = {
     "TimeZone": "IST"
 } # Use `pytz.utc` for UTC timezone
 
-# Speicfy Your Pwnable Box/Machine settings
+# Specify Your Pwnable Box/Machine settings
 
 box = { 
     "name": "My Awesome Pwnable Box", 
-    "ip": "127.0.0.1", "os": 
-    "Linux", 
+    "ip": "127.0.0.1", 
+    "os": "Linux", 
     "points": { "user": 10, "root": 20 }, 
     "hardness": "You tell" 
 }
