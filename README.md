@@ -73,13 +73,13 @@ $ heroku run python
 - [ ] db relationship between User and Score Tables
 - [ ] Support for more hashes
 - [ ] Testing Password reset functionality
-- [ ] Notifications
 - [ ] More info for `home.html`
 - [ ] Need to implement `account.html` (not a priority)
 
 <hr/>
 
 - [x] isAdmin column in User table and Admin views (priority)
+- [x] Notifications
 - [x] Use Flask Blueprinsts
 - [x] Finalize black theme?
 - [x] Error messages not appearing in `/submit`
