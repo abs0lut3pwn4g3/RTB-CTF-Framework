@@ -39,6 +39,9 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
+                  {% if current_user.isAdmin %}
+                    <a class="nav-item nav-link" href="/admin">Admin Controls</a>
+                  {% endif %}
                   <a class="nav-item nav-link" href="{{ url_for('users.account') }}">@{{ current_user.username }}</a>
                   <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
                 {% else %}
