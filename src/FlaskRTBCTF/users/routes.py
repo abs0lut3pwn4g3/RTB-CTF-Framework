@@ -6,7 +6,6 @@ from FlaskRTBCTF.users.forms import (RegistrationForm, LoginForm, UpdateAccountF
                                    RequestResetForm, ResetPasswordForm)
 from FlaskRTBCTF.users.utils import send_reset_email
 from FlaskRTBCTF.config import ctfname
-import json
 
 users = Blueprint('users', __name__)
 

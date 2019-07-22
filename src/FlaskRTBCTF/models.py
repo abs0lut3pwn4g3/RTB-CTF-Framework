@@ -10,12 +10,14 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+''' User Table '''
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    confirmed_at = db.Column(db.DateTime())
+    confirmed_at = db.Column(db.DateTime(), default=datetime.utcnow)
     isAdmin = db.Column(db.Boolean, default=False)
 
     def get_reset_token(self, expires_sec=1800):
@@ -35,17 +37,26 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 
+''' Score Table '''
+
 class Score(db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     userHash = db.Column(db.Boolean, default=False)
     rootHash = db.Column(db.Boolean, default=False)
     score = db.Column(db.Integer)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
         return f"Score('{self.userid}', '{self.score}')"
 
 
-    
+''' Notifications Table '''
 
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(30), nullable=False)
+    body = db.Column(db.String(250), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __repr__(self):
+        return f"Notif('{self.title}', '{self.body}')"

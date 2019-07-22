@@ -7,7 +7,6 @@ from FlaskRTBCTF.models import User, Score
 from FlaskRTBCTF.ctf.forms import UserHashForm, RootHashForm
 from FlaskRTBCTF.config import ctfname, box, userHash, rootHash, userScore, rootScore
 from datetime import datetime
-import json
 
 ctf = Blueprint('ctf', __name__)
 
@@ -32,7 +31,7 @@ def machine():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=box)
 
 ''' Hash Submission Management '''
 
@@ -55,10 +54,10 @@ def validateRootHash():
         else:
             flash("Sorry! Wrong system hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=box)
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=box)
 
 
 @ctf.route("/validateUserHash", methods=['POST'])
@@ -80,9 +79,9 @@ def validateUserHash():
         else:
             flash("Sorry! Wrong user hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=box)
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, ctfname=ctfname, box=json.loads(box))
+                           rootHashForm=rootHashForm, ctfname=ctfname, box=box)
 
 
