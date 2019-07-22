@@ -72,7 +72,7 @@ $ heroku run python
 
 ## To-do
 
-- [ ] db relationship between User and Score Tables
+- [ ] db relationship between User and Score Tables (priority | issue: #5)
 - [ ] Support for more hashes
 - [ ] Testing Password reset functionality
 - [ ] More info for `home.html`
