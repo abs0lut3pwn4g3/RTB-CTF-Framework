@@ -70,6 +70,10 @@ $ heroku run python
 >>> db.create_all(app=create_app())
 ```
 
+## Contributing
+
+Please see: https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues and the below To-do list
+
 ## To-do
 
 - [ ] db relationship between User and Score Tables (priority | issue: #5)
