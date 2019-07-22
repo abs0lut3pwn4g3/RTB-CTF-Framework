@@ -72,11 +72,11 @@ $ heroku run python
 
 ## Contributing
 
-Please see: https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues and the below To-do list
+Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list
 
 ## To-do
 
-- [ ] db relationship between User and Score Tables (priority | issue: #5)
+- [ ] Aside content-section changes( organization info )
 - [ ] Support for more hashes
 - [ ] Testing Password reset functionality
 - [ ] More info for `home.html`
@@ -84,14 +84,13 @@ Please see: https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues and the b
 
 <hr/>
 
+- [x] db relationship between User and Score Tables (priority | issue: #5)
 - [x] isAdmin column in User table and Admin views (priority)
 - [x] Notifications
-- [x] Use Flask Blueprinsts
+- [x] Use Flask Blueprints
 - [x] Finalize black theme?
 - [x] Error messages not appearing in `/submit`
 - [x] Implement `machine.html` to server a page where one can download/serve machines
-- [x] Add basic info and stuff to `layout.html`
-- [x] User is able to submit hash multiple times and keep increasing score, so need to implement limitations
 
 
 ## Screenshots
