@@ -39,7 +39,7 @@ box = {
     "hardness": "You tell" 
 }
 
-# Specify The Hashes, you can use secrets model to generate them
+# Specify The Hashes, you can use python's secrets package to generate them
 
 userHash = 'A'*32 # dummy hash, length = 32 fixed
 rootHash = 'B'*32 # dummy hash, length = 32 fixed
