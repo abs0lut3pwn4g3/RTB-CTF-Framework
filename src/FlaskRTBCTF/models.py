@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     confirmed_at = db.Column(db.DateTime(), default=datetime.utcnow)
     isAdmin = db.Column(db.Boolean, default=False)
+    score = db.relationship('Score', backref='user', lazy=True, uselist=False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -34,20 +35,21 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}')"
+        return f"User('{self.username}', '{self.email}') | Score('{self.score}')"
 
 
 ''' Score Table '''
 
 class Score(db.Model):
-    userid = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+        nullable=False, primary_key=True)
     userHash = db.Column(db.Boolean, default=False)
     rootHash = db.Column(db.Boolean, default=False)
-    score = db.Column(db.Integer)
+    points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
-        return f"Score('{self.userid}', '{self.score}')"
+        return f"Score('{self.user_id}', '{self.points}')"
 
 
 ''' Notifications Table '''

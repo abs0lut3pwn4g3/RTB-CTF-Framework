@@ -22,7 +22,7 @@ def register():
             form.password.data).decode('utf-8')
         user = User(username=form.username.data,
                     email=form.email.data, password=hashed_password)
-        score = Score(userid=user.id, userHash=False, rootHash=False, score=0)
+        score = Score(user=user, userHash=False, rootHash=False, points=0)
         db.session.add(user)
         db.session.add(score)
         db.session.commit()
