@@ -1,7 +1,8 @@
 import datetime
 
 from FlaskRTBCTF import create_app, db, bcrypt
-from FlaskRTBCTF.models import User, Score
+from FlaskRTBCTF.models import User, Score, Notification
+from FlaskRTBCTF.config import ctfname
 
 app = create_app()
 
@@ -18,6 +19,11 @@ with app.app_context():
         isAdmin = True
     )
     score = Score(userid=admin_user.id, userHash=False, rootHash=False, score=0)
+    notif = Notification(
+        title=f"Welcome to {ctfname}",
+        body = "The RTB CTF is live now. Please read rules!"
+    )
     db.session.add(admin_user)
     db.session.add(score)
+    db.session.add(notif)
     db.session.commit()
