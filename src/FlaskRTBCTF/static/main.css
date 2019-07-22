@@ -76,6 +76,7 @@ a:hover, .btn-hover-red:hover {
 .table-responsive {
   box-shadow: 0px 9px 18px 0px #101010 !important;
 }
+
 .table-row-odd {
   background-color: #2c2f36;
   color: #fff;
