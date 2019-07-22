@@ -6,6 +6,8 @@ from flask_admin.contrib.sqla import ModelView
 
 class MyModelView(ModelView):
 
+    column_exclude_list = ( 'password' )
+
     def is_accessible(self):
         if not current_user.is_authenticated or not current_user.isAdmin:
         	# permission denied
