@@ -5,7 +5,7 @@ from FlaskRTBCTF.models import User, Score
 from FlaskRTBCTF.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from FlaskRTBCTF.users.utils import send_reset_email
-from FlaskRTBCTF.config import ctfname
+from FlaskRTBCTF.config import organization
 
 users = Blueprint('users', __name__)
 
@@ -28,7 +28,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register', form=form, ctfname=ctfname)
+    return render_template('register.html', title='Register', form=form, organization=organization)
 
 @users.route("/login", methods=['GET', 'POST'])
 def login():
@@ -44,7 +44,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login Unsuccessful. Please check username and password.', 'danger')
-    return render_template('login.html', title='Login', form=form, ctfname=ctfname)
+    return render_template('login.html', title='Login', form=form, organization=organization)
 
 
 @users.route("/logout")
@@ -58,7 +58,7 @@ def logout():
 @users.route("/account")
 @login_required
 def account():
-    return render_template('account.html', title='Account', ctfname=ctfname)
+    return render_template('account.html', title='Account', organization=organization)
 
 
 @users.route("/reset_password", methods=['GET', 'POST'])
@@ -71,7 +71,7 @@ def reset_request():
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html', title='Reset Password', form=form, ctfname=ctfname)
+    return render_template('reset_request.html', title='Reset Password', form=form, organization=organization)
 
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
@@ -93,4 +93,4 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     
-    return render_template('reset_token.html', title='Reset Password', form=form, ctfname=ctfname)
+    return render_template('reset_token.html', title='Reset Password', form=form, organization=organization)
