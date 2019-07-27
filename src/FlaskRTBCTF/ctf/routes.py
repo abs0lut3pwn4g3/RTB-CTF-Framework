@@ -1,6 +1,6 @@
 ''' views / routes '''
 
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, request
 from flask_login import current_user, login_required
 from FlaskRTBCTF import db, bcrypt
 from FlaskRTBCTF.models import User, Score
@@ -50,6 +50,7 @@ def validateRootHash():
                 score.rootHash = True
                 score.points += rootScore
                 score.timestamp = datetime.utcnow()
+                score.rootSubmissionIP = request.access_route[0]
                 db.session.commit()
                 flash("Congrats! correct system hash.", "success")
         else:
@@ -75,6 +76,7 @@ def validateUserHash():
                 score.userHash = True
                 score.points += userScore
                 score.timestamp = datetime.utcnow()
+                score.userSubmissionIP = request.access_route[0]
                 db.session.commit()
                 flash("Congrats! correct user hash.", "success")
         else:

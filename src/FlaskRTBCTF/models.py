@@ -1,6 +1,7 @@
 ''' Models '''
 
 from flask import current_app
+from flask import request
 from FlaskRTBCTF import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -47,6 +48,8 @@ class Score(db.Model):
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
+    rootSubmissionIP = db.Column(db.String)
+    userSubmissionIP = db.Column(db.String)
 
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
