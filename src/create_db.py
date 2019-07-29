@@ -16,7 +16,8 @@ with app.app_context():
         email='admin@admin.com',
         password=bcrypt.generate_password_hash('admin').decode('utf-8'),
         confirmed_at=datetime.datetime.now(),
-        isAdmin = True
+        isAdmin = True,
+        visitedMachine = True
     )
     admin_score = Score(user=admin_user, userHash=False, rootHash=False, points=0)
     db.session.add(admin_user)

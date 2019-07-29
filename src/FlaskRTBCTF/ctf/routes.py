@@ -3,9 +3,11 @@
 from flask import Blueprint, render_template, flash, request
 from flask_login import current_user, login_required
 from FlaskRTBCTF import db, bcrypt
+from FlaskRTBCTF.config import organization, box, userHash, rootHash, userScore, rootScore, LOGGING
 from FlaskRTBCTF.models import User, Score
+if LOGGING:
+    from FlaskRTBCTF.models import Logs
 from FlaskRTBCTF.ctf.forms import UserHashForm, RootHashForm
-from FlaskRTBCTF.config import organization, box, userHash, rootHash, userScore, rootScore
 from datetime import datetime
 
 ctf = Blueprint('ctf', __name__)
@@ -29,6 +31,13 @@ def scoreboard():
 @ctf.route("/machine")
 @login_required
 def machine():
+    user = User.query.get(current_user.id)
+    if user.visitedMachine is False and user.isAdmin is False:
+        user.visitedMachine = True
+        if LOGGING:
+            log = Logs.query.get(current_user.id)
+            log.machineVisitTime = datetime.utcnow()
+        db.session.commit()
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     return render_template('machine.html', userHashForm=userHashForm,
@@ -50,7 +59,11 @@ def validateRootHash():
                 score.rootHash = True
                 score.points += rootScore
                 score.timestamp = datetime.utcnow()
-                score.rootSubmissionIP = request.access_route[0]
+                if LOGGING:
+                    log = Logs.query.get(current_user.id)
+                    log.rootSubmissionIP = request.access_route[0]
+                    log.rootSubmissionTime = datetime.utcnow()
+                    log.rootOwnTime = str(log.rootSubmissionTime - log.machineVisitTime)
                 db.session.commit()
                 flash("Congrats! correct system hash.", "success")
         else:
@@ -76,7 +89,11 @@ def validateUserHash():
                 score.userHash = True
                 score.points += userScore
                 score.timestamp = datetime.utcnow()
-                score.userSubmissionIP = request.access_route[0]
+                if LOGGING:
+                    log = Logs.query.get(current_user.id)
+                    log.userSubmissionIP = request.access_route[0]
+                    log.userSubmissionTime = datetime.utcnow()
+                    log.userOwnTime = str(log.userSubmissionTime - log.machineVisitTime)
                 db.session.commit()
                 flash("Congrats! correct user hash.", "success")
         else:

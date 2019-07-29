@@ -61,4 +61,7 @@ rootHash = 'B'*32 # dummy hash, length = 32 fixed
 userScore = 10
 rootScore = 20
 
+# Logging: Set to 'True' to enable Logging in Admin Views
+
+LOGGING = False
 # NOTE: CHANGE DEFAULT ADMIN CREDENTIALS in create_db.py !!!

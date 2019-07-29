@@ -1,11 +1,14 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from FlaskRTBCTF import db, bcrypt
+from FlaskRTBCTF.config import organization, LOGGING
+from datetime import datetime
 from FlaskRTBCTF.models import User, Score
+if LOGGING:
+    from FlaskRTBCTF.models import Logs
 from FlaskRTBCTF.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm)
 from FlaskRTBCTF.users.utils import send_reset_email
-from FlaskRTBCTF.config import organization
 
 users = Blueprint('users', __name__)
 
@@ -21,8 +24,12 @@ def register():
         hashed_password = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
         user = User(username=form.username.data,
-                    email=form.email.data, password=hashed_password)
+                    email=form.email.data, password=hashed_password, visitedMachine=False)
         score = Score(user=user, userHash=False, rootHash=False, points=0)
+        if LOGGING:
+            log = Logs(user=user, accountCreationTime=datetime.utcnow(), machineVisitTime=None, userSubmissionTime=None,
+                       rootSubmissionTime=None, userSubmissionIP=None, rootSubmissionIP=None)
+            db.session.add(log)
         db.session.add(user)
         db.session.add(score)
         db.session.commit()
