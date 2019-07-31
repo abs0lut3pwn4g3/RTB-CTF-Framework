@@ -45,11 +45,17 @@ $ cd src/
 
 ### For Your CTF
 
-Using this as simple as anything. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
+Using this as simple as anything. 
 
-> Note: DO NOT FORGET to change admin credentials from [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
+1. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
-You can manage the database CRUD operations from admin views GUI as well as issue notifications. 
+2. DO NOT FORGET to change admin credentials from [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
+
+3. See Step 3 under Installation above.
+
+Bonus: You can manage the database CRUD operations from admin views GUI as well as issue notifications. 
+
+> Warning: If you make any change to [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py) logging/config class/score settings. It's highly recommended to create a new DB instance.
 
 #### Creating database instance file
 
