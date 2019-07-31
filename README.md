@@ -8,7 +8,7 @@ A CTF framework(in flask) for HackTheBox style machines.
 * Flask-admin for Admin views and easy realtime management
 * Easily deployable on Heroku.
 * A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
-* User Registration, account management, Forgot password, Notifications
+* User Registration, account management, Forgot password, Notifications, Full Fledged Logging
 * Hash submission (currently 2 hashes: user and root)
 * Real time scoreboard tracking
 
