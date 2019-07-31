@@ -21,7 +21,7 @@ You can login and mess around as 2 users: `admin:admin` and `test:test`.
 * `Python 3.7.3` or atleast `> 3.6`.
 * Packages: [`src/requirements.txt`](src/requirements.txt).
 
-### Installation
+### Installation and first run
 
 1. Git clone the repo and `cd ` into it
 
@@ -53,9 +53,9 @@ $ cd src/
 
 2. Provision Database add-on.
    
-   Add the following add on to your new app: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
-
-3. Create database instance. In your heroku app directory,
+   Add the following add on to your new app: https://elements.heroku.com/addons/heroku-postgresql
+   
+3. Creating database instance. In your heroku app directory,
 
    ```bash
    $ heroku run bash
@@ -63,7 +63,7 @@ $ cd src/
    ```
 4. Your app should be live now. You can run `heroku open` to open it in browser.
 
-### For Your CTF
+## For Your CTF
 
 Using this as simple as anything. 
 
