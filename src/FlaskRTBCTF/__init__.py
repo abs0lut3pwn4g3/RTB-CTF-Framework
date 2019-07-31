@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_mail import Mail
-from FlaskRTBCTF.config import Config
+from FlaskRTBCTF.config import Config, LOGGING
 import os
 
 db = SQLAlchemy()
@@ -26,9 +26,13 @@ def create_app(config_class=Config):
 	# Add model views
 	from FlaskRTBCTF.admin.views import MyModelView
 	from FlaskRTBCTF.models import User, Score, Notification
+	if LOGGING:
+		from FlaskRTBCTF.models import Logs
 	admin_manager.add_view(MyModelView(User, db.session))
 	admin_manager.add_view(MyModelView(Score, db.session))
 	admin_manager.add_view(MyModelView(Notification, db.session))
+	if LOGGING:
+		admin_manager.add_view(MyModelView(Logs, db.session))
 	mail.init_app(app)
 
 	from flask_sslify import SSLify
