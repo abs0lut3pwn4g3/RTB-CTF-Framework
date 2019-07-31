@@ -23,18 +23,18 @@ class Config:
 
 organization = {
     "ctfname": "RootTheBox CTF",
-    "name": "DEF CON 91120",
+    "name": "Abs0lut3Pwn4g3",
     "website": { 
-        "url": "https://dc91120.org/",
-        "name": "Official DC91120 Website"
+        "url": "https://Abs0lut3Pwn4g3.cf",
+        "name": "Official Abs0lut3Pwn4g3 Website"
     }, 
     "website_2": { 
-        "url": "https://dc91120.org/events.html",
-        "name": "Events"
+        "url": "https://twitter.com/abs0lut3pwn4g3",
+        "name": "Twitter"
     }, 
     "website_3": { 
-        "url": "https://dc91120.org/#footer",
-        "name": "About Us"
+        "url": "https://github.com/abs0lut3pwn4g3",
+        "name": "Github"
     }
 }     
 
