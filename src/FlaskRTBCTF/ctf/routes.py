@@ -32,12 +32,12 @@ def scoreboard():
 @login_required
 def machine():
     user = User.query.get(current_user.id)
-    if user.visitedMachine is False and user.isAdmin is False:
-        user.visitedMachine = True
-        if LOGGING:
-            log = Logs.query.get(current_user.id)
+    if LOGGING:
+        log = Logs.query.get(current_user.id)
+        if log.visitedMachine is False:
+            log.visitedMachine = True
             log.machineVisitTime = datetime.utcnow()
-        db.session.commit()
+            db.session.commit()
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     return render_template('machine.html', userHashForm=userHashForm,

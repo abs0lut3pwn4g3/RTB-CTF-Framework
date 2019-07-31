@@ -18,9 +18,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    confirmed_at = db.Column(db.DateTime(), default=datetime.utcnow)
     isAdmin = db.Column(db.Boolean, default=False)
-    visitedMachine = db.Column(db.Boolean, default=False)
     score = db.relationship('Score', backref='user', lazy=True, uselist=False)
     if LOGGING:
         logs = db.relationship('Logs', backref='user', lazy=True, uselist=False)
@@ -39,7 +37,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}') | Score('{self.score}')"
+        return f"User('{self.username}', '{self.email}'))"
 
 
 ''' Score Table '''
@@ -51,7 +49,6 @@ class Score(db.Model):
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
-
 
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
@@ -70,10 +67,12 @@ class Notification(db.Model):
 
 
 ''' Logging Table '''
+
 if LOGGING:
     class Logs(db.Model):
         user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
         accountCreationTime = db.Column(db.DateTime, nullable=False)
+        visitedMachine = db.Column(db.Boolean, default=False)
         machineVisitTime = db.Column(db.DateTime, nullable=True)
         userSubmissionTime = db.Column(db.DateTime, nullable=True)
         rootSubmissionTime = db.Column(db.DateTime, nullable=True)

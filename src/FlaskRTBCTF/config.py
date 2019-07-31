@@ -39,10 +39,10 @@ organization = {
 # Specify CTFs Running Time
 
 RunningTime = { 
-    "from": datetime(2019,7,7,15,00,00,0, pytz.timezone('Asia/Calcutta')), 
-    "to": datetime(2019,7,8,0,00,00,0, pytz.timezone('Asia/Calcutta')), 
-    "TimeZone": "IST"
-} # Use `pytz.utc` for UTC timezone
+    "from": datetime(2019,7,7,15,00,00,0, pytz.utc), 
+    "to": datetime(2019,7,8,0,00,00,0, pytz.utc), 
+    "TimeZone": "UTC"
+} # We do not recommended changing the Timezone.
 
 # Specify Your Pwnable Box/Machine settings
 
@@ -61,7 +61,8 @@ rootHash = 'B'*32 # dummy hash, length = 32 fixed
 userScore = 10
 rootScore = 20
 
-# Logging: Set to 'True' to enable Logging in Admin Views
+# Logging: Set to 'True' to enable Logging in Admin Views.
 
-LOGGING = False
+LOGGING = True # We recommend to leave it on.
+
 # NOTE: CHANGE DEFAULT ADMIN CREDENTIALS in create_db.py !!!
