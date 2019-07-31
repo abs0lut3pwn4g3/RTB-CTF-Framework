@@ -45,7 +45,7 @@ $ cd src/
 [venv]$ python run.py
 ```
 
-#### Deployment using Heroku
+### Deployment using Heroku
 
 1. Create your heroku app using `heroku` cli tool.
    
@@ -71,7 +71,7 @@ Using this as simple as anything.
 
 2. DO NOT FORGET to change admin credentials from [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
 
-3. See Step 3 under Installation above.
+3. See database instance creation steps under How To Use.
 
 Bonus: You can manage the database CRUD operations from admin views GUI as well as issue notifications. 
 
