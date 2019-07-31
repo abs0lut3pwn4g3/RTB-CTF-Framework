@@ -1,6 +1,8 @@
 # RootTheBox CTF Framework
 
-A CTF framework(in flask) for HackTheBox style machines. A live demo is available at: https://rtblivedemo.herokuapp.com/
+A CTF framework(in flask) for HackTheBox style machines. <br/>
+A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
+You can login and mess around as 2 users: `admin:admin` and `test:test`.
 
 ## Features
 
