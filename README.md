@@ -48,17 +48,20 @@ $ cd src/
 #### Deployment using Heroku
 
 1. Create your heroku app using `heroku` cli tool.
+   
+   Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
 
-Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
-
-2. Provision Database add-on to your new app: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
+2. Provision Database add-on.
+   
+   Add the following add on to your new app: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
 
 3. Create database instance. In your heroku app directory,
 
-```bash
-heroku run bash
-[heroku]$ python create_db.py
-```
+   ```bash
+   $ heroku run bash
+   [heroku]$ python create_db.py
+   ```
+4. Your app should be live now. You can run `heroku open` to open it in browser.
 
 ### For Your CTF
 
