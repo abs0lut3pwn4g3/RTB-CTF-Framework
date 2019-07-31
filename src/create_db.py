@@ -1,8 +1,11 @@
 from datetime import datetime
 
 from FlaskRTBCTF import create_app, db, bcrypt
-from FlaskRTBCTF.models import User, Score, Notification, Logs
+from FlaskRTBCTF.models import User, Score, Notification
 from FlaskRTBCTF.config import organization, LOGGING
+
+if LOGGING:
+	from FlaskRTBCTF.models import Logs
 
 app = create_app()
 
