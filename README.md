@@ -1,6 +1,6 @@
 # RootTheBox CTF Framework
 
-A CTF framework(in flask) for HackTheBox style machines. 
+A CTF framework(in flask) for HackTheBox style machines. A live demo is available at: https://rtblivedemo.herokuapp.com/
 
 ## Features
 
@@ -43,6 +43,21 @@ $ cd src/
 [venv]$ python run.py
 ```
 
+#### Deployment using Heroku
+
+1. Create your heroku app using `heroku` cli tool.
+
+Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
+
+2. Provision Database add-on to your new app: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
+
+3. Create database instance. In your heroku app directory,
+
+```bash
+heroku run bash
+[heroku]$ python create_db.py
+```
+
 ### For Your CTF
 
 Using this as simple as anything. 
@@ -56,25 +71,6 @@ Using this as simple as anything.
 Bonus: You can manage the database CRUD operations from admin views GUI as well as issue notifications. 
 
 > Warning: If you make any change to [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py) logging/config class/score settings. It's highly recommended to create a new DB instance.
-
-#### Creating database instance file
-
-Locally or for docker/linux server,
-
-```bash
-$ source venv/bin/activate
-$ python src/create_db.py
-```
-
-> Running this also creates an admin account by default,
-
-For Heroku, 
-
-```bash
-$ heroku run python
->>> from FlaskRTBCTF import db, create_app
->>> db.create_all(app=create_app())
-```
 
 ## Contributing
 
