@@ -2,7 +2,7 @@
 
 A CTF framework(in flask) for HackTheBox style machines. <br/>
 A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
-You can login and mess around as 2 users: `admin:admin` and `test:test`.
+You can login and mess around as 2 users: `admin:admin` and `test:test`.(i.e. username:password)
 
 ## Features
 
