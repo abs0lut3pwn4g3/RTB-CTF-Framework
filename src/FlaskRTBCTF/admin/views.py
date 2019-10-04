@@ -23,8 +23,5 @@ class MyModelView(ModelView):
         """
         if not self.is_accessible():
             if current_user.is_authenticated:
-                # permission denied
+                #permission denied
                 abort(403)
-            #else:
-                # login
-            #    return redirect(url_for('user.login', next=request.url))

@@ -65,6 +65,6 @@ rootScore = 20
 
 # Logging: Set to 'True' to enable Logging in Admin Views.
 
-LOGGING = True # We recommend to leave it on.
+LOGGING = True # We recommend to leave it on. It is more than just errors ;)
 
 # NOTE: CHANGE DEFAULT ADMIN CREDENTIALS in create_db.py !!!
