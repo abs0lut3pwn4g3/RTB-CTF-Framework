@@ -4,6 +4,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
 A CTF framework(in flask) for HackTheBox style machines. <br/>
+The main purpose of this project is to serve as a scoring engine and CTF manager.
 A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
 You can login and mess around as 2 users: `admin:admin` and `test:test`.(i.e. username:password)
 
