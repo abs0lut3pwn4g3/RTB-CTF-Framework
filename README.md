@@ -1,5 +1,8 @@
 # RootTheBox CTF Framework
 
+[![Rawsec's CyberSecurity Inventory](https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg)](https://inventory.rawsec.ml/)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
 A CTF framework(in flask) for HackTheBox style machines. <br/>
 A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
 You can login and mess around as 2 users: `admin:admin` and `test:test`.(i.e. username:password)
