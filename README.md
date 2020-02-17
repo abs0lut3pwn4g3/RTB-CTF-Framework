@@ -92,6 +92,7 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 - [ ] Average Box rating - input, calculate, output
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
+- [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such.
 - [ ] Support for more hashes (not a priority)
 - [ ] Need to implement `account.html` (not a priority)
 
