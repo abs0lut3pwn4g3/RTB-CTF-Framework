@@ -20,9 +20,9 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 * Flask-wtf for forms,
 * Flask-mail for mail service.
 
-##### For CTF hosters.
+##### For CTF hosters
 * A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
-* Well implemented controls for administrators providing features such as issuing notifications, Full Fledged Logging,
+* Well implemented controls for administrators providing features such as issuing notifications, database CRUD operations, full fledged logging,
 * Simple User Registration/login process, account management, Forgot password functionalities,
 * Flag submission (currently 2 hashes: user and root),
 * Real time scoreboard tracking,
