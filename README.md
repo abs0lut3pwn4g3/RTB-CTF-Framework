@@ -13,13 +13,20 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 ## Features
 
-* Flask Blueprints
-* Flask-admin for Admin views and easy realtime management
-* Easily deployable on Heroku.
+##### For Developers & Contributors
+* Flask-blueprints for modularity and clean codebase,
+* Flask-admin for Admin views and easy realtime management,
+* Flask-SQLAlchemy for SQL models, 
+* Flask-wtf for forms,
+* Flask-mail for mail service.
+
+##### For CTF hosters.
 * A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
-* User Registration, account management, Forgot password, Notifications, Full Fledged Logging
-* Hash submission (currently 2 hashes: user and root)
-* Real time scoreboard tracking
+* Well implemented controls for administrators providing features such as issuing notifications, Full Fledged Logging,
+* Simple User Registration/login process, account management, Forgot password functionalities,
+* Flag submission (currently 2 hashes: user and root),
+* Real time scoreboard tracking,
+* Easily deployable on Heroku. 
 
 ## How To Use
 
