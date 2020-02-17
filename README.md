@@ -90,6 +90,7 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 - [ ] Freeze Scoreboard automatically past running time specified
 - [ ] Support for *n* number of boxes (accordions? seperate route?)
 - [ ] Average Box rating - input, calculate, output
+- [ ] Adding a `Deploy to Heroku` button. (https://devcenter.heroku.com/articles/heroku-button)
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
 - [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such.
