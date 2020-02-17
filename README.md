@@ -88,9 +88,11 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 ## To-do
 
 - [ ] Freeze Scoreboard automatically past running time specified
-- [ ] Support for more hashes
-- [ ] Testing Password reset functionality
-- [ ] More info for `home.html`
+- [ ] Support for *n* number of boxes (accordions? seperate route?)
+- [ ] Average Box rating - input, calculate, output
+- [ ] Testing Password reset functionality, the mail-server setup, etc.
+- [ ] More info on `home.html`
+- [ ] Support for more hashes (not a priority)
 - [ ] Need to implement `account.html` (not a priority)
 
 <hr/>
