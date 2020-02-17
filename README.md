@@ -5,8 +5,11 @@
 
 A lightweight, easy to deploy CTF framework(in Flask) for HackTheBox style machines. <br/>
 The main purpose of this project is to serve as a scoring engine and CTF manager.<br/>
-A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
-You can login and mess around as 2 users: `admin:admin` and `test:test`.(i.e. username:password)
+
+<b>Want to see it in action ?<b>
+   
+   A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
+   You can login and mess around as 2 users: `admin:admin` and `test:test`(i.e. username:password combinations)
 
 ## Features
 
