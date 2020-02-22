@@ -101,8 +101,8 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 - [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such. (Issue: [#7](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/7))
 - [ ] Support for *n* number of boxes (accordions? seperate route?)
 - [ ] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
-- [ ] Adding a `Deploy to Heroku` button. (https://devcenter.heroku.com/articles/heroku-button) (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
-- [ ] Dark theme for `admin control` panel.
+- [ ] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
+- [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
 - [ ] Support for more hashes per box (not a priority)
