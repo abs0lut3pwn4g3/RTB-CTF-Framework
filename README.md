@@ -103,6 +103,7 @@ Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues)
 - [ ] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
 - [ ] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
 - [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
+- [ ] Adding CI, Linting, Formatting specs. (Issue: [#18](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/18))
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
 - [ ] Support for more hashes per box (not a priority)
