@@ -95,6 +95,8 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list
 
+> Note: All PRs within the GSSoc'20 period will be merged in the `gssoc20-dev` branch.
+
 ## To-do
 
 - [ ] Freeze Scoreboard automatically past running time specified (Issue: [#3](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/3))
