@@ -93,7 +93,9 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 ## Contributing
 
-Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list
+Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
+
+> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
 ## To-do
 
