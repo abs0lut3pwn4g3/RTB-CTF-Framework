@@ -76,21 +76,94 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-            <div class="content-section">
-              <h3>{{ organization['name'] }}</h3>
-              <p class='text-muted'>{{ organization['tagline'] }}
-                <ul class="list-group">
-                  <a target="_blank" href="{{ organization['website']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website']['name'] }}</a>
-                  <a target="_blank" href="{{ organization['website_2']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_2']['name'] }}</a>
-                  <a target="_blank" href="{{ organization['website_3']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_3']['name'] }}</a>
-                </ul>
-              </p>
-            </div>
-        </div>
+        </main>
+        <footer class="footer">
+          <div class="container">
+            <div class="row">
+              <div class="col col-12">
+                <div class="footer-logo">{{ organization['name'] }}</div>
+                    
+                  <div class="top"><i class="ion ion-ios-arrow-up"></i></div>
+                    <div class="footer-bottom">
+                   <!-- <p class='text-muted'>{{ organization['tagline'] }}-->
+                      <div class="footer-social">
+                    
+                        <ul class="list-reset">
+                            <li><a target="_blank" href="{{ organization['website']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website']['name'] }}</a></li>
+                            <li><a target="_blank" href="{{ organization['website_2']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_2']['name'] }}</a></li>
+                            <li><a target="_blank" href="{{ organization['website_3']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_3']['name'] }}</a></li>>
+                        </ul>
+                      </div>
+                    </div>
+                 </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+       
+      </footer>
       </div>
-    </main>
+    <!--</main>-->
+    <style>
 
+      html {
+      height: 100%;
+      }
+      body {  
+      position:relative;
+      min-height: 100%;  
+      padding: 0;
+    }
+    .footer
+    {
+    padding:50px ;
+    height:200px;
+    background:#101010;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    }
+    .footer-logo{display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:15px;
+    margin-bottom:10px;
+    font-size: 30px;
+    text-transform:uppercase;
+    margin-left:60px;
+    }
+   
+    .footer-bottom .footer-social
+    {
+      margin-right:40px
+    }
+    .footer-bottom .footer-social p
+    {
+    margin-bottom:0;
+    font-size:13px;
+    color:#707890
+    }
+    .footer-bottom .footer-social p a
+    {color:#707890}
+    .footer-bottom .footer-social ul li
+    {display:inline-block;}
+    
+    .footer-social ul li a
+    {font-size:13px;
+    font-weight:bold;
+    transition:.35s;
+    background-color: #101010}
+    .footer-social
+    {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    color:#101010;}
+     li{
+       display:inline-block;
+       }
+       
+    </style>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
