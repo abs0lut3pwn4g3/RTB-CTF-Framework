@@ -33,7 +33,8 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 ### Requirements
 
 * `Python 3.7.3` or atleast `> 3.6`.
-* Packages: [`src/requirements.txt`](src/requirements.txt).
+* Python Packages: [`src/requirements.txt`](src/requirements.txt).
+* OS Packages: PostgreSQL version 11 or greater, `libpq-dev`, `python3-dev` packages. Please refer [here](https://tutorials.technology/solved_errors/9-Error-pg_config-executable-not-found.html).
 
 ### Installation and first run
 
