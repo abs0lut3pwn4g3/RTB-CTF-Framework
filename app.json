@@ -1,0 +1,18 @@
+{
+  "name": "RootTheBox CTF Framework",
+  "description": "A lightweight, easy to deploy CTF framework(in Flask) for HackTheBox style machines.",
+  "repository": "https://github.com/svensevenslow/RTB-CTF-Framework",
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "python3 src/create_db.py"
+  }
+}
