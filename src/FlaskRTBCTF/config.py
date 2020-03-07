@@ -2,15 +2,16 @@ import os
 from datetime import datetime
 import pytz
 
-''' Flask related Configurations. Note: DO NOT FORGET TO CHANGE SECRET_KEY ! '''
+''' Flask related Configurations. Note: DO NOT FORGET TO CHANGE 'SECRET_KEY' ! '''
 
 class Config:
-    SECRET_KEY = 'you-will-never-guess' # os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db' # locally
-    # If heroku use: `os.environ.get('DATABASE_URL')` 
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess' 
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///site.db' 
+    # For local use, one can simply use SQLlite with: 'sqlite:///site.db' 
+    # For deployment on Heroku use: `os.environ.get('DATABASE_URL')` 
     # in all other cases: `os.environ.get('SQLALCHEMY_DATABASE_URI')`
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
-    DEBUG = True # Turn DEBUG OFF before deployment
+    DEBUG = False # Turn DEBUG OFF before deployment
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

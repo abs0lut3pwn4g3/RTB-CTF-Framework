@@ -33,7 +33,8 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 ### Requirements
 
 * `Python 3.7.3` or atleast `> 3.6`.
-* Packages: [`src/requirements.txt`](src/requirements.txt).
+* Python Packages: [`src/requirements.txt`](src/requirements.txt).
+* OS Packages: PostgreSQL version 11 or greater, `libpq-dev`, `python3-dev` packages. Please refer [here](https://tutorials.technology/solved_errors/9-Error-pg_config-executable-not-found.html).
 
 ### Installation and first run
 
@@ -61,6 +62,10 @@ $ cd src/
 
 ### Deployment using Heroku
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+or do it manually,
+
 1. Create your heroku app using `heroku` cli tool.
    
    Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
@@ -76,6 +81,7 @@ $ cd src/
    [heroku]$ python create_db.py
    ```
 4. Your app should be live now. You can run `heroku open` to open it in browser.
+
 
 ## For Your CTF
 
@@ -93,7 +99,9 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 ## Contributing
 
-Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list
+Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
+
+> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
 > Note: All PRs within the GSSoc'20 period will be merged in the `gssoc20-dev` branch.
 
