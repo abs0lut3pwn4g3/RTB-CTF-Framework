@@ -62,6 +62,10 @@ $ cd src/
 
 ### Deployment using Heroku
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+or do it manually,
+
 1. Create your heroku app using `heroku` cli tool.
    
    Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
@@ -77,6 +81,7 @@ $ cd src/
    [heroku]$ python create_db.py
    ```
 4. Your app should be live now. You can run `heroku open` to open it in browser.
+
 
 ## For Your CTF
 
