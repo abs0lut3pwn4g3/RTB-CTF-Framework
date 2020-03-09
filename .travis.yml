@@ -1,0 +1,16 @@
+---
+env: SKIP_INTERPRETER=true
+
+before_install:
+  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
+install: 
+  - "pip install -r src/requirements.txt"
+  - ./pycodestyle-travis/install.sh
+language: python
+python: 
+  - "3.6"
+  - "3.7.3"
+services: 
+  - postgresql
+script:
+  - ./pycodestyle-travis/scan.sh
