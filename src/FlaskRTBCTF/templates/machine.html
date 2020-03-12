@@ -45,6 +45,9 @@
 
     <hr/>
 
+    {% if end < current %}
+    The CTF has ended. Please see <a class="red-underlined-link" href="{{ url_for('ctf.scoreboard') }}">scoreboard</a>
+    {% else %}
     <!-- User Hash Form -->
     <form class="form-inline" method="POST" action="{{ url_for('ctf.validateUserHash') }}">
         {{ userHashForm.hidden_tag() }}
@@ -90,7 +93,7 @@
             {{ rootHashForm.submit(class="btn btn-dark btn-hover-red") }}
         </div>
     </form>
-
+    {% endif %}
     
 </div>
 

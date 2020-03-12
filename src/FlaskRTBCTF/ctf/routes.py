@@ -3,12 +3,13 @@
 from flask import Blueprint, render_template, flash, request
 from flask_login import current_user, login_required
 from FlaskRTBCTF import db, bcrypt
-from FlaskRTBCTF.config import organization, box, userHash, rootHash, userScore, rootScore, LOGGING
+from FlaskRTBCTF.config import organization, box, userHash, rootHash, userScore, rootScore, LOGGING, RunningTime
 from FlaskRTBCTF.models import User, Score
 if LOGGING:
     from FlaskRTBCTF.models import Logs
 from FlaskRTBCTF.ctf.forms import UserHashForm, RootHashForm
 from datetime import datetime
+import pytz
 
 ctf = Blueprint('ctf', __name__)
 
@@ -40,8 +41,10 @@ def machine():
             db.session.commit()
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
+    end_date_time = RunningTime["to"]
+    current_date_time = datetime.now(pytz.utc)
     return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, organization=organization, box=box)
+                           rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
 
 ''' Hash Submission Management '''
 
@@ -50,8 +53,12 @@ def machine():
 def validateRootHash():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
-    if rootHashForm.validate_on_submit():
-        if rootHashForm.rootHash.data == rootHash:
+    end_date_time = RunningTime["to"]
+    current_date_time = datetime.now(pytz.utc)
+    if rootHashForm.validate_on_submit():    
+        if current_date_time > end_date_time:
+            flash("Sorry! Contest has ended", "danger")
+        elif rootHashForm.rootHash.data == rootHash:
             score = Score.query.get(current_user.id)
             if score.rootHash:
                 flash("You already own System.", "success")
@@ -69,10 +76,10 @@ def validateRootHash():
         else:
             flash("Sorry! Wrong system hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, organization=organization, box=box)
+                           rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, organization=organization, box=box)
+                           rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
 
 
 @ctf.route("/validateUserHash", methods=['POST'])
@@ -80,8 +87,12 @@ def validateRootHash():
 def validateUserHash():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
-    if userHashForm.validate_on_submit():
-        if userHashForm.userHash.data == userHash:
+    end_date_time = RunningTime["to"]
+    current_date_time = datetime.now(pytz.utc)
+    if userHashForm.validate_on_submit():    
+        if current_date_time > end_date_time:
+            flash("Sorry! Contest has ended", "danger")
+        elif userHashForm.userHash.data == userHash:
             score = Score.query.get(current_user.id)
             if score.userHash:
                 flash("You already own User.", "success")
@@ -99,9 +110,9 @@ def validateUserHash():
         else:
             flash("Sorry! Wrong user hash", "danger")
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, organization=organization, box=box)
+                           rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
     else:
         return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm, organization=organization, box=box)
+                           rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
 
 
