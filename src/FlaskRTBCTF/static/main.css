@@ -91,7 +91,7 @@ a:hover, .btn-hover-red:hover {
   border-collapse: collapse;
 }
 
-.content-section, .jumbotron {
+.content-section,.jumbotron {
   background: rgba(35,36,39,0.95);
   padding: 10px 20px;
   color: #C9D3E7;
@@ -159,3 +159,4 @@ ul.list-group a.list-group-item {
   border-radius: 3px;
   box-shadow: 0 9px 18px 0 rgba(0,0,0,0.25) !important;
 }
+

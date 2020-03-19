@@ -76,21 +76,32 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-            <div class="content-section">
-              <h3>{{ organization['name'] }}</h3>
-              <p class='text-muted'>{{ organization['tagline'] }}
-                <ul class="list-group">
-                  <a target="_blank" href="{{ organization['website']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website']['name'] }}</a>
-                  <a target="_blank" href="{{ organization['website_2']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_2']['name'] }}</a>
-                  <a target="_blank" href="{{ organization['website_3']['url'] }}" class="list-group-item list-group-item-action">{{ organization['website_3']['name'] }}</a>
-                </ul>
-              </p>
+        </main>
+                     
+              <div class="navbar navbar-expand-md navbar-dark bg-steel fixed-bottom">
+                <div class="container">
+                  <div class=container-vertical>
+                  
+                    <div class="navbar-brand mr-4 navbar-left" href="/">{{ organization['name'] }}</div>
+                     
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            
+                                <ul class="navbar-nav mr-auto">
+                                    <li><a target="_blank" href="{{ organization['website']['url'] }}" class="nav-item nav-link">{{ organization['website']['name'] }}</a></li>
+                                    <li><a target="_blank" href="{{ organization['website_2']['url'] }}" class="nav-item nav-link">{{ organization['website_2']['name'] }}</a></li>
+                                    <li><a target="_blank" href="{{ organization['website_3']['url'] }}" class="nav-item nav-link">{{ organization['website_3']['name'] }}</a></li>
+                                </ul>
+                            </div>
+                          </div>
+                    </div>
+                  </div>  
+                </div>
+              </div>
             </div>
-        </div>
-      </div>
-    </main>
-
+   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
