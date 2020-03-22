@@ -16,9 +16,9 @@ before_install:
   
 install: 
   - "pip install -r src/requirements.txt"
-  - pip install tox-travis
+  - pip install pytest-pylint
   - "python src/create_db.py"
 
 
 script:
-  - tox
+  - py.test --pylint -m pylint
