@@ -21,4 +21,4 @@ install:
 
 
 script:
-  - py.test --pylint--pylint-rcfile=.pylintrc -m pylint
+  - py.test --pylint --pylint-rcfile=.pylintrc -m pylint
