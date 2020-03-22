@@ -8,7 +8,7 @@ python:
 
 env:
   global:
-  - DATABASE_URL="postgresql://postgres:@localhost/travis_ci_test"
+  - DATABASE_URL="postgres://postgres:@localhost:5432/travis_ci_test"
 services: 
   - postgresql
 before_install:
