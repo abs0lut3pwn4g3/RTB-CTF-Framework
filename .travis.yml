@@ -1,15 +1,24 @@
 ---
 env: SKIP_INTERPRETER=true
 
-before_install:
-  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
-install: 
-  - "pip install -r src/requirements.txt"
-  - ./pycodestyle-travis/install.sh
 language: python
 python: 
   - "3.7.3"
+  - "3.8.1"
+
+env:
+  global:
+  - DATABASE_URL="postgres://postgres:@localhost:5432/travis_ci_test"
 services: 
   - postgresql
+before_install:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  
+install: 
+  - "pip install -r src/requirements.txt"
+  - pip install pytest-pylint
+  - "python src/create_db.py"
+
+
 script:
-  - ./pycodestyle-travis/scan.sh
+  - py.test --pylint --pylint-rcfile=.pylintrc -m pylint
