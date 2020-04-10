@@ -16,9 +16,9 @@ before_install:
   
 install: 
   - "pip install -r src/requirements.txt"
-  - pip install pytest-pylint
+  - pip install --no-cache-dir pytest-flake8
   - "python src/create_db.py"
 
 
 script:
-  - py.test --pylint --pylint-rcfile=.pylintrc -m pylint
+  - pytest --flake8
