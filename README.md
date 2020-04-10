@@ -99,9 +99,11 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 ## Contributing
 
+[<img src="https://img.shields.io/badge/GSSOC-20-orange?style=for-the-badge">](https://www.gssoc.tech/)<br />
+
 Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
 
-[<img src="https://img.shields.io/badge/GSSOC-20-orange?style=for-the-badge">](https://www.gssoc.tech/)<br />
+> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
 #### 👨 Project Owner
 
@@ -117,8 +119,6 @@ Feel free to ask your queries!! 🙌
 
 - [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
 
-
-> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
 ## To-do
 
