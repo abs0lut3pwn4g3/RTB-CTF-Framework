@@ -3,8 +3,8 @@
 from flask import Blueprint, render_template, flash, request
 from flask_login import current_user, login_required
 from FlaskRTBCTF import db, bcrypt
-from FlaskRTBCTF.config import organization, box, userHash, rootHash, userScore, rootScore, LOGGING, RunningTime
-from FlaskRTBCTF.models import User, Score
+from FlaskRTBCTF.config import organization, LOGGING, RunningTime
+from FlaskRTBCTF.models import User, Score, Machine
 if LOGGING:
     from FlaskRTBCTF.models import Logs
 from FlaskRTBCTF.ctf.forms import UserHashForm, RootHashForm
@@ -32,6 +32,7 @@ def scoreboard():
 @ctf.route("/machine")
 @login_required
 def machine():
+    box = Machine.query.filter(Machine.ip=="127.0.0.1").first()
     user = User.query.get(current_user.id)
     if LOGGING:
         log = Logs.query.get(current_user.id)
@@ -51,6 +52,7 @@ def machine():
 @ctf.route("/validateRootHash", methods=['POST'])
 @login_required
 def validateRootHash():
+    box = Machine.query.filter(Machine.ip=="127.0.0.1").first()
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
@@ -58,13 +60,13 @@ def validateRootHash():
     if rootHashForm.validate_on_submit():    
         if current_date_time > end_date_time:
             flash("Sorry! Contest has ended", "danger")
-        elif rootHashForm.rootHash.data == rootHash:
+        elif rootHashForm.rootHash.data == box.root_hash:
             score = Score.query.get(current_user.id)
             if score.rootHash:
                 flash("You already own System.", "success")
             else:
                 score.rootHash = True
-                score.points += rootScore
+                score.points += box.root_points
                 score.timestamp = datetime.utcnow()
                 if LOGGING:
                     log = Logs.query.get(current_user.id)
@@ -85,6 +87,7 @@ def validateRootHash():
 @ctf.route("/validateUserHash", methods=['POST'])
 @login_required
 def validateUserHash():
+    box = Machine.query.filter(Machine.ip=="127.0.0.1").first()
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
@@ -92,13 +95,13 @@ def validateUserHash():
     if userHashForm.validate_on_submit():    
         if current_date_time > end_date_time:
             flash("Sorry! Contest has ended", "danger")
-        elif userHashForm.userHash.data == userHash:
+        elif userHashForm.userHash.data == box.user_hash:
             score = Score.query.get(current_user.id)
             if score.userHash:
                 flash("You already own User.", "success")
             else:
                 score.userHash = True
-                score.points += userScore
+                score.points += box.user_points
                 score.timestamp = datetime.utcnow()
                 if LOGGING:
                     log = Logs.query.get(current_user.id)

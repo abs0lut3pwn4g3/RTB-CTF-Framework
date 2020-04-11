@@ -47,23 +47,6 @@ RunningTime = {
     "TimeZone": "UTC"
 } # We do not recommended changing the Timezone.
 
-# Specify Your Pwnable Box/Machine settings
-
-box = { 
-    "name": "My Awesome Pwnable Box", 
-    "ip": "127.0.0.1", 
-    "os": "Linux", 
-    "points": { "user": 10, "root": 20 }, 
-    "hardness": "You tell" 
-}
-
-# Specify The Hashes, you can use python's secrets package to generate them
-
-userHash = 'A'*32 # dummy hash, length = 32 fixed
-rootHash = 'B'*32 # dummy hash, length = 32 fixed
-userScore = 10
-rootScore = 20
-
 # Logging: Set to 'True' to enable Logging in Admin Views.
 
 LOGGING = True # We recommend to leave it on. It is more than just errors ;)

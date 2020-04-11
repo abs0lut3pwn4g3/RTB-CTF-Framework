@@ -11,6 +11,21 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+''' Machine Table '''
+
+class Machine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    user_hash = db.Column(db.String(32), nullable=False)
+    root_hash = db.Column(db.String(32), nullable=False)
+    user_points = db.Column(db.Integer)
+    root_points = db.Column(db.Integer)
+    os = db.Column(db.String(40), nullable=False)
+    ip = db.Column(db.String(45), nullable=False)
+    hardness = db.Column(db.String(45), nullable=False)
+
+    score = db.relationship('Score', backref='machine', lazy=True)
+
 ''' User Table '''
 
 class User(db.Model, UserMixin):
@@ -49,7 +64,8 @@ class Score(db.Model):
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
-
+    machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'),
+            nullable=False)
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
 
