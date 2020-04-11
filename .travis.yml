@@ -21,4 +21,4 @@ install:
 
 
 script:
-  - pytest --flake8
+  - pytest --lint-only --flake8
