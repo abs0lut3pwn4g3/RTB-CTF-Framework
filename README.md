@@ -103,17 +103,21 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
   <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/graphs/contributors">
     <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/abs0lut3pwn4g3/RTB-CTF-Framework?color=red&logo=github&style=for-the-badge">
   </a>
-  <img src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/gssoc20?color=purple&style=for-the-badge">
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Agssoc20">
+  	<img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/gssoc20?color=deeppink&style=for-the-badge">
+  </a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/beginner?color=purple&style=for-the-badge">
-  <img src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/easy?color=light%20green&style=for-the-badge">
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/medium?color=%20green&style=for-the-badge">
-  <img src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/hard?color=blue&style=for-the-badge">
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/easy?color=seagreen&style=for-the-badge">
+  </a>
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Amedium">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/medium?color=%23e99695&style=for-the-badge">
+  </a>
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Ahard">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/hard?color=%23cc317c%09&style=for-the-badge">
+  </a>
 </p>
 
 Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
