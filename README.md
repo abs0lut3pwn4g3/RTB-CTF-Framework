@@ -1,14 +1,32 @@
 # RootTheBox CTF Framework
 
-[![Rawsec's CyberSecurity Inventory](https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg)](https://inventory.rawsec.ml/)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+<p align="center">
+  <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
+  	<img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
+  </a>
+  <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework">
+    <img alt="Build Status" src="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework.svg?branch=gssoc20-dev"/>
+  </a>
+</p>
 
-A lightweight, easy to deploy CTF framework(in Flask) for HackTheBox style machines. <br/>
-The main purpose of this project is to serve as a scoring engine and CTF manager.<br/>
+<p align="center">
+  <a href="https://inventory.rawsec.ml/">
+    <img alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
+  </a>
+</p>
 
-<b>Want to see it in action ?</b>
-   
-   A live demo of the app is available at: https://rtblivedemo.herokuapp.com/. <br/>
+<p align="center">
+  <img src="https://forthebadge.com/images/badges/made-with-python.svg">
+</p>
+
+A lightweight, easy to deploy CTF framework(in Flask) for HackTheBox style machines.
+
+The main purpose of this project is to serve as a scoring engine and CTF manager.
+
+**Want to see it in action?**
+
+   A live demo of the app is available at: <https://rtblivedemo.herokuapp.com/>.
+
    You can login and mess around as 2 users: `admin:admin` and `test:test`(i.e. username:password combinations)
 
 ## Features
