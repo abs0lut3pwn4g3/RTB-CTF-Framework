@@ -1,5 +1,5 @@
-<!-- 
-The title of the pull request should be of this format <Title_of_Issue>_resolved 
+<!--
+The title of the pull request should be of this format <Title_of_Issue>_resolved
 The PR should be raised only after making all changes relevant to the issue (all commits)
 -->
 
@@ -23,7 +23,7 @@ _Put an `x` in the boxes that apply_
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Documentation update (Documentation content changed)
-- [ ] Other (please describe): 
+- [ ] Other (please describe):
 
 ## Checklist
 
@@ -43,4 +43,4 @@ Please attach the screenshots of the changes made in case of change in user inte
 
 Any other information that is important to this pull request
 
-<!-- <tag mentor/project admin> to review and merge -->
+@ <!-- <tag mentor/project admin> to review and merge -->
