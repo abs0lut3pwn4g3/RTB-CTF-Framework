@@ -99,9 +99,28 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 ## Contributing
 
-[<img src="https://img.shields.io/badge/GSSOC-20-orange?style=for-the-badge">](https://www.gssoc.tech/)<br />
+<p align="center">
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/graphs/contributors">
+    <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/abs0lut3pwn4g3/RTB-CTF-Framework?color=red&logo=github&style=for-the-badge">
+  </a>
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Agssoc20">
+  	<img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/gssoc20?color=deeppink&style=for-the-badge">
+  </a>
+</p>
 
-Please see: [issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
+<p align="center">
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/easy?color=seagreen&style=for-the-badge">
+  </a>
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Amedium">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/medium?color=%23e99695&style=for-the-badge">
+  </a>
+  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Ahard">
+    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/hard?color=%23cc317c%09&style=for-the-badge">
+  </a>
+</p>
+
+Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
 
 > Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
