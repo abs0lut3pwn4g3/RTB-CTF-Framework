@@ -2,7 +2,9 @@ import os
 from datetime import datetime
 import pytz
 
+
 ''' Flask related Configurations. Note: DO NOT FORGET TO CHANGE 'SECRET_KEY' ! '''
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess' 
@@ -43,26 +45,9 @@ organization = {
 
 RunningTime = { 
     "from": datetime(2019,7,7,15,00,00,0, pytz.utc), 
-    "to": datetime(2019,7,8,0,00,00,0, pytz.utc), 
+    "to": datetime(2030,7,8,0,00,00,0, pytz.utc), 
     "TimeZone": "UTC"
-} # We do not recommended changing the Timezone.
-
-# Specify Your Pwnable Box/Machine settings
-
-box = { 
-    "name": "My Awesome Pwnable Box", 
-    "ip": "127.0.0.1", 
-    "os": "Linux", 
-    "points": { "user": 10, "root": 20 }, 
-    "hardness": "You tell" 
-}
-
-# Specify The Hashes, you can use python's secrets package to generate them
-
-userHash = 'A'*32 # dummy hash, length = 32 fixed
-rootHash = 'B'*32 # dummy hash, length = 32 fixed
-userScore = 10
-rootScore = 20
+} # We do not recommend changing the Timezone.
 
 # Logging: Set to 'True' to enable Logging in Admin Views.
 
