@@ -1,5 +1,7 @@
 queries:
   - exclude: py/similar-function
+  - exclude: py/empty-except
+  - exclude: py/call-to-non-callable
   - include: py/undefined-placeholder-variable
   - include: py/uninitialized-local-variable
   - include: py/request-without-cert-validation
@@ -11,6 +13,5 @@ queries:
   - include: py/hardcoded-credentials
   - include: py/import-of-mutable-attribute
   - include: py/cyclic-import
-  - include: py/empty-except
   - include: py/unnecessary-lambda
   - include: py/print-during-import

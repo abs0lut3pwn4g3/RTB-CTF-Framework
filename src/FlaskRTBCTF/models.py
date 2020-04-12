@@ -1,17 +1,22 @@
 ''' Models '''
 
+
+from datetime import datetime
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 from flask import current_app
 from FlaskRTBCTF.config import LOGGING
 from FlaskRTBCTF import db, login_manager
 from flask_login import UserMixin
-from datetime import datetime
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 ''' Machine Table '''
+
 
 class Machine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +31,9 @@ class Machine(db.Model):
 
     score = db.relationship('Score', backref='machine', lazy=True)
 
+
 ''' User Table '''
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,9 +41,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
-    score = db.relationship('Score', backref='user', lazy=True, uselist=False)
+    score = db.relationship('Score', backref='user', lazy=True,
+                            uselist=False)
     if LOGGING:
-        logs = db.relationship('Logs', backref='user', lazy=True, uselist=False)
+        logs = db.relationship('Logs', backref='user', lazy=True,
+                               uselist=False)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -47,7 +56,7 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except Exception:
             return None
         return User.query.get(user_id)
 
@@ -57,20 +66,23 @@ class User(db.Model, UserMixin):
 
 ''' Score Table '''
 
+
 class Score(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-        nullable=False, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False,
+                        primary_key=True)
     userHash = db.Column(db.Boolean, default=False)
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
     machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'),
-            nullable=False)
+                           nullable=False)
+
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
 
 
 ''' Notifications Table '''
+
 
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -84,9 +96,11 @@ class Notification(db.Model):
 
 ''' Logging Table '''
 
+
 if LOGGING:
     class Logs(db.Model):
-        user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key=True)
+        user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+                            nullable=False, primary_key=True)
         accountCreationTime = db.Column(db.DateTime, nullable=False)
         visitedMachine = db.Column(db.Boolean, default=False)
         machineVisitTime = db.Column(db.DateTime, nullable=True)
@@ -98,6 +112,4 @@ if LOGGING:
         rootSubmissionIP = db.Column(db.String, nullable=True)
 
         def __repr__(self):
-            return f"Logs('{self.user_id}','{self.machineVisitTime}','{self.userSubmissionTime}'," \
-                f"'{self.rootSubmissionTime}','{self.userOwnTime}','{self.rootOwnTime}','{self.userSubmissionIP}," \
-                f" '{self.rootSubmissionIP}'"
+            return f"Logs('{self.user_id}','{self.visitedMachine}'"

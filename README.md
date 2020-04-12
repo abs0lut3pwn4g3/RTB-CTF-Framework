@@ -50,7 +50,7 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 ### Requirements
 
-* `Python 3.7.3` or atleast `> 3.6`.
+* Tested on `Python 3.8.2`
 * Python Packages: [`src/requirements.txt`](src/requirements.txt).
 * OS Packages: PostgreSQL version 11 or greater, `libpq-dev`, `python3-dev` packages. Please refer [here](https://tutorials.technology/solved_errors/9-Error-pg_config-executable-not-found.html).
 
@@ -138,34 +138,31 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
   </a>
 </p>
 
-Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the below To-do list.
+Keeping to a consistent code style throughout the project makes it easier to contribute and collaborate. Please stick to the guidelines in PEP8 and the Google Style Guide unless there’s a very good reason not to.
+Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the following To-do list.
 
 > Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
-#### 👨 Project Owner
+##### 👨 Project Owner
 
 - Eshaan Bansal ([github](https://github.com/eshaan7),[linkedin](https://www.linkedin.com/in/eshaan7/))
 
-#### 👬  Mentors
+##### 👬  Mentors
 
 - Sombuddha Chakravarty ([github](https://github.com/sammy1997),[linkedin](https://www.linkedin.com/in/sombuddha-chakravarty-9482b5131/))
 
 Feel free to ask your queries!! 🙌
 
-#### Slack Channel
+##### Slack Channel
 
 - [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
 
-
 ## To-do
 
-- [ ] Freeze Scoreboard automatically past running time specified (Issue: [#3](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/3))
 - [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such. (Issue: [#7](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/7))
 - [ ] Support for *n* number of boxes (accordions? seperate route?). (Issue: [#17](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/17))
 - [ ] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
-- [ ] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
 - [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
-- [ ] Adding CI, Linting, Formatting specs. (Issue: [#18](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/18))
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
 - [ ] Support for more hashes per box (not a priority)
@@ -173,6 +170,9 @@ Feel free to ask your queries!! 🙌
 
 <hr/>
 
+- [x] Freeze Scoreboard automatically past running time specified (Issue: [#3](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/3))
+- [x] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
+- [x] Adding CI, Linting, Formatting specs. (Issue: [#18](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/18))
 - [x] db relationship between User and Score Tables (priority | issue: #5)
 - [x] isAdmin column in User table and Admin views (priority)
 - [x] Notifications

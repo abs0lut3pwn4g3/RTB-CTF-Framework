@@ -38,8 +38,9 @@ def create_app(config_class=Config):
     mail.init_app(app)
 
     from flask_sslify import SSLify
-    if 'DYNO' in os.environ:  # only trigger SSLify if the app is running on Heroku
-        _sslify = SSLify(app)
+    # only trigger SSLify if the app is running on Heroku
+    if 'DYNO' in os.environ:
+        _ = SSLify(app)
 
     from FlaskRTBCTF.users.routes import users
     from FlaskRTBCTF.ctf.routes import ctf
