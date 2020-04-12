@@ -1,0 +1,28 @@
+---
+env: SKIP_INTERPRETER=true
+
+branches:
+  only:
+  - master
+  
+language: python
+python: 
+  - "3.7.3"
+  - "3.8.1"
+
+env:
+  global:
+  - DATABASE_URL="postgres://postgres:@localhost:5432/travis_ci_test"
+services: 
+  - postgresql
+before_install:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  
+install: 
+  - "pip install -r src/requirements.txt"
+  - pip install --no-cache-dir pytest-flake8
+  - "python src/create_db.py"
+
+
+script:
+  - pytest --lint-only --flake8

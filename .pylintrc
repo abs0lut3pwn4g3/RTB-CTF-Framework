@@ -1,0 +1,7 @@
+[FORMAT]
+indent-string=\t
+
+[BASIC]
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=organization,RunningTime,box,userHash,rootHash,userScore,rootScore,admin,db,bcrypt

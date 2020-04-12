@@ -1,8 +1,6 @@
 ''' Utility Functions '''
 
-import os
-import secrets
-from flask import url_for, current_app
+from flask import url_for
 from flask_mail import Message
 from FlaskRTBCTF import mail
 

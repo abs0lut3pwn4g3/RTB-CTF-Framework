@@ -11,6 +11,21 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+''' Machine Table '''
+
+class Machine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+    user_hash = db.Column(db.String(32), nullable=False)
+    root_hash = db.Column(db.String(32), nullable=False)
+    user_points = db.Column(db.Integer, default=0)
+    root_points = db.Column(db.Integer, default=0)
+    os = db.Column(db.String(16), nullable=False)
+    ip = db.Column(db.String(45), nullable=False)
+    hardness = db.Column(db.String(16), nullable=False, default="Easy")
+
+    score = db.relationship('Score', backref='machine', lazy=True)
+
 ''' User Table '''
 
 class User(db.Model, UserMixin):
@@ -32,7 +47,7 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except Exception as _e:
             return None
         return User.query.get(user_id)
 
@@ -49,7 +64,8 @@ class Score(db.Model):
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
-
+    machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'),
+            nullable=False)
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
 
@@ -59,7 +75,7 @@ class Score(db.Model):
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
-    body = db.Column(db.String(250), nullable=False)
+    body = db.Column(db.TEXT(), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):

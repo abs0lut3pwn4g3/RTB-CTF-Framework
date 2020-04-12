@@ -1,22 +1,27 @@
+from datetime import datetime
+import pytz
+
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from FlaskRTBCTF import db, bcrypt
 from FlaskRTBCTF.config import organization, LOGGING
-from FlaskRTBCTF.models import User, Score
+from FlaskRTBCTF.models import User, Score, Machine
 if LOGGING:
     from FlaskRTBCTF.models import Logs
-from FlaskRTBCTF.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+from FlaskRTBCTF.users.forms import (RegistrationForm, LoginForm,
                                    RequestResetForm, ResetPasswordForm)
 from FlaskRTBCTF.users.utils import send_reset_email
 
-from datetime import datetime
 
 users = Blueprint('users', __name__)
 
+
 ''' User management '''
+
 
 @users.route("/register", methods=['GET', 'POST'])
 def register():
+    box = Machine.query.filter(Machine.ip=="127.0.0.1").first()
     if current_user.is_authenticated:
         flash('Already Authenticated', 'info')
         return redirect(url_for('main.home'))
@@ -26,9 +31,9 @@ def register():
             form.password.data).decode('utf-8')
         user = User(username=form.username.data,
                     email=form.email.data, password=hashed_password)
-        score = Score(user=user, userHash=False, rootHash=False, points=0)
+        score = Score(user=user, userHash=False, rootHash=False, points=0, machine=box)
         if LOGGING:
-            log = Logs(user=user, accountCreationTime=datetime.utcnow(), visitedMachine=False, machineVisitTime=None, userSubmissionTime=None,
+            log = Logs(user=user, accountCreationTime=datetime.now(pytz.utc), visitedMachine=False, machineVisitTime=None, userSubmissionTime=None,
                        rootSubmissionTime=None, userSubmissionIP=None, rootSubmissionIP=None)
             db.session.add(log)
         db.session.add(user)
