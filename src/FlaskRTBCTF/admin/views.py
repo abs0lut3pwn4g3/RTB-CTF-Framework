@@ -4,14 +4,15 @@ from flask import abort
 from flask_login import current_user
 from flask_admin.contrib.sqla import ModelView
 
+
 class MyModelView(ModelView):
 
-    column_exclude_list = ( 'password' )
+    column_exclude_list = ('password',)
 
     def is_accessible(self):
         if not current_user.is_authenticated or not current_user.isAdmin:
-        	# permission denied
-        	abort(403)
+            # permission denied
+            abort(403)
         if current_user.isAdmin:
             return True
         return False
@@ -23,5 +24,5 @@ class MyModelView(ModelView):
         """
         if not self.is_accessible():
             if current_user.is_authenticated:
-                #permission denied
+                # permission denied
                 abort(403)

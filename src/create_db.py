@@ -4,9 +4,9 @@ import pytz
 from FlaskRTBCTF import create_app, db, bcrypt
 from FlaskRTBCTF.models import User, Score, Notification, Machine
 from FlaskRTBCTF.config import organization, LOGGING
-
 if LOGGING:
     from FlaskRTBCTF.models import Logs
+
 
 app = create_app()
 
@@ -15,11 +15,11 @@ with app.app_context():
     db.create_all()
 
     default_time = datetime.now(pytz.utc)
-    
+
     box = Machine(
         name="My Awesome Pwnable Box",
-        user_hash='A'*32,
-        root_hash='B'*32,
+        user_hash='A' * 32,
+        root_hash='B' * 32,
         user_points=10,
         root_points=20,
         os="Linux",

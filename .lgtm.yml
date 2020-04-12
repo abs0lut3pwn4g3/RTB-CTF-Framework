@@ -1,6 +1,7 @@
 queries:
   - exclude: py/similar-function
   - exclude: py/empty-except
+  - exclude: py/call-to-non-callable
   - include: py/undefined-placeholder-variable
   - include: py/uninitialized-local-variable
   - include: py/request-without-cert-validation
