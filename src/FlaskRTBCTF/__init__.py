@@ -39,7 +39,7 @@ def create_app(config_class=Config):
 
     from flask_sslify import SSLify
     if 'DYNO' in os.environ:  # only trigger SSLify if the app is running on Heroku
-        sslify = SSLify(app)
+        _sslify = SSLify(app)
 
     from FlaskRTBCTF.users.routes import users
     from FlaskRTBCTF.ctf.routes import ctf

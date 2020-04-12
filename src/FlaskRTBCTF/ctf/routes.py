@@ -2,19 +2,19 @@
 
 from flask import Blueprint, render_template, flash, request
 from flask_login import current_user, login_required
-from FlaskRTBCTF import db, bcrypt
+from FlaskRTBCTF import db
 from FlaskRTBCTF.config import organization, LOGGING, RunningTime
 from FlaskRTBCTF.models import User, Score, Machine
 if LOGGING:
     from FlaskRTBCTF.models import Logs
 from FlaskRTBCTF.ctf.forms import UserHashForm, RootHashForm
 from datetime import datetime
-import pytz
 
 ctf = Blueprint('ctf', __name__)
 
 
 ''' Scoreboard '''
+
 
 @ctf.route("/scoreboard")
 @login_required
@@ -28,6 +28,7 @@ def scoreboard():
 
 
 ''' Machine Info '''
+
 
 @ctf.route("/machine")
 @login_required
@@ -43,11 +44,13 @@ def machine():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
-    current_date_time = datetime.now(pytz.utc)
+    current_date_time = datetime.utcnow()
     return render_template('machine.html', userHashForm=userHashForm,
                            rootHashForm=rootHashForm, organization=organization, box=box, current=current_date_time, end=end_date_time)
 
+
 ''' Hash Submission Management '''
+
 
 @ctf.route("/validateRootHash", methods=['POST'])
 @login_required
@@ -56,7 +59,7 @@ def validateRootHash():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
-    current_date_time = datetime.now(pytz.utc)
+    current_date_time = datetime.utcnow()
     if rootHashForm.validate_on_submit():    
         if current_date_time > end_date_time:
             flash("Sorry! Contest has ended", "danger")
@@ -91,7 +94,7 @@ def validateUserHash():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
-    current_date_time = datetime.now(pytz.utc)
+    current_date_time = datetime.utcnow()
     if userHashForm.validate_on_submit():    
         if current_date_time > end_date_time:
             flash("Sorry! Contest has ended", "danger")

@@ -2,7 +2,9 @@ import os
 from datetime import datetime
 import pytz
 
+
 ''' Flask related Configurations. Note: DO NOT FORGET TO CHANGE 'SECRET_KEY' ! '''
+
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess' 
@@ -43,9 +45,9 @@ organization = {
 
 RunningTime = { 
     "from": datetime(2019,7,7,15,00,00,0, pytz.utc), 
-    "to": datetime(2019,7,8,0,00,00,0, pytz.utc), 
+    "to": datetime(2030,7,8,0,00,00,0, pytz.utc), 
     "TimeZone": "UTC"
-} # We do not recommended changing the Timezone.
+} # We do not recommend changing the Timezone.
 
 # Logging: Set to 'True' to enable Logging in Admin Views.
 

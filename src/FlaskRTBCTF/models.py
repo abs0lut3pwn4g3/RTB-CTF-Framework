@@ -15,14 +15,14 @@ def load_user(user_id):
 
 class Machine(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     user_hash = db.Column(db.String(32), nullable=False)
     root_hash = db.Column(db.String(32), nullable=False)
-    user_points = db.Column(db.Integer)
-    root_points = db.Column(db.Integer)
-    os = db.Column(db.String(40), nullable=False)
+    user_points = db.Column(db.Integer, default=0)
+    root_points = db.Column(db.Integer, default=0)
+    os = db.Column(db.String(16), nullable=False)
     ip = db.Column(db.String(45), nullable=False)
-    hardness = db.Column(db.String(45), nullable=False)
+    hardness = db.Column(db.String(16), nullable=False, default="Easy")
 
     score = db.relationship('Score', backref='machine', lazy=True)
 
@@ -75,7 +75,7 @@ class Score(db.Model):
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
-    body = db.Column(db.String(250), nullable=False)
+    body = db.Column(db.TEXT(), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
