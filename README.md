@@ -139,7 +139,8 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 </p>
 
 Keeping to a consistent code style throughout the project makes it easier to contribute and collaborate. Please stick to the guidelines in PEP8 and the Google Style Guide unless there’s a very good reason not to.
-Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the following To-do list.
+
+Where to start ? See: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the following To-do list.
 
 > Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
@@ -165,8 +166,8 @@ Feel free to ask your queries!! 🙌
 - [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
+- [ ] Need to implement `account.html`
 - [ ] Support for more hashes per box (not a priority)
-- [ ] Need to implement `account.html` (not a priority)
 
 <hr/>
 
