@@ -1,4 +1,5 @@
 from datetime import datetime
+import pytz
 
 from FlaskRTBCTF import create_app, db, bcrypt
 from FlaskRTBCTF.models import User, Score, Notification, Machine
@@ -13,7 +14,7 @@ app = create_app()
 with app.app_context():
     db.create_all()
 
-    default_time = datetime.utcnow()
+    default_time = datetime.now(pytz.utc)
     
     box = Machine(
         name="My Awesome Pwnable Box",

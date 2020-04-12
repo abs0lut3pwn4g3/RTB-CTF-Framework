@@ -28,7 +28,7 @@ organization = {
     "ctfname": "RootTheBox CTF",
     "name": "Abs0lut3Pwn4g3",
     "website": { 
-        "url": "https://Abs0lut3Pwn4g3.cf",
+        "url": "https://Abs0lut3Pwn4g3.github.io/",
         "name": "Official Abs0lut3Pwn4g3 Website"
     }, 
     "website_2": { 
