@@ -1,4 +1,4 @@
-''' Models '''
+""" Models. """
 
 
 from datetime import datetime
@@ -15,7 +15,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-''' Machine Table '''
+# Machine Table
 
 
 class Machine(db.Model):
@@ -29,10 +29,10 @@ class Machine(db.Model):
     ip = db.Column(db.String(45), nullable=False)
     hardness = db.Column(db.String(16), nullable=False, default="Easy")
 
-    score = db.relationship('Score', backref='machine', lazy=True)
+    score = db.relationship("Score", backref="machine", lazy=True)
 
 
-''' User Table '''
+# User Table
 
 
 class User(db.Model, UserMixin):
@@ -41,21 +41,19 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
-    score = db.relationship('Score', backref='user', lazy=True,
-                            uselist=False)
+    score = db.relationship("Score", backref="user", lazy=True, uselist=False)
     if LOGGING:
-        logs = db.relationship('Logs', backref='user', lazy=True,
-                               uselist=False)
+        logs = db.relationship("Logs", backref="user", lazy=True, uselist=False)
 
     def get_reset_token(self, expires_sec=1800):
-        s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
-        return s.dumps({'user_id': self.id}).decode('utf-8')
+        s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
+        return s.dumps({"user_id": self.id}).decode("utf-8")
 
     @staticmethod
     def verify_reset_token(token):
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config["SECRET_KEY"])
         try:
-            user_id = s.loads(token)['user_id']
+            user_id = s.loads(token)["user_id"]
         except Exception:
             return None
         return User.query.get(user_id)
@@ -64,24 +62,24 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}'))"
 
 
-''' Score Table '''
+# Score Table
 
 
 class Score(db.Model):
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False,
-                        primary_key=True)
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("user.id"), nullable=False, primary_key=True
+    )
     userHash = db.Column(db.Boolean, default=False)
     rootHash = db.Column(db.Boolean, default=False)
     points = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
-    machine_id = db.Column(db.Integer, db.ForeignKey('machine.id'),
-                           nullable=False)
+    machine_id = db.Column(db.Integer, db.ForeignKey("machine.id"), nullable=False)
 
     def __repr__(self):
         return f"Score('{self.user_id}', '{self.points}')"
 
 
-''' Notifications Table '''
+# Notifications Table
 
 
 class Notification(db.Model):
@@ -94,13 +92,15 @@ class Notification(db.Model):
         return f"Notif('{self.title}', '{self.body}')"
 
 
-''' Logging Table '''
+# Logging Table
 
 
 if LOGGING:
+
     class Logs(db.Model):
-        user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-                            nullable=False, primary_key=True)
+        user_id = db.Column(
+            db.Integer, db.ForeignKey("user.id"), nullable=False, primary_key=True
+        )
         accountCreationTime = db.Column(db.DateTime, nullable=False)
         visitedMachine = db.Column(db.Boolean, default=False)
         machineVisitTime = db.Column(db.DateTime, nullable=True)

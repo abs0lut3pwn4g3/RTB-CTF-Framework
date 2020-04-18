@@ -1,4 +1,4 @@
-''' views / routes '''
+""" views / routes. """
 
 
 from datetime import datetime
@@ -15,10 +15,10 @@ if LOGGING:
     from FlaskRTBCTF.models import Logs
 
 
-ctf = Blueprint('ctf', __name__)
+ctf = Blueprint("ctf", __name__)
 
 
-''' Scoreboard '''
+# Scoreboard
 
 
 @ctf.route("/scoreboard")
@@ -27,16 +27,16 @@ def scoreboard():
     scores = Score.query.order_by(Score.points.desc(), Score.timestamp).all()
     userNameScoreList = []
     for score in scores:
-        userNameScoreList.append({
-            'username': User.query.get(score.user_id).username,
-            'score': score.points
-        })
+        userNameScoreList.append(
+            {"username": User.query.get(score.user_id).username, "score": score.points}
+        )
 
-    return render_template('scoreboard.html', scores=userNameScoreList,
-                           organization=organization)
+    return render_template(
+        "scoreboard.html", scores=userNameScoreList, organization=organization
+    )
 
 
-''' Machine Info '''
+# Machine Info
 
 
 @ctf.route("/machine")
@@ -53,16 +53,21 @@ def machine():
     rootHashForm = RootHashForm()
     end_date_time = RunningTime["to"]
     current_date_time = datetime.now(pytz.utc)
-    return render_template('machine.html', userHashForm=userHashForm,
-                           rootHashForm=rootHashForm,
-                           organization=organization, box=box,
-                           current=current_date_time, end=end_date_time)
+    return render_template(
+        "machine.html",
+        userHashForm=userHashForm,
+        rootHashForm=rootHashForm,
+        organization=organization,
+        box=box,
+        current=current_date_time,
+        end=end_date_time,
+    )
 
 
-''' Hash Submission Management '''
+# Hash Submission Management
 
 
-@ctf.route("/validateRootHash", methods=['POST'])
+@ctf.route("/validateRootHash", methods=["POST"])
 @login_required
 def validateRootHash():
     box = Machine.query.filter(Machine.ip == "127.0.0.1").first()
@@ -85,25 +90,33 @@ def validateRootHash():
                     log = Logs.query.get(current_user.id)
                     log.rootSubmissionIP = request.access_route[0]
                     log.rootSubmissionTime = datetime.utcnow()
-                    log.rootOwnTime = str(
-                        log.rootSubmissionTime - log.machineVisitTime
-                    )
+                    log.rootOwnTime = str(log.rootSubmissionTime - log.machineVisitTime)
                 db.session.commit()
                 flash("Congrats! correct system hash.", "success")
         else:
             flash("Sorry! Wrong system hash", "danger")
-        return render_template('machine.html', userHashForm=userHashForm,
-                               rootHashForm=rootHashForm, box=box,
-                               organization=organization,
-                               current=current_date_time, end=end_date_time)
+        return render_template(
+            "machine.html",
+            userHashForm=userHashForm,
+            rootHashForm=rootHashForm,
+            box=box,
+            organization=organization,
+            current=current_date_time,
+            end=end_date_time,
+        )
     else:
-        return render_template('machine.html', userHashForm=userHashForm,
-                               rootHashForm=rootHashForm, box=box,
-                               organization=organization,
-                               current=current_date_time, end=end_date_time)
+        return render_template(
+            "machine.html",
+            userHashForm=userHashForm,
+            rootHashForm=rootHashForm,
+            box=box,
+            organization=organization,
+            current=current_date_time,
+            end=end_date_time,
+        )
 
 
-@ctf.route("/validateUserHash", methods=['POST'])
+@ctf.route("/validateUserHash", methods=["POST"])
 @login_required
 def validateUserHash():
     box = Machine.query.filter(Machine.ip == "127.0.0.1").first()
@@ -126,19 +139,27 @@ def validateUserHash():
                     log = Logs.query.get(current_user.id)
                     log.userSubmissionIP = request.access_route[0]
                     log.userSubmissionTime = datetime.utcnow()
-                    log.userOwnTime = str(
-                        log.userSubmissionTime - log.machineVisitTime
-                    )
+                    log.userOwnTime = str(log.userSubmissionTime - log.machineVisitTime)
                 db.session.commit()
                 flash("Congrats! correct user hash.", "success")
         else:
             flash("Sorry! Wrong user hash", "danger")
-        return render_template('machine.html', userHashForm=userHashForm,
-                               rootHashForm=rootHashForm,
-                               organization=organization, box=box,
-                               current=current_date_time, end=end_date_time)
+        return render_template(
+            "machine.html",
+            userHashForm=userHashForm,
+            rootHashForm=rootHashForm,
+            organization=organization,
+            box=box,
+            current=current_date_time,
+            end=end_date_time,
+        )
     else:
-        return render_template('machine.html', userHashForm=userHashForm,
-                               rootHashForm=rootHashForm,
-                               organization=organization, box=box,
-                               current=current_date_time, end=end_date_time)
+        return render_template(
+            "machine.html",
+            userHashForm=userHashForm,
+            rootHashForm=rootHashForm,
+            organization=organization,
+            box=box,
+            current=current_date_time,
+            end=end_date_time,
+        )

@@ -11,8 +11,8 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 admin_manager = Admin()
-login_manager.login_view = 'users.login'
-login_manager.login_message_category = 'info'
+login_manager.login_view = "users.login"
+login_manager.login_message_category = "info"
 mail = Mail()
 
 
@@ -27,6 +27,7 @@ def create_app(config_class=Config):
     # Add model views
     from FlaskRTBCTF.admin.views import MyModelView
     from FlaskRTBCTF.models import User, Score, Notification, Machine
+
     if LOGGING:
         from FlaskRTBCTF.models import Logs
     admin_manager.add_view(MyModelView(User, db.session))
@@ -38,13 +39,15 @@ def create_app(config_class=Config):
     mail.init_app(app)
 
     from flask_sslify import SSLify
+
     # only trigger SSLify if the app is running on Heroku
-    if 'DYNO' in os.environ:
+    if "DYNO" in os.environ:
         _ = SSLify(app)
 
     from FlaskRTBCTF.users.routes import users
     from FlaskRTBCTF.ctf.routes import ctf
     from FlaskRTBCTF.main.routes import main
+
     app.register_blueprint(users)
     app.register_blueprint(ctf)
     app.register_blueprint(main)
