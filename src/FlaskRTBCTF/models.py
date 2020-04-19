@@ -39,7 +39,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(24), unique=True, nullable=False)
     email = db.Column(db.String(88), unique=True, nullable=False)
-    password = db.Column(db.String(48), nullable=False)
+    password = db.Column(db.String(64), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
     score = db.relationship("Score", backref="user", lazy=True, uselist=False)
     if LOGGING:
