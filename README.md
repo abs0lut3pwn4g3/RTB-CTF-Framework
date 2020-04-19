@@ -1,6 +1,6 @@
 # RootTheBox CTF Framework
 
-<p >
+<p>
   <a href="https://inventory.rawsec.ml/" target="_blank">
     <img height="26px" alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
   </a>
@@ -26,7 +26,7 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
    A live demo of the app is available at: <https://rtblivedemo.herokuapp.com/>.
 
-   You can login and mess around as 2 users: `admin:admin` and `test:test` (i.e. username:password combinations)
+   You can login and mess around as the admin user `admin:admin` (i.e. username:password combinations) or register your own.
 
 ## Features
 
@@ -43,84 +43,41 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 * Flask-blueprints for modularity and clean codebase,
 * Flask-admin for Admin views and easy realtime management,
 * Flask-SQLAlchemy for SQL models, 
-* Flask-wtf for forms,
-* Flask-mail for mail service.
+* Flask-login for session handling,
+* Flask-wtf for responsive forms,
+* Flask-mail for mail service,
+* Flask-bcrypt for password hashing and security,
 
-## Deployment 
+## Build locally
 
-### Heroku
+Please see [INSTALLATION.md](INSTALLATION.md).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+## Host Your Own CTF In 5 minutes with Heroku
 
-or do it manually,
+Using this is as simple as anything.
 
-1. Create your heroku app using `heroku` cli tool.
-   
-   Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
-
-2. Provision Database add-on.
-   
-   Add the following add on to your new app: https://elements.heroku.com/addons/heroku-postgresql
-   
-3. Creating database instance. In your heroku app directory,
-
-   ```bash
-   $ heroku run bash
-   [heroku]$ python create_db.py
-   ```
-4. Your app should be live now. You can run `heroku open` to open it in browser.
-
-### Docker
+1. Fork the `master` branch and clone your fork,
 
 ```bash
-$ docker-compose up
-```
-
-## How To Use
-
-### Requirements
-
-* Tested on `Python 3.8.2`
-* Python Packages: [`src/requirements.txt`](src/requirements.txt).
-* OS Packages: PostgreSQL version 11 or greater, `libpq-dev`, `python3-dev` packages. Please refer [here](https://tutorials.technology/solved_errors/9-Error-pg_config-executable-not-found.html).
-
-### Installation and first run
-
-1. Git clone the repo and `cd ` into it
-
-```bash
-$ git clone https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework
+$ git clone https://github.com/<your_github_username>/RTB-CTF-Framework
 $ cd RTB-CTF-Framework/
 ```
-2. Create `virtual environment` to deal with dependencies and requirements.
 
-```bash
-$ virtualenv -p /usr/bin/python3 venv
-$ source venv/bin/activate
-$ cd src/
-```
+2. Configure your CTF settings (such as name, running time) in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
-3. With `virtual environment` activated, install requirements, init db and run !
+3. In the `app.json`, change the `repository` key's value to match your fork's URL.
 
-```bash
-[venv]$ pip install -r requirements.txt 
-[venv]$ python create_db.py # Only required on first run
-[venv]$ python run.py
-```
+4. Push these changes to the remote of your fork.
 
-### Configuration For Your CTF
+5. Visit your Fork's GitHub URL in the browser and click on the following **Deploy to Heroku** button.
+    
+    > Note: A psuedo-random password for the **admin** user would be created and set in the config variable `ADMIN_PASS`. On Heroku, you can reveal this password from your application's dashboard settings. Same for the Flask application's `SECRET_KEY`.
 
-Using this as simple as anything.
+    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-1. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
+#### Yay! Now you have a customized instance of the RTB-CTF-Framework live on Heroku. 🎉
 
-2. When you run [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py), a strong and random 16 char password for the **admin** user is created and set in the environment variable `ADMIN_PASS`. On Heroku, you can reveal this password from your application's dashboard settings.
-
-3. See database instance creation steps under How To Use.
-
-Bonus: You can manage the database CRUD operations from admin views GUI as well as issue notifications. 
-
-> Warning: If you make any change to [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py) logging/config class/score settings. It's highly recommended to create a new DB instance.
+> Bonus: You can manage the database CRUD operations from admin views GUI; change machine settings, issue notifications to users, etc.
 
 ## Contributing
 
@@ -132,7 +89,6 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
   	<img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/gssoc20?color=deeppink&style=for-the-badge">
   </a>
 </p>
-
 
 ##### 👨 Project Owner
 
@@ -149,6 +105,8 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 For further guidelines, Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Screenshots
+
+> Why look at static pictures, when you can use a demo ? Visit: <https://rtblivedemo.herokuapp.com/>.
 
 <img src="screenshots/home_ss.png" width=400 />
 <img src="screenshots/scoreboard_ss.png" width=400 />

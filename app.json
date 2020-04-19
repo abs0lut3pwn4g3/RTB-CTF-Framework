@@ -12,6 +12,16 @@
       "url": "heroku/python"
     }
   ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "Flask app instance's SECRET_KEY",
+      "generator": "secret"
+    },
+    "ADMIN_PASS": {
+      "description": "Administrator password",
+      "generator": "secret"
+    }
+  },
   "scripts": {
     "postdeploy": "python3 src/create_db.py"
   }
