@@ -1,25 +1,24 @@
 # RootTheBox CTF Framework
 
-<p align="center">
-  <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
-  	<img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
+<p >
+  <a href="https://inventory.rawsec.ml/" target="_blank">
+    <img height="26px" alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
   </a>
-  <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework">
+  <img height="26px" src="https://forthebadge.com/images/badges/made-with-python.svg">
+</p>
+<p style="height:18px">
+  <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework" target="_blank">
     <img alt="Build Status" src="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework.svg?branch=gssoc20-dev"/>
   </a>
-</p>
-
-<p align="center">
-  <a href="https://inventory.rawsec.ml/">
-    <img alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
+  <!-- <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
+  	<img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
+  </a> -->
+  <a href="https://github.com/psf/black" target="_blank">
+    <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/>
   </a>
 </p>
 
-<p align="center">
-  <img src="https://forthebadge.com/images/badges/made-with-python.svg">
-</p>
-
-A lightweight, easy to deploy CTF framework(in Flask) for HackTheBox style machines.
+A lightweight, easy to deploy CTF framework (in Flask) for HackTheBox style machines.
 
 The main purpose of this project is to serve as a scoring engine and CTF manager.
 
@@ -27,9 +26,18 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
    A live demo of the app is available at: <https://rtblivedemo.herokuapp.com/>.
 
-   You can login and mess around as 2 users: `admin:admin` and `test:test`(i.e. username:password combinations)
+   You can login and mess around as 2 users: `admin:admin` and `test:test` (i.e. username:password combinations)
 
 ## Features
+
+##### For CTF hosters
+* A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
+* Automatic strong password for administrator
+* Well implemented controls for administrators providing features such as issuing notifications, database CRUD operations, full fledged logging,
+* Simple User Registration/login process, account management, Forgot password functionalities,
+* Flag submission (currently 2 flags: user and root),
+* Real time scoreboard tracking,
+* Easily deployable on Heroku. 
 
 ##### For Developers & Contributors
 * Flask-blueprints for modularity and clean codebase,
@@ -38,13 +46,35 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 * Flask-wtf for forms,
 * Flask-mail for mail service.
 
-##### For CTF hosters
-* A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
-* Well implemented controls for administrators providing features such as issuing notifications, database CRUD operations, full fledged logging,
-* Simple User Registration/login process, account management, Forgot password functionalities,
-* Flag submission (currently 2 hashes: user and root),
-* Real time scoreboard tracking,
-* Easily deployable on Heroku. 
+## Deployment 
+
+### Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+or do it manually,
+
+1. Create your heroku app using `heroku` cli tool.
+   
+   Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
+
+2. Provision Database add-on.
+   
+   Add the following add on to your new app: https://elements.heroku.com/addons/heroku-postgresql
+   
+3. Creating database instance. In your heroku app directory,
+
+   ```bash
+   $ heroku run bash
+   [heroku]$ python create_db.py
+   ```
+4. Your app should be live now. You can run `heroku open` to open it in browser.
+
+### Docker
+
+```bash
+$ docker-compose up
+```
 
 ## How To Use
 
@@ -78,36 +108,13 @@ $ cd src/
 [venv]$ python run.py
 ```
 
-### Deployment using Heroku
+### Configuration For Your CTF
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-or do it manually,
-
-1. Create your heroku app using `heroku` cli tool.
-   
-   Follow the official guide by Heroku: https://devcenter.heroku.com/articles/getting-started-with-python#prepare-the-app
-
-2. Provision Database add-on.
-   
-   Add the following add on to your new app: https://elements.heroku.com/addons/heroku-postgresql
-   
-3. Creating database instance. In your heroku app directory,
-
-   ```bash
-   $ heroku run bash
-   [heroku]$ python create_db.py
-   ```
-4. Your app should be live now. You can run `heroku open` to open it in browser.
-
-
-## For Your CTF
-
-Using this as simple as anything. 
+Using this as simple as anything.
 
 1. Just configure your CTF settings in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
 
-2. DO NOT FORGET to change admin credentials from [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py)
+2. When you run [`create_db.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/create_db.py), a strong and random 16 char password for the **admin** user is created and set in the environment variable `ADMIN_PASS`. On Heroku, you can reveal this password from your application's dashboard settings.
 
 3. See database instance creation steps under How To Use.
 
@@ -117,7 +124,7 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
 
 ## Contributing
 
-<p align="center">
+<p>
   <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/graphs/contributors">
     <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/abs0lut3pwn4g3/RTB-CTF-Framework?color=red&logo=github&style=for-the-badge">
   </a>
@@ -126,61 +133,20 @@ Bonus: You can manage the database CRUD operations from admin views GUI as well 
   </a>
 </p>
 
-<p align="center">
-  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Aeasy">
-    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/easy?color=seagreen&style=for-the-badge">
-  </a>
-  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Amedium">
-    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/medium?color=%23e99695&style=for-the-badge">
-  </a>
-  <a href="https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues?q=is%3Aopen+is%3Aissue+label%3Ahard">
-    <img alt="GitHub issues by-label" src="https://img.shields.io/github/issues/abs0lut3pwn4g3/RTB-CTF-Framework/hard?color=%23cc317c%09&style=for-the-badge">
-  </a>
-</p>
-
-Keeping to a consistent code style throughout the project makes it easier to contribute and collaborate. Please stick to the guidelines in PEP8 and the Google Style Guide unless there’s a very good reason not to.
-Please see: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the following To-do list.
-
-> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
 
 ##### 👨 Project Owner
 
-- Eshaan Bansal ([github](https://github.com/eshaan7),[linkedin](https://www.linkedin.com/in/eshaan7/))
+- Eshaan Bansal ([github](https://github.com/eshaan7), [linkedin](https://www.linkedin.com/in/eshaan7/))
 
 ##### 👬  Mentors
 
-- Sombuddha Chakravarty ([github](https://github.com/sammy1997),[linkedin](https://www.linkedin.com/in/sombuddha-chakravarty-9482b5131/))
+- Sombuddha Chakravarty ([github](https://github.com/sammy1997), [linkedin](https://www.linkedin.com/in/sombuddha-chakravarty-9482b5131/))
 
-Feel free to ask your queries!! 🙌
-
-##### Slack Channel
+##### Slack Channel for GSSoC 2020
 
 - [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
 
-## To-do
-
-- [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such. (Issue: [#7](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/7))
-- [ ] Support for *n* number of boxes (accordions? seperate route?). (Issue: [#17](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/17))
-- [ ] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
-- [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
-- [ ] Testing Password reset functionality, the mail-server setup, etc.
-- [ ] More info on `home.html`
-- [ ] Support for more hashes per box (not a priority)
-- [ ] Need to implement `account.html` (not a priority)
-
-<hr/>
-
-- [x] Freeze Scoreboard automatically past running time specified (Issue: [#3](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/3))
-- [x] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
-- [x] Adding CI, Linting, Formatting specs. (Issue: [#18](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/18))
-- [x] db relationship between User and Score Tables (priority | issue: #5)
-- [x] isAdmin column in User table and Admin views (priority)
-- [x] Notifications
-- [x] Use Flask Blueprints
-- [x] Finalize black theme?
-- [x] Error messages not appearing in `/submit`
-- [x] Implement `machine.html` to server a page where one can download/serve machines
-
+For further guidelines, Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Screenshots
 
