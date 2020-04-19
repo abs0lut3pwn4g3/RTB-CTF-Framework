@@ -4,20 +4,14 @@ from wtforms.validators import DataRequired, Length
 
 
 class UserHashForm(FlaskForm):
-    userHash = StringField('User hash',
-                           validators=[
-                               DataRequired(),
-                               Length(min=32, max=32)
-                           ]
-                           )
-    submit = SubmitField('Submit')
+    userHash = StringField(
+        "User hash", validators=[DataRequired(), Length(min=32, max=32)]
+    )
+    submit = SubmitField("Submit")
 
 
 class RootHashForm(FlaskForm):
-    rootHash = StringField('Root hash',
-                           validators=[
-                               DataRequired(),
-                               Length(min=32, max=32)
-                           ]
-                           )
-    submit = SubmitField('Submit')
+    rootHash = StringField(
+        "Root hash", validators=[DataRequired(), Length(min=32, max=32)]
+    )
+    submit = SubmitField("Submit")
