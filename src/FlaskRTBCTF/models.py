@@ -37,9 +37,9 @@ class Machine(db.Model):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    username = db.Column(db.String(24), unique=True, nullable=False)
+    email = db.Column(db.String(88), unique=True, nullable=False)
+    password = db.Column(db.String(48), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
     score = db.relationship("Score", backref="user", lazy=True, uselist=False)
     if LOGGING:
