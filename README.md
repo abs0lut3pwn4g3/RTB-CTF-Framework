@@ -1,10 +1,10 @@
 # RootTheBox CTF Framework
 
-<p style="height:28px">
+<p >
   <a href="https://inventory.rawsec.ml/" target="_blank">
-    <img alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
+    <img height="26px" alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
   </a>
-  <img src="https://forthebadge.com/images/badges/made-with-python.svg">
+  <img height="26px" src="https://forthebadge.com/images/badges/made-with-python.svg">
 </p>
 <p style="height:18px">
   <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework" target="_blank">
