@@ -34,7 +34,21 @@
 
 ## Style Guide
 
-Keeping to a consistent code style throughout the project makes it easier to contribute and collaborate. Please stick to the guidelines in PEP8, [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) and the Google Style Guide unless there’s a very good reason not to.
+Keeping to a consistent code style throughout the project makes it easier to contribute and collaborate. Please stick to the guidelines in [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) and the Google Style Guide unless there’s a very good reason not to.
+
+### Before submitting a Pull Request, please run these 2 commands locally
+
+```bash
+$ black .
+```
+
+```bash
+$ flake8 src/ flake8 . ---max-line-length=88 --show-source --statistics
+```
+
+if flake8 shows any errors or warnings, please fix the changes in a new commit and squash all the commits into one before submitting the PR.
+
+> Guide on squashing commits: [here](https://github.com/wprig/wprig/wiki/How-to-squash-commits)
 
 ## Contact
 
