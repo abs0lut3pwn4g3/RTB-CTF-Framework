@@ -24,4 +24,4 @@ install:
 before_script:
   - black . --check
 script:
-  - flake8 . --count --max-line-length=88 --show-source --statistics
+  - flake8 . --count --max-line-length=88 --exclude="src/FlaskRTBCTF/utils/__init__.py" --show-source --statistics

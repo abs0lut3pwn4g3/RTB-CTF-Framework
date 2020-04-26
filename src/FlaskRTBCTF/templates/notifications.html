@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if current_user.isAdmin %}
+    <a href="/admin/notification/new/" class="ml-2 red-underlined-link">Add new</a>
+{% endif %}
 <div class="content-section">
     {% for notif in notifs %}
         <div class="content-section">

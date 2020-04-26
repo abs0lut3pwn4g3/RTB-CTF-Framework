@@ -1,100 +1,90 @@
 {% extends "layout.html" %}
+{% from "forms.html" import user_hash_form_macro, root_hash_form_macro %}
 
 {% block content %}
 
-<div class="content-section">
+{% if current_user.isAdmin %}
+    <a href="/admin/machine/new/" class="ml-2 red-underlined-link">Add new</a>
+{% endif %}
 
-    <!-- Machine Info -->
+{% for box in boxes %}
 
-    <div class="machine-heading">{{ box['name'] }}</div>
-    <hr/>
-    <div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">IP</div>  
-          <h5 class="card-title">{{ box['ip'] }}</h5>
-          <!--
-          <div class="card-body">
-          <p class="card-text">WIFI: </p>
-        </div>
-          -->
+<div class="accordion" id="machine-{{ loop.index }}">
 
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">OS</div>   
-          <h5 class="card-title">{{ box['os'] }}</h5>
-        </div>
-    </div>
-    </div>
-    <div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">Points</div> 
-            <h5 class="card-title">User: {{ box['user_points'] }} | Root: {{ box['root_points'] }}</h5>
-        </div>
-    </div> 
-    <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">Difficulty Level</div>   
-          <h5 class="card-title">{{ box['hardness'] }}</h5>
-        </div>
-    </div>       
-    </div>
+  <div class="content-section">
+    <a class="red-link" data-toggle="collapse" 
+            data-target="#m-collapse-{{ loop.index }}" 
+            aria-controls="m-collapse-{{ loop.index }}">
+      {{ box['name'] }}
+    </a>
+    <span class="ml-2">
+      <small>
+        {{ box['ip'] }}
+      </small>
+    </span>
+    <span class="float-right">
+      <a class="btn-sm btn-dark btn-hover-red" 
+        data-toggle="tooltip" title="submit flags">
+        <i class="far fa-flag"></i>
+      </a>
+      <a class="ml-1 btn-sm btn-dark btn-hover-red"
+         data-toggle="tooltip" title="rate machine">
+        <i class="far fa-star"></i>
+      </a>
+    </span>
+  <div id="m-collapse-{{ loop.index }}" class="collapse" data-parent="#machine-{{ loop.index }}">
 
-    <hr/>
+      <!-- Machine Card -->
+      <div class="mt-4 content-section">
+  
+        <div class="machine-heading">{{ box['name'] }}</div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-3">
+              <div class="card">
+                <div class="card-header">IP</div>  
+                <h5 class="card-title">{{ box['ip'] }}</h5>
+              </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="card">
+                <div class="card-header">OS</div>   
+                <h5 class="card-title">{{ box['os'] }}</h5>
+              </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="card">
+                <div class="card-header">Points</div> 
+                  <h6 class="card-text">User: {{ box['user_points'] }} <br/> Root: {{ box['root_points'] }}</h6>
+              </div>
+          </div> 
+          <div class="col-sm-3">
+              <div class="card">
+                <div class="card-header">Difficulty</div>   
+                <h5 class="card-title">{{ box['hardness'] }}</h5>
+              </div>
+          </div>
+        </div>
+        <hr/>
+  
+        {% if past_running_time %}
+            The CTF has ended. <a class="red-underlined-link" href="{{ url_for('ctf.scoreboard') }}">Scoreboard</a>.
+        {% else %}
+          <!-- User Hash Form -->
+              {{ user_hash_form_macro(form=userHashForm, machine_id=box['id']) }}
+            <hr/>
+          <!-- Root Hash Form -->
+              {{ root_hash_form_macro(form=rootHashForm, machine_id=box['id']) }}
+        {% endif %}
+        
+      </div>
 
-    {% if end < current %}
-    The CTF has ended. Please see <a class="red-underlined-link" href="{{ url_for('ctf.scoreboard') }}">scoreboard</a>
-    {% else %}
-    <!-- User Hash Form -->
-    <form class="form-inline" method="POST" action="{{ url_for('ctf.validateUserHash') }}">
-        {{ userHashForm.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ userHashForm.userHash.label(class="form-control-label") }}
-                {% if userHashForm.userHash.errors %}
-                    {{ userHashForm.userHash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
-                    <div class="invalid-feedback">
-                        {% for error in userHashForm.userHash.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                        {{ userHashForm.userHash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
-                {% endif %}
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {{ userHashForm.submit(class="btn btn-dark btn-hover-red") }}
-        </div>
-    </form>
-    <hr/>
-    <!-- System Hash Form-->
-    <form class="form-inline" method="POST" action="{{ url_for('ctf.validateRootHash') }}">
-        {{ rootHashForm.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ rootHashForm.rootHash.label(class="form-control-label") }}
-                {% if rootHashForm.rootHash.errors %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
-                    <div class="invalid-feedback">
-                        {% for error in rootHashForm.rootHash.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ rootHashForm.rootHash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
-                {% endif %}
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {{ rootHashForm.submit(class="btn btn-dark btn-hover-red") }}
-        </div>
-    </form>
-    {% endif %}
-    
+  </div>
+  </div>
+
 </div>
 
+{% endfor %}
+
 {% endblock content %}
+

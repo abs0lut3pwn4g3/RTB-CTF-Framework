@@ -35,12 +35,10 @@ def handle_admin_pass(default="admin"):
 
 def inject_app_context():
     settings = Settings.query.get(1)
-    toasts = [{"title": "CTF", "msg": "Correct User Hash!"}]
-
     # Note to self: maybe we can use? @cached_property:
     # https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.utils.cached_property
 
-    return dict(settings=settings, toasts=toasts)
+    return dict(settings=settings)
 
 
 def is_past_running_time():
