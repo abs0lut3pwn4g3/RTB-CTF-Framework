@@ -1,0 +1,16 @@
+<!-- Field Group Macro -->
+{% macro form_field_group_macro(field) %}
+
+    {{ field.label(class="form-control-label") }}
+    {% if field.errors %}
+        {{ field(class="form-control is-invalid", autocomplete="off") }}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ field(class="form-control", autocomplete="off") }}
+    {% endif %}
+
+{% endmacro %}

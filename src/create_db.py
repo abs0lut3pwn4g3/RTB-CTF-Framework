@@ -1,18 +1,15 @@
 import pytz
 from datetime import datetime
 
-from FlaskRTBCTF import create_app, db, bcrypt
-from FlaskRTBCTF.helpers import handle_admin_pass
-from FlaskRTBCTF.models import User, Score, Notification, Machine
-from FlaskRTBCTF.config import organization, LOGGING
-
-if LOGGING:
-    from FlaskRTBCTF.models import Logs
+from FlaskRTBCTF import db, bcrypt, create_app
+from FlaskRTBCTF import User, Machine, Logs
+from FlaskRTBCTF.main.models import Settings, Website
+from FlaskRTBCTF.utils import handle_admin_pass
 
 
 app = create_app()
 
-# create_app().app_context().push()
+
 with app.app_context():
     db.create_all()
 
@@ -26,7 +23,7 @@ with app.app_context():
         root_points=20,
         os="Linux",
         ip="127.0.0.1",
-        hardness="You tell",
+        hardness="Hard",
     )
     db.session.add(box)
 
@@ -37,25 +34,30 @@ with app.app_context():
         password=bcrypt.generate_password_hash(passwd).decode("utf-8"),
         isAdmin=True,
     )
-    admin_score = Score(
-        user=admin_user, userHash=False, rootHash=False, points=0, machine=box
-    )
     db.session.add(admin_user)
-    db.session.add(admin_score)
 
-    notif = Notification(
-        title=f"Welcome to {organization['ctfname']}",
-        body="The CTF is live now. Please read rules!",
+    admin_log = Logs(
+        user=admin_user,
+        accountCreationTime=default_time,
+        visitedMachine=True,
+        machineVisitTime=default_time,
     )
-    db.session.add(notif)
+    db.session.add(admin_log)
 
-    if LOGGING:
-        admin_log = Logs(
-            user=admin_user,
-            accountCreationTime=default_time,
-            visitedMachine=True,
-            machineVisitTime=default_time,
-        )
-        db.session.add(admin_log)
+    web1 = Website(
+        name="Official Abs0lut3Pwn4g3 Website", url="https://Abs0lut3Pwn4g3.github.io/",
+    )
+    web2 = Website(name="Twitter", url="https://twitter.com/Abs0lut3Pwn4g3",)
+    web3 = Website(
+        name="GitHub", url="https://github.com/Abs0lut3Pwn4g3/RTB-CTF-Framework"
+    )
+
+    db.session.add(web1)
+    db.session.add(web2)
+    db.session.add(web3)
+
+    settings = Settings(websites=[web1, web2, web3], dummy=True)
+
+    db.session.add(settings)
 
     db.session.commit()

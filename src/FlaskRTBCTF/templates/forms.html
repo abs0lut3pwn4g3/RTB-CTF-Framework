@@ -1,0 +1,181 @@
+{% from 'macros.html' import form_field_group_macro %}
+
+<!-- Login Form -->
+{% macro login_form_macro(form, url) %}
+<div class="content-section">
+    <form method="POST" action="{{ url }}">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log In</legend>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.password) }}
+            </div>
+            <div class="custom-control custom-checkbox">
+                {{ form.remember(class="custom-control-input") }}
+                {{ form.remember.label(class="custom-control-label") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark btn-hover-red") }}
+        </div>
+        <small>
+            <a href="{{ url_for('users.reset_request') }}" class="red-underlined-link">Forgot Password?</a>
+        </small>
+    </form>
+</div>
+
+{% endmacro %}
+
+<!-- Register Form -->
+{% macro register_form_macro(form) %}
+<div class="content-section">
+    <form method="POST" action="{{ url_for('users.register') }}">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.password) }}
+            </div>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.confirm_password) }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark btn-hover-red") }}
+        </div>
+    </form>
+</div>
+<div class="border-top pt-3">
+    <small class="text-light">
+        Already Have An Account? <a class="ml-2 red-underlined-link" href="{{ url_for('users.login') }}">Sign In</a>
+    </small>
+</div>
+{% endmacro %}
+
+
+<!-- Settings Form -->
+{% macro settings_form_macro(form, url) %}
+<div class="content-section">
+    <form method="POST" action="{{ url }}">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">CTF Settings</legend>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.ctf_name) }}
+            </div>
+            <div class="form-group">
+                {{ form_field_group_macro(field=form.organization_name) }}
+            </div>
+
+            <div class="form-control-label">Running Time</div>
+            <code class="small">
+                Date & Time should be in <b>UTC</b> Time Zone.
+                <br>
+                If you don't need to specify running time, make the end date's year far, far away in the future.
+            </code>
+            <div class="mt-3 d-flex form-group">
+                {{ form_field_group_macro(field=form.from_date) }}
+                {{ form_field_group_macro(field=form.from_time) }}
+            </div>
+            <div class="d-flex form-group">
+                {{ form_field_group_macro(field=form.to_date) }}
+                {{ form_field_group_macro(field=form.to_time) }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark btn-hover-red") }}
+        </div>
+    </form>
+</div>
+
+{% endmacro %}
+
+<!-- Website Form -->
+{% macro website_form_macro(form, url) %}
+<div class="content-section">
+    <form method="POST" action="{{ url }}">
+        <fieldset class="d-flex align-items-center">
+            <legend class="border-bottom mb-4">Add Websites for your organization</legend>
+            <div class="form-group">
+                {{ form.names.label(class="form-control-label") }}  
+                {{ form.names(class="is-invalid", autocomplete="off") }}
+            </div>
+            <div class="form-group">
+                {{ form.urls.label(class="form-control-label text-uppercase") }} 
+                {{ form.urls(class="is-invalid", autocomplete="off")  }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <a href="{{ url_for('main.setup', step=2) }}" class="mr-2 btn red-link">Go Back</a>
+            {{ form.submit(class="btn btn-dark btn-hover-red") }}
+        </div>
+    </form>
+</div>
+{% endmacro %}
+
+
+<!-- User Hash Form -->
+{% macro user_hash_form_macro(form, machine_id) %}
+
+<form class="form-inline" method="POST" action="{{ url_for('ctf.machines') }}">
+    {{ form.csrf_token() }}
+    {{ form.machine_id(value=machine_id) }}
+    <fieldset class="form-group">
+        <div class="form-group">
+            {{ form.user_hash.label(class="form-control-label") }}
+            {% if form.user_hash.errors %}
+                {{ form.user_hash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
+                <div class="invalid-feedback">
+                    {% for error in form.user_hash.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                    {{ form.user_hash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
+            {% endif %}
+        </div>
+    </fieldset>
+    <div class="form-group">
+        {{ form.submit_user_hash(class="btn btn-dark btn-hover-red") }}
+    </div>
+</form>
+
+{% endmacro %}
+
+
+<!-- Root Hash Form -->
+{% macro root_hash_form_macro(form, machine_id) %}
+
+<form class="form-inline" method="POST" action="{{ url_for('ctf.machines') }}">
+    {{ form.csrf_token() }}
+    {{ form.machine_id(value=machine_id) }}
+    <fieldset class="form-group">
+        <div class="form-group">
+            {{ form.root_hash.label(class="form-control-label") }}
+            {% if form.root_hash.errors %}
+                {{ form.root_hash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
+                <div class="invalid-feedback">
+                    {% for error in form.root_hash.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.root_hash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
+            {% endif %}
+        </div>
+    </fieldset>
+    <div class="form-group">
+        {{ form.submit_root_hash(class="btn btn-dark btn-hover-red") }}
+    </div>
+</form>
+
+{% endmacro %}
