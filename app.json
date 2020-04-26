@@ -20,6 +20,12 @@
     "ADMIN_PASS": {
       "description": "Administrator password",
       "generator": "secret"
+    },
+    "MAIL_USER": {
+      "description": "Username for mail service"
+    },
+    "MAIL_PASS": {
+      "description": "Password for mail service"
     }
   },
   "scripts": {
