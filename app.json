@@ -22,10 +22,12 @@
       "generator": "secret"
     },
     "MAIL_USER": {
-      "description": "Username for mail service"
+      "description": "Username for mail service",
+      "required": false
     },
     "MAIL_PASS": {
-      "description": "Password for mail service"
+      "description": "Password for mail service",
+      "required": false
     }
   },
   "scripts": {

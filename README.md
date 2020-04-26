@@ -52,28 +52,19 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 Please see [INSTALLATION.md](INSTALLATION.md).
 
-## Host Your Own CTF In 5 minutes with Heroku
+## Host Your Own CTF in a minute with Heroku
 
-Using this is as simple as anything.
+1. Sign up on [Heroku](https://heroku.com), if you haven't already and click on the below "Deploy to Heroku" button.
 
-1. Fork the `master` branch and clone your fork,
+    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-```bash
-$ git clone https://github.com/<your_github_username>/RTB-CTF-Framework
-$ cd RTB-CTF-Framework/
-```
-
-2. Configure your CTF settings (such as name, running time) in [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py).
-
-3. In the `app.json`, change the `repository` key's value to match your fork's URL.
-
-4. Push these changes to the remote of your fork.
-
-5. Visit your Fork's GitHub URL in the browser and click on the following **Deploy to Heroku** button.
+2. Give your application an awesome name and _optionally_ specify mail environment variables.
     
     > Note: A psuedo-random password for the **admin** user would be created and set in the config variable `ADMIN_PASS`. On Heroku, you can reveal this password from your application's dashboard settings. Same for the Flask application's `SECRET_KEY`.
 
-    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+3. Open your newly deployed application in the browser, you'll be redirected to login as the `admin` user and do so.
+
+4. Finally, you'll want to `/setup` the CTF Settings and,
 
 #### Yay! Now you have a customized instance of the RTB-CTF-Framework live on Heroku. 🎉
 
