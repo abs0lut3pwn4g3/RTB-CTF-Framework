@@ -26,7 +26,7 @@ with app.app_context():
     db.session.add(web2)
     db.session.add(web3)
 
-    settings = Settings(websites=[web1, web2, web3], dummy=False)
+    settings = Settings(dummy=False)
 
     db.session.add(settings)
 
@@ -42,9 +42,9 @@ with app.app_context():
         root_hash="B" * 32,
         user_points=10,
         root_points=20,
-        os="Linux",
+        os="linux",
         ip="127.0.0.1",
-        hardness="Hard",
+        hardness="Easy",
     )
     db.session.add(box)
 

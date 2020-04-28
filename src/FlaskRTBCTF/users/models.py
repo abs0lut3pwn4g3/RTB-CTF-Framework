@@ -1,3 +1,4 @@
+from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from flask import current_app
@@ -49,7 +50,9 @@ class Logs(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey("user.id"), nullable=False, primary_key=True
     )
-    accountCreationTime = db.Column(db.DateTime, nullable=False)
+    accountCreationTime = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow()
+    )
     visitedMachine = db.Column(db.Boolean, default=False)
     machineVisitTime = db.Column(db.DateTime, nullable=True)
     userSubmissionTime = db.Column(db.DateTime, nullable=True)
@@ -60,4 +63,4 @@ class Logs(db.Model):
     rootSubmissionIP = db.Column(db.String, nullable=True)
 
     def __repr__(self):
-        return f"Logs('{self.user_id}','{self.visitedMachine}'"
+        return f"Logs('{self.user_id}','{self.visitedMachine}')"

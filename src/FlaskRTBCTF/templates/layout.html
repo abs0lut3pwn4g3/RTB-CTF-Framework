@@ -43,7 +43,6 @@
                 {% if current_user.is_authenticated %}
                   {% if current_user.isAdmin %}
                     <a class="nav-item nav-link" href="/admin">Admin Controls</a>
-                    <a class="nav-item nav-link" href="/setup">Setup</a>
                   {% endif %}
                   <a class="nav-item nav-link" href="{{ url_for('users.account') }}">@{{ current_user.username }}</a>
                   <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
@@ -87,7 +86,7 @@
               <h3>{{ settings.organization_name }}</h3>
               <p class="text-muted">
                 <ul class="list-group">
-                  {% for w in settings.websites %}
+                  {% for w in websites %}
                     <a target="_blank" href="{{ w.url }}" class="list-group-item list-group-item-action">{{ w.name }}</a>
                   {% endfor %}
                 </ul>
@@ -106,15 +105,8 @@
     <!-- bootstrap.js -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- main.js -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 
-    <script>
-      $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(
-          {
-            'delay': { show: 50, hide: 50 }
-          }
-        );   
-      });
-    </script>
 </body>
 </html>

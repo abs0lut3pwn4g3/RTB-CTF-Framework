@@ -13,7 +13,7 @@ main = Blueprint("main", __name__)
 
 @main.before_request
 def needs_setup():
-    settings = Settings.query.get(1)
+    settings = Settings.get_settings()
     if settings.dummy:
         if request.endpoint not in ("main.setup", "users.login"):
             flash("Please setup the CTF, before accessing any routes.", "info")
@@ -25,7 +25,7 @@ def needs_setup():
 @main.route("/")
 @main.route("/home")
 def home():
-    settings = Settings.query.get(1)
+    settings = Settings.get_settings()
     running_time = {
         "from": settings.running_time_from,
         "to": settings.running_time_to,
@@ -67,7 +67,7 @@ def setup():
 
         step = int(request.args.get("step", 2))
 
-        if step == 2:
+        if step == 2 and settings_form.validate_on_submit():
             return settings_form.setup()
         elif step == 3:
             return website_form.setup()

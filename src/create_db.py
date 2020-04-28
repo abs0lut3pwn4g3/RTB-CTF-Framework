@@ -4,7 +4,7 @@ from datetime import datetime
 from FlaskRTBCTF import db, bcrypt, create_app
 from FlaskRTBCTF import User, Machine, Logs
 from FlaskRTBCTF.main.models import Settings, Website
-from FlaskRTBCTF.utils import handle_admin_pass
+from FlaskRTBCTF.utils import handle_admin_pass, handle_admin_email
 
 
 app = create_app()
@@ -21,16 +21,17 @@ with app.app_context():
         root_hash="B" * 32,
         user_points=10,
         root_points=20,
-        os="Linux",
+        os="linux",
         ip="127.0.0.1",
-        hardness="Hard",
+        hardness="easy",
     )
     db.session.add(box)
 
     passwd = handle_admin_pass()
+    email = handle_admin_email()
     admin_user = User(
         username="admin",
-        email="admin@admin.com",
+        email=email,
         password=bcrypt.generate_password_hash(passwd).decode("utf-8"),
         isAdmin=True,
     )
@@ -56,7 +57,7 @@ with app.app_context():
     db.session.add(web2)
     db.session.add(web3)
 
-    settings = Settings(websites=[web1, web2, web3], dummy=True)
+    settings = Settings(dummy=True)
 
     db.session.add(settings)
 

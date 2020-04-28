@@ -7,14 +7,14 @@ from .utils import handle_secret_key
 
 
 class Config:
+    DEBUG = False  # Turn DEBUG OFF before deployment
     SECRET_KEY = handle_secret_key()
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
     # For local use, one can simply use SQLlite with: 'sqlite:///site.db'
     # For deployment on Heroku use: `os.environ.get('DATABASE_URL')`
     # in all other cases: `os.environ.get('SQLALCHEMY_DATABASE_URI')`
-    FLASK_ADMIN_SWATCH = ["journal", "paper", "yeti", "cosmo"][2]
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    DEBUG = False  # Turn DEBUG OFF before deployment
+    FLASK_ADMIN_SWATCH = ("journal", "paper", "yeti", "cosmo")[3]
     # TEMPLATES_AUTO_RELOAD = True
     MAIL_SERVER = "smtp.googlemail.com"
     MAIL_PORT = 587

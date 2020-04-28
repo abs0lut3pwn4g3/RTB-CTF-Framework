@@ -4,7 +4,7 @@
 {% block content %}
 
 {% if current_user.isAdmin %}
-    <a href="/admin/machine/new/" class="ml-2 red-underlined-link">Add new</a>
+    <a href="{{ url_for('ctf.new_machine') }}" class="ml-2 red-underlined-link">Add new</a>
 {% endif %}
 
 {% for box in boxes %}
@@ -12,6 +12,8 @@
 <div class="accordion" id="machine-{{ loop.index }}">
 
   <div class="content-section">
+    <!-- Bar -->
+    <i class="mr-2 fab fa-{{ box['os'] }}"></i>
     <a class="red-link" data-toggle="collapse" 
             data-target="#m-collapse-{{ loop.index }}" 
             aria-controls="m-collapse-{{ loop.index }}">
@@ -24,18 +26,25 @@
     </span>
     <span class="float-right">
       <a class="btn-sm btn-dark btn-hover-red" 
-        data-toggle="tooltip" title="submit flags">
-        <i class="far fa-flag"></i>
+         data-toggle="modal"
+         href="#m-form"
+         data-boxId="{{ box['id'] }}">
+          <i class="far fa-flag"
+             data-toggle="tooltip"
+             title="submit flags">
+          </i>
       </a>
       <a class="ml-1 btn-sm btn-dark btn-hover-red"
-         data-toggle="tooltip" title="rate machine">
+         data-toggle="tooltip" 
+         title="rate machine (coming soon)">
         <i class="far fa-star"></i>
       </a>
     </span>
+    <!-- !Bar -->
   <div id="m-collapse-{{ loop.index }}" class="collapse" data-parent="#machine-{{ loop.index }}">
 
       <!-- Machine Card -->
-      <div class="mt-4 content-section">
+      <div class="mt-3 content-section">
   
         <div class="machine-heading">{{ box['name'] }}</div>
         <hr/>
@@ -49,7 +58,7 @@
           <div class="col-sm-3">
               <div class="card">
                 <div class="card-header">OS</div>   
-                <h5 class="card-title">{{ box['os'] }}</h5>
+                <h5 class="card-title text-capitalize">{{ box['os'] }}</h5>
               </div>
           </div>
           <div class="col-sm-3">
@@ -61,23 +70,13 @@
           <div class="col-sm-3">
               <div class="card">
                 <div class="card-header">Difficulty</div>   
-                <h5 class="card-title">{{ box['hardness'] }}</h5>
+                <h5 class="card-title text-capitalize">{{ box['hardness'] }}</h5>
               </div>
           </div>
         </div>
-        <hr/>
-  
-        {% if past_running_time %}
-            The CTF has ended. <a class="red-underlined-link" href="{{ url_for('ctf.scoreboard') }}">Scoreboard</a>.
-        {% else %}
-          <!-- User Hash Form -->
-              {{ user_hash_form_macro(form=userHashForm, machine_id=box['id']) }}
-            <hr/>
-          <!-- Root Hash Form -->
-              {{ root_hash_form_macro(form=rootHashForm, machine_id=box['id']) }}
-        {% endif %}
         
       </div>
+      <!-- !Machine Card -->
 
   </div>
   </div>
@@ -86,5 +85,31 @@
 
 {% endfor %}
 
+<!-- Flag Submission Forms Modal -->
+<div class="modal fade" id="m-form" tabindex="-1" role="dialog" aria-labelledby="m-form" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="content-section modal-content">
+        <h4 class="title-heading border-bottom">Submit Flags</h4>
+        <div class="modal-body mx-0 px-0">
+          {% if past_running_time %}
+            The CTF has ended. <a class="red-underlined-link" href="{{ url_for('ctf.scoreboard') }}">Scoreboard</a>.
+          {% else %}
+          <!-- User Hash Form -->
+              {{ user_hash_form_macro(form=userHashForm) }}
+              <br/>
+          <!-- Root Hash Form -->
+              {{ root_hash_form_macro(form=rootHashForm) }}
+          {% endif %}
+        </div>
+      <div class="justify-content-start px-0 modal-footer">
+        <button type="button" class="m-0 btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock content %}
+
+
 

@@ -4,17 +4,8 @@ import os
 import secrets
 from datetime import datetime
 
-from flask import request, redirect, url_for
-from FlaskRTBCTF.main.models import Settings
-
-
-def needs_setup():
-    settings = Settings.query.get(1)
-    if settings.dummy:
-        if request.endpoint != "main.setup":
-            return redirect(url_for("main.setup"))
-    else:
-        return
+from .cache import cache
+from FlaskRTBCTF.main.models import Settings, Website
 
 
 def handle_secret_key(default="you-will-never-guess"):
@@ -33,15 +24,20 @@ def handle_admin_pass(default="admin"):
     return passwd
 
 
+def handle_admin_email(default="admin@admin.com"):
+    em = os.environ.get("ADMIN_EMAIL", default)
+    return em
+
+
 def inject_app_context():
-    settings = Settings.query.get(1)
-    # Note to self: maybe we can use? @cached_property:
-    # https://werkzeug.palletsprojects.com/en/1.0.x/utils/#werkzeug.utils.cached_property
+    settings = Settings.get_settings()
+    websites = Website.get_websites()
 
-    return dict(settings=settings)
+    return dict(settings=settings, websites=websites)
 
 
+@cache.cached(timeout=60, key_prefix="past_running_time")
 def is_past_running_time():
-    end_date_time = Settings.query.get(1).running_time_to
+    end_date_time = Settings.get_settings().running_time_to
     current_date_time = datetime.utcnow()
     return current_date_time > end_date_time

@@ -5,7 +5,7 @@ from datetime import datetime, date, time, timedelta
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from FlaskRTBCTF.utils import db
+from FlaskRTBCTF.utils import db, cache
 
 
 # Notifications Table
@@ -41,7 +41,10 @@ class Settings(db.Model):
     )
     to_time = db.Column(db.Time, nullable=False, default=time())
 
-    websites = db.relationship("Website", backref="settings", lazy=True, uselist=True)
+    @staticmethod
+    @cache.cached(timeout=3600 * 3, key_prefix="settings")
+    def get_settings():
+        return Settings.query.get(1)
 
     @hybrid_property
     def running_time_from(self):
@@ -61,15 +64,17 @@ class Settings(db.Model):
 class Website(db.Model):
     __tablename__ = "website"
     id = db.Column(db.Integer, primary_key=True)
-    settings_id = db.Column(
-        db.Integer, db.ForeignKey("settings.id"), nullable=False, unique=False
-    )
     url = db.Column(
         db.TEXT(), nullable=False, default="https://Abs0lut3Pwn4g3.github.io/"
     )
     name = db.Column(
         db.TEXT(), nullable=False, default="Official Abs0lut3Pwn4g3 Website"
     )
+
+    @staticmethod
+    @cache.cached(timeout=3600 * 6, key_prefix="websites")
+    def get_websites():
+        return Website.query.all()
 
     def __repr__(self):
         return f"Website('{self.name}','{self.url}')"

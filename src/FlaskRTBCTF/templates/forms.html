@@ -124,28 +124,22 @@
 
 
 <!-- User Hash Form -->
-{% macro user_hash_form_macro(form, machine_id) %}
+{% macro user_hash_form_macro(form) %}
 
 <form class="form-inline" method="POST" action="{{ url_for('ctf.machines') }}">
     {{ form.csrf_token() }}
-    {{ form.machine_id(value=machine_id) }}
-    <fieldset class="form-group">
-        <div class="form-group">
-            {{ form.user_hash.label(class="form-control-label") }}
-            {% if form.user_hash.errors %}
-                {{ form.user_hash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
-                <div class="invalid-feedback">
-                    {% for error in form.user_hash.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                    {{ form.user_hash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
-            {% endif %}
-        </div>
-    </fieldset>
+    {{ form.machine_id(id="machine-id-user") }}
     <div class="form-group">
-        {{ form.submit_user_hash(class="btn btn-dark btn-hover-red") }}
+        {{ form.user_hash.label(class="form-control-label") }}
+        {{ form.user_hash(
+                class="ml-3 mr-3 is-invalid",
+                size=24,
+                minlength=32,
+                maxlength=32,
+                autocomplete="off"
+            )
+        }}
+        {{ form.submit_user_hash(class="btn btn-sm btn-dark btn-hover-red") }}
     </div>
 </form>
 
@@ -153,28 +147,22 @@
 
 
 <!-- Root Hash Form -->
-{% macro root_hash_form_macro(form, machine_id) %}
+{% macro root_hash_form_macro(form) %}
 
 <form class="form-inline" method="POST" action="{{ url_for('ctf.machines') }}">
     {{ form.csrf_token() }}
-    {{ form.machine_id(value=machine_id) }}
-    <fieldset class="form-group">
-        <div class="form-group">
-            {{ form.root_hash.label(class="form-control-label") }}
-            {% if form.root_hash.errors %}
-                {{ form.root_hash(class="form-control form-control-sm ml-4 mr-4 is-invalid", autocomplete="off") }}
-                <div class="invalid-feedback">
-                    {% for error in form.root_hash.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.root_hash(class="form-control form-control-sm ml-4 mr-4", autocomplete="off") }}
-            {% endif %}
-        </div>
-    </fieldset>
+    {{ form.machine_id(id="machine-id-root") }}
     <div class="form-group">
-        {{ form.submit_root_hash(class="btn btn-dark btn-hover-red") }}
+        {{ form.root_hash.label(class="form-control-label") }}
+        {{ form.root_hash(
+                class="ml-3 mr-3 is-invalid",
+                size=24,
+                minlength=32,
+                maxlength=32,
+                autocomplete="off"
+            ) 
+        }}
+        {{ form.submit_root_hash(class="btn btn-sm btn-dark btn-hover-red") }}
     </div>
 </form>
 

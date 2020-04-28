@@ -3,10 +3,16 @@ import os
 from flask import Flask
 
 from FlaskRTBCTF.config import Config
-from FlaskRTBCTF.admin.views import BaseModelView, UserAdminView, MachineAdminView
+from FlaskRTBCTF.admin.views import (
+    BaseModelView,
+    UserAdminView,
+    MachineAdminView,
+    NotificationAdminView,
+)
 from FlaskRTBCTF.utils import (
     db,
     bcrypt,
+    cache,
     login_manager,
     admin_manager,
     mail,
@@ -30,6 +36,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     bcrypt.init_app(app)
+    cache.init_app(app)
     login_manager.init_app(app)
     admin_manager.init_app(app)
     mail.init_app(app)
@@ -39,7 +46,7 @@ def create_app(config_class=Config):
     # Add model views for admin control
     admin_manager.add_view(UserAdminView(User, db.session))
     admin_manager.add_view(MachineAdminView(Machine, db.session))
-    admin_manager.add_view(BaseModelView(Notification, db.session))
+    admin_manager.add_view(NotificationAdminView(Notification, db.session))
     admin_manager.add_view(BaseModelView(Logs, db.session))
 
     for _bp in _blueprints:

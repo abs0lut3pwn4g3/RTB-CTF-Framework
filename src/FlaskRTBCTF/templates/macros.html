@@ -14,3 +14,36 @@
     {% endif %}
 
 {% endmacro %}
+
+<!-- Radio field -->
+{% macro form_select_field(field) %}
+
+    {{ field.label(class="form-control-label") }}
+    <div class="col-6 d-flex justify-content-between">
+        {% for subfield in field %}
+            <span >
+                <span>{{ subfield }}</span>
+                <span>{{ subfield.label }}</span>
+            </span>
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+
+<!-- Inline Field Group Macro -->
+{% macro inline_field(field, size) %}
+
+    {{ field.label() }}
+    {% if field.errors %}
+        {{ field(size=size, maxlength=size, class="m-auto", autocomplete="off") }}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ field(size=size, maxlength=size, class="m-auto", autocomplete="off") }}
+    {% endif %}
+
+{% endmacro %}

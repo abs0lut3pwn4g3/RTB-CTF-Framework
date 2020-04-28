@@ -1,7 +1,40 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, HiddenField
-from wtforms.validators import DataRequired, Length, ValidationError
+from wtforms import StringField, SubmitField, HiddenField, RadioField
+from wtforms.validators import DataRequired, Length, ValidationError, IPAddress
+from wtforms.fields.html5 import IntegerField
 from .models import Machine
+
+
+class MachineForm(FlaskForm):
+    name = StringField("Name", validators=[DataRequired(), Length(min=4, max=32)])
+    os = RadioField(
+        "Operating System of machine",
+        validators=[DataRequired()],
+        choices=(("linux", "Linux"), ("windows", "Windows"), ("android", "Android")),
+    )
+    user_hash = StringField(
+        "User Hash", validators=[DataRequired(), Length(min=32, max=32)]
+    )
+    root_hash = StringField(
+        "Root Hash", validators=[DataRequired(), Length(min=32, max=32)]
+    )
+    user_points = IntegerField("Points for User Hash", validators=[DataRequired()])
+    root_points = IntegerField("Points for Root Hash", validators=[DataRequired()])
+    ip = StringField(
+        "IPv4 address of machine", validators=[DataRequired(), IPAddress()]
+    )
+    hardness = RadioField(
+        "Difficuly Level",
+        validators=[DataRequired()],
+        choices=(
+            ("easy", "Easy"),
+            ("medium", "Medium"),
+            ("hard", "Hard"),
+            ("insane", "Insane"),
+        ),
+    )
+
+    submit = SubmitField("Submit")
 
 
 class UserHashForm(FlaskForm):
@@ -30,7 +63,7 @@ class RootHashForm(FlaskForm):
         box = Machine.query.get(int(self.machine_id.data))
         if not box:
             raise ValidationError("No machine with that ID exists")
-        elif box.user_hash == str(root_hash.data):
+        elif box.root_hash == str(root_hash.data):
             pass
         else:
             raise ValidationError("Incorrect Root Hash.")

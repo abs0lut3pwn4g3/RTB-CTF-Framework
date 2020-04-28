@@ -4,6 +4,7 @@
     <div class="content-section">
     {% if scores %}
         <h2 class="title-heading">Scoreboard</h2>
+        <small>Note: Updated every 2 minutes.</small>
         <div class="table-responsive">
             <table class="table custom-table table-borderless">
                 <thead>
@@ -15,17 +16,17 @@
                 </thead>
                 <tbody>
                 {% for score in scores %}
-                    {% if loop.index%2 != 0 %}
+                    {% if ( loop.index % 2 != 0 ) %}
                         <tr class="table-row-odd">
                             <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score['username'] }}</td>
-                            <td>{{ score['score'] }}</td>
+                            <td>{{ score[0] }}</td>
+                            <td>{{ score[1] }}</td>
                         </tr>
                     {% else %}
                         <tr class="table-row-odd">
                             <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score['username'] }}</td>
-                            <td>{{ score['score'] }}</td>
+                            <td>{{ score[0] }}</td>
+                            <td>{{ score[1] }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}

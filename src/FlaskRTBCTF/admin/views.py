@@ -1,6 +1,6 @@
 """ Admin Model Views. """
 
-from flask import abort, redirect, flash
+from flask import abort, redirect, flash, url_for, request
 from flask_login import current_user
 from flask_admin import expose
 from flask_admin.form import SecureForm
@@ -32,6 +32,7 @@ class BaseModelView(ModelView):
 
 class UserAdminView(BaseModelView):
     column_exclude_list = ("password",)
+    form_exclude_list = ("password",)
     column_searchable_list = ("username", "email")
 
     @expose("/new/")
@@ -42,6 +43,17 @@ class UserAdminView(BaseModelView):
 
 class MachineAdminView(BaseModelView):
     column_searchable_list = ("name", "ip")
-    form_choices = {
-        "hardness": [("easy", "Easy"), ("medium", "Medium"), ("hard", "Hard")]
-    }
+
+    @expose("/new/")
+    def create_view(self):
+        return redirect(url_for("ctf.new_machine"))
+
+    @expose("/edit/")
+    def edit_view(self):
+        id = int(request.args["id"])
+        return redirect(url_for("ctf.edit_machine", id=id))
+
+
+class NotificationAdminView(BaseModelView):
+    column_searchable_list = ("title",)
+    form_excluded_columns = ("timestamp",)
