@@ -7,6 +7,7 @@ from flask import Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import current_user, login_required
 
 from FlaskRTBCTF.users.models import User, Logs
+from FlaskRTBCTF.ctf.models import UserMachine
 from FlaskRTBCTF.utils import db, cache, is_past_running_time, admin_only
 from .models import Machine
 from .forms import UserHashForm, RootHashForm, MachineForm
@@ -39,6 +40,7 @@ def machines():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
 
+    machine_id = userHashForm.machine_id.data
     boxes = Machine.get_all()
     past_running_time = is_past_running_time()
 
@@ -57,27 +59,30 @@ def machines():
             flash("Sorry! CTF has ended.", "danger")
             return redirect(url_for("ctf.machines"))
 
-        """
-           Todo: Get Object from UserMachine Model, dummy object given below
-        """
-        # user_machine: object = {
-        #     "machine_id": 1,
-        #     "user_id": 1,
-        #     "owned_user": False,
-        #     "owned_root": False,
-        # }
+        user_machine = UserMachine.query.filter_by(
+            user_id=current_user.id, machine_id=machine_id
+        ).first()
 
-        # if user_machine.owned_user:
-        #     flash("You already own User.", "success")
-        #     return redirect(url_for("ctf.machines"))
+        if not user_machine:
+            user_machine = UserMachine(
+                user_id=current_user.id,
+                machine_id=machine_id,
+                owned_user=False,
+                owned_root=False,
+            )
+            db.session.add(user_machine)
 
-        # elif user_machine.owned_root:
-        #     flash("You already own System.", "success")
-        #     return redirect(url_for("ctf.machines"))
+        if user_machine.owned_user:
+            flash("You already own User.", "success")
+            return redirect(url_for("ctf.machines"))
+
+        elif user_machine.owned_root:
+            flash("You already own System.", "success")
+            return redirect(url_for("ctf.machines"))
 
         if userHashForm.submit_user_hash.data and userHashForm.validate_on_submit():
             box = Machine.query.get(int(userHashForm.machine_id.data))
-            # user_machine.owned_user = True
+            user_machine.owned_user = True
             current_user.points += box.user_points
             log = Logs.query.get(current_user.id)
             log.userSubmissionIP = request.access_route[0]
@@ -89,7 +94,7 @@ def machines():
 
         elif rootHashForm.submit_root_hash.data and rootHashForm.validate_on_submit():
             box = Machine.query.get(int(rootHashForm.machine_id.data))
-            # user_machine.owned_root = True
+            user_machine.owned_root = True
             current_user.points += box.root_points
             log = Logs.query.get(current_user.id)
             log.rootSubmissionIP = request.access_route[0]

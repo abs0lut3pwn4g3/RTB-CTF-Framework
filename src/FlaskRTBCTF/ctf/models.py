@@ -20,3 +20,11 @@ class Machine(db.Model):
     def get_all():
         _machines = Machine.query.all()
         return _machines
+
+
+class UserMachine(db.Model):
+    __tablename__ = "userMachine"
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), primary_key=True)
+    machine_id = db.Column(db.Integer, db.ForeignKey("machine.id"), primary_key=True)
+    owned_user = db.Column(db.Boolean, default=False)
+    owned_root = db.Column(db.Boolean, default=False)
