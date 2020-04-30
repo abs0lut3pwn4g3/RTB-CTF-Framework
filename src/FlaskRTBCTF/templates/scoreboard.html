@@ -16,19 +16,11 @@
                 </thead>
                 <tbody>
                 {% for score in scores %}
-                    {% if ( loop.index % 2 != 0 ) %}
-                        <tr class="table-row-odd">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score[0] }}</td>
-                            <td>{{ score[1] }}</td>
-                        </tr>
-                    {% else %}
-                        <tr class="table-row-odd">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score[0] }}</td>
-                            <td>{{ score[1] }}</td>
-                        </tr>
-                    {% endif %}
+                    <tr class="table-row-odd">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ score.username }}</td>
+                        <td>{{ score.points(id=score.id) }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

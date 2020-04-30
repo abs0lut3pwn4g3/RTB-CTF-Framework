@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, HiddenField, RadioField
 from wtforms.validators import DataRequired, Length, ValidationError, IPAddress
 from wtforms.fields.html5 import IntegerField
-from .models import Machine
+from .models import Machine, Challenge
 
 
 class MachineForm(FlaskForm):
@@ -23,7 +23,7 @@ class MachineForm(FlaskForm):
     ip = StringField(
         "IPv4 address of machine", validators=[DataRequired(), IPAddress()]
     )
-    hardness = RadioField(
+    difficulty = RadioField(
         "Difficuly Level",
         validators=[DataRequired()],
         choices=(
@@ -67,3 +67,16 @@ class RootHashForm(FlaskForm):
             pass
         else:
             raise ValidationError("Incorrect Root Hash.")
+
+
+class ChallengeFlagForm(FlaskForm):
+    challenge_id = HiddenField("Challenge ID", validators=[DataRequired()])
+    flag = StringField("Flag", validators=[DataRequired(), Length(min=4)])
+    submit_flag = SubmitField("Submit")
+
+    def validate_flag(self, flag):
+        ch = Challenge.query.get(int(self.challenge_id.data))
+        if not ch:
+            raise ValidationError("No challenge with that ID exists")
+        elif ch.flag != str(flag.data):
+            raise ValidationError("Incorrect flag.")

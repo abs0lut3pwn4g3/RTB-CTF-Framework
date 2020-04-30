@@ -7,12 +7,27 @@ $(document).ready( function() {
         }
     );
 
-    // modal
-    $('#m-form').on('show.bs.modal', function (event) {
+    // machine user hash submission modal
+    $('#m-form-user').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget);
         const boxId = button.data('boxid'); // Extract info from data-* attributes
         var modal = $(this);
         modal.find('#machine-id-user').val(boxId);
+    })
+
+    // machine root hash submission modal
+    $('#m-form-root').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
+        const boxId = button.data('boxid'); // Extract info from data-* attributes
+        var modal = $(this);
         modal.find('#machine-id-root').val(boxId);
     })
+
+    // challenge flag submission
+    $('#c-form').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget);
+        const challengeId = button.data('chid'); // Extract info from data-* attributes
+        $(this).find('#challenge-id').val(challengeId);
+    })
+
 });

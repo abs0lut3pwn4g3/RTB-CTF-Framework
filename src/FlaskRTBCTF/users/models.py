@@ -4,7 +4,10 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 from flask_login import UserMixin
 
-from FlaskRTBCTF import db, login_manager
+from ..ctf.models import UserChallenge, Challenge, UserMachine, Machine
+from ..utils.models import db
+from ..utils.cache import cache
+from ..utils.login_manager import login_manager
 
 
 @login_manager.user_loader
@@ -12,9 +15,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# User Table
-
-
+# User Model
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +23,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(88), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
-    points = db.Column(db.Integer, nullable=False, default=0)
     logs = db.relationship("Logs", backref="user", lazy=True, uselist=False)
 
     def get_reset_token(self, expires_sec=1800):
@@ -38,13 +38,37 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
+    @staticmethod
+    @cache.memoize(timeout=3600 * 3)
+    def points(id):
+        challenge_ids = UserChallenge.completed_challenges(user_id=id)
+        machine_ids = UserMachine.completed_machines(user_id=id)
+        points = 0
+        for id in challenge_ids:
+            points += (
+                Challenge.query.with_entities(Challenge.points)
+                .filter_by(id=id)
+                .scalar()
+            )
+        for id in machine_ids["user"]:
+            points += (
+                Machine.query.with_entities(Machine.user_points)
+                .filter_by(id=id)
+                .scalar()
+            )
+        for id in machine_ids["root"]:
+            points += (
+                Machine.query.with_entities(Machine.root_points)
+                .filter_by(id=id)
+                .scalar()
+            )
+        return points
+
     def __repr__(self):
         return f"User('{self.username}', '{self.email}'))"
 
 
-# Logging Table
-
-
+# User's Logs Model
 class Logs(db.Model):
     __tablename__ = "logs"
     user_id = db.Column(

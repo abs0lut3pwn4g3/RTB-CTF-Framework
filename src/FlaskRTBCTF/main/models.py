@@ -5,28 +5,23 @@ from datetime import datetime, date, time, timedelta
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from FlaskRTBCTF.utils import db, cache
+from FlaskRTBCTF.utils.models import db, TimeMixin, ReprMixin
+from FlaskRTBCTF.utils.cache import cache
 
 
-# Notifications Table
-
-
-class Notification(db.Model):
+# Notifications Model
+class Notification(TimeMixin, ReprMixin, db.Model):
     __tablename__ = "notification"
+    __repr_fields__ = ("title",)
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64), nullable=False)
     body = db.Column(db.TEXT(), nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f"Notif('{self.title}', '{self.body}')"
 
 
-# Settings Table
-
-
-class Settings(db.Model):
+# Settings Model
+class Settings(ReprMixin, db.Model):
     __tablename__ = "settings"
+    __repr_fields__ = ("ctf_name", "organization_name")
     id = db.Column(db.Integer, primary_key=True)
     dummy = db.Column(db.Boolean, nullable=False, default=True)
     ctf_name = db.Column(db.String(64), nullable=False, default="RootTheBox CTF")
@@ -42,7 +37,7 @@ class Settings(db.Model):
     to_time = db.Column(db.Time, nullable=False, default=time())
 
     @staticmethod
-    @cache.cached(timeout=3600 * 3, key_prefix="settings")
+    @cache.cached(timeout=3600 * 6, key_prefix="settings")
     def get_settings():
         return Settings.query.get(1)
 
@@ -54,27 +49,20 @@ class Settings(db.Model):
     def running_time_to(self):
         return datetime.combine(self.to_date, self.to_time)
 
-    def __repr__(self):
-        return f"CTF('{self.ctf_name},'{self.organization_name}')"
 
-
-# Websites Table
-
-
-class Website(db.Model):
+# Websites Model
+class Website(ReprMixin, db.Model):
     __tablename__ = "website"
+    __repr_fields__ = ("id", "name", "url")
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(
-        db.TEXT(), nullable=False, default="https://Abs0lut3Pwn4g3.github.io/"
+        db.TEXT(),
+        nullable=False,
+        default="https://github.com/Abs0lut3Pwn4g3/RTB-CTF-Framework",
     )
-    name = db.Column(
-        db.TEXT(), nullable=False, default="Official Abs0lut3Pwn4g3 Website"
-    )
+    name = db.Column(db.TEXT(), nullable=False, default="Source code on GitHub")
 
     @staticmethod
     @cache.cached(timeout=3600 * 6, key_prefix="websites")
     def get_websites():
         return Website.query.all()
-
-    def __repr__(self):
-        return f"Website('{self.name}','{self.url}')"

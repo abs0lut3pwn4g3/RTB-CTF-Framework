@@ -167,3 +167,25 @@
 </form>
 
 {% endmacro %}
+
+
+<!-- User Hash Form -->
+{% macro challenge_flag_submission_form(form) %}
+
+<form class="form-inline" method="POST" action="{{ url_for('ctf.challenges') }}">
+    {{ form.csrf_token() }}
+    {{ form.challenge_id(id="challenge-id") }}
+    <div class="form-group">
+        {{ form.flag.label(class="form-control-label") }}
+        {{ form.flag(
+                class="ml-3 mr-3 is-invalid",
+                size=28,
+                minlength=4,
+                autocomplete="off"
+            )
+        }}
+        {{ form.submit_flag(class="btn btn-sm btn-dark btn-hover-red") }}
+    </div>
+</form>
+
+{% endmacro %}
