@@ -1,5 +1,4 @@
 from flask import render_template, Blueprint, redirect, url_for, request, flash
-from flask_login import login_required
 
 from .models import Notification, Settings, Website
 from .forms import SettingsForm, WebsiteForm
@@ -8,18 +7,21 @@ from FlaskRTBCTF.utils import admin_only
 main = Blueprint("main", __name__)
 
 
-""" Index page """
+""" Before app request processor """
 
 
-@main.before_request
+@main.before_app_request
 def needs_setup():
     settings = Settings.get_settings()
     if settings.dummy:
-        if request.endpoint not in ("main.setup", "users.login"):
+        if request.endpoint not in ("main.setup", "users.login", "static"):
             flash("Please setup the CTF, before accessing any routes.", "info")
             return redirect(url_for("main.setup"))
     else:
         return
+
+
+""" Index page """
 
 
 @main.route("/")
@@ -36,13 +38,12 @@ def home():
 
 @main.route("/notifications")
 def notifications():
-    notifs = Notification.query.order_by(Notification.timestamp.desc()).all()
+    notifs = Notification.query.order_by(Notification.updated_on.desc()).all()
 
     return render_template("notifications.html", title="Notifications", notifs=notifs)
 
 
 @main.route("/setup", methods=["GET", "POST"])
-@login_required
 @admin_only
 def setup():
     website_form_data = {"names": list(), "urls": list()}

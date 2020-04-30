@@ -5,7 +5,7 @@ import secrets
 from datetime import datetime
 
 from .cache import cache
-from FlaskRTBCTF.main.models import Settings, Website
+from ..main.models import Settings, Website
 
 
 def handle_secret_key(default="you-will-never-guess"):
@@ -41,3 +41,15 @@ def is_past_running_time():
     end_date_time = Settings.get_settings().running_time_to
     current_date_time = datetime.utcnow()
     return current_date_time > end_date_time
+
+
+def clear_points_cache(userId, mode):
+    from ..ctf.models import UserChallenge, UserMachine
+    from ..users.models import User
+
+    cache.delete(key="scoreboard")
+    if mode == "c":
+        cache.delete_memoized(UserChallenge.completed_challenges, UserChallenge, userId)
+    elif mode == "m":
+        cache.delete_memoized(UserMachine.completed_machines, UserMachine, userId)
+    cache.delete_memoized(User.points, userId)

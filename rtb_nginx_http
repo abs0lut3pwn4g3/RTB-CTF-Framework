@@ -1,0 +1,16 @@
+# the upstream component nginx needs to connect to
+upstream flask {
+    server rtbctf:8000 fail_timeout=30s;
+}
+
+
+server {
+    listen 80;
+
+    server_name rtbctf.com;
+
+    location / {
+        proxy_pass http://localhost:8000/
+   }
+
+}

@@ -39,17 +39,17 @@ class SettingsForm(FlaskForm):
 
                 db.session.commit()
 
+                cache.delete(key="past_running_time")
+                cache.delete(key="settings")
+                return redirect(url_for("main.setup", step=3))
+
             except SQLAlchemyError:
                 db.session.rollback()
                 flash("Transaction failed. Please try again.", "danger")
                 return redirect(url_for("main.setup"), step=2)
 
-            finally:
-                cache.delete(key="past_running_time")
-                cache.delete(key="settings")
-                return redirect(url_for("main.setup", step=3))
-
         else:
+            flash("Form validation failed. Please try again.", "danger")
             return redirect(url_for("main.setup", step=2))
 
 

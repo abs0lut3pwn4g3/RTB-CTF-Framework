@@ -10,9 +10,9 @@
   <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework" target="_blank">
     <img alt="Build Status" src="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework.svg?branch=gssoc20-dev"/>
   </a>
-  <!-- <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
+  <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
   	<img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
-  </a> -->
+  </a>
   <a href="https://github.com/psf/black" target="_blank">
     <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/>
   </a>
@@ -30,23 +30,16 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 ## Features
 
-##### For CTF hosters
-* A page to show relevant details about the machine such as name, IP, OS, points and difficulty level. 
+* Machines listing with fields: name, IP, OS, points and difficulty level.
+* Challenges listing with fields: title, description, URL, points.
+* Totally configurable settings such running time, organization details, CTF name.
 * Automatic strong password for administrator
 * Well implemented controls for administrators providing features such as issuing notifications, database CRUD operations, full fledged logging,
 * Simple User Registration/login process, account management, Forgot password functionalities,
 * Flag submission (currently 2 flags: user and root),
 * Real time scoreboard tracking,
-* Easily deployable on Heroku. 
-
-##### For Developers & Contributors
-* Flask-blueprints for modularity and clean codebase,
-* Flask-admin for Admin views and easy realtime management,
-* Flask-SQLAlchemy for SQL models, 
-* Flask-login for session handling,
-* Flask-wtf for responsive forms,
-* Flask-mail for mail service,
-* Flask-bcrypt for password hashing and security,
+* Efficient caching so it's fast
+* Easily deployable on Heroku.
 
 ## Build locally
 
@@ -95,11 +88,6 @@ Please see [INSTALLATION.md](INSTALLATION.md).
 
 For further guidelines, Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
 
-## Screenshots
+## Live Demo
 
-> Why look at static pictures, when you can use a demo ? Visit: <https://rtblivedemo.herokuapp.com/>.
-
-<img src="screenshots/home_ss.png" width=400 />
-<img src="screenshots/scoreboard_ss.png" width=400 />
-<img src="screenshots/machine_ss.png" width=400 />
-
+**Live Demo:** <https://rtblivedemo.herokuapp.com/> (login with `admin:admin`)

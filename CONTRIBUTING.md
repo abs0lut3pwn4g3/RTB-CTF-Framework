@@ -43,7 +43,7 @@ $ black .
 ```
 
 ```bash
-$ flake8 src/ ---max-line-length=88 --show-source --statistics
+$ flake8 src/ --max-line-length=88 --show-source --statistics
 ```
 
 if flake8 shows any errors or warnings, please fix the changes in a new commit and squash all the commits into one before submitting the PR.
