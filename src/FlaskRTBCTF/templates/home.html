@@ -5,14 +5,11 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
             <h1 class="display-5">Welcome to {{ settings.ctf_name }}</h1>
-            {% if current_user.is_authenticated %}
-                <p class="lead">
-                    If you owned the box then you can submit the hashes 
-                    <a class="red-underlined-link" href="{{ url_for('ctf.machines') }}">here</a>.
-                </p>
-            {% else %}
-                <p class="lead">You need to <a class="red-underlined-link" href="{{ url_for('users.login') }}">login</a> first.</p>
-            {% endif %}
+            <p class="lead">
+                This is a <b>demo</b>. Admin credentials are: username:<code>admin</code>, password:<code>admin</code>
+                Checkout the <a class="red-underlined-link" href="/admin">admin controls</a> and 
+                <a class="red-underlined-link" href="/setup">CTF setup</a>.
+            </p>
       </div>
     </div>
 </div>
