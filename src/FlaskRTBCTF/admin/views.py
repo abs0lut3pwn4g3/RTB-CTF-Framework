@@ -55,6 +55,7 @@ class UserAdminView(BaseModelView):
 
 class MachineAdminView(BaseModelView):
     can_view_details = True
+    column_exclude_list = ("user_hash", "root_hash", "updated_on")
     column_searchable_list = ("name", "ip")
 
     @expose("/new/")
@@ -69,6 +70,7 @@ class MachineAdminView(BaseModelView):
 
 class ChallengeAdminView(BaseModelView):
     can_view_details = True
+    column_exclude_list = ("description", "flag", "url")
     column_searchable_list = ("title", "url")
     form_choices = {
         "difficulty": [

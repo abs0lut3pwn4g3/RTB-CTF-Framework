@@ -2,7 +2,8 @@ version: "3"
 
 services:
   rtbctf:
-    image: eshaan7/rtb-ctf-framework
+    build: .
+    container_name: rtb_gunicorn
     restart: unless-stopped
     expose:
       - "8000"
