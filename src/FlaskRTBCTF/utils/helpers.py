@@ -4,6 +4,8 @@ import os
 import secrets
 from datetime import datetime
 
+from flask import flash
+
 from .cache import cache
 from ..main.models import Settings, Website
 
@@ -32,6 +34,8 @@ def handle_admin_email(default="admin@admin.com"):
 def inject_app_context():
     settings = Settings.get_settings()
     websites = Website.get_websites()
+    if settings.dummy:
+        flash("Please setup the CTF by going to /setup.", "info")
 
     return dict(settings=settings, websites=websites)
 

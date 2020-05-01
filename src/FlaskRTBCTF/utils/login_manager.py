@@ -17,10 +17,10 @@ def admin_only(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.is_authenticated and current_user.isAdmin:
-            return f(*args, **kwargs)
-        else:
-            flash("You are not authorized to perform this operation.", "danger")
-            return redirect("/")
+        if current_user:
+            if current_user.is_authenticated and current_user.isAdmin:
+                return f(*args, **kwargs)
+        flash("You are not authorized to perform this operation.", "danger")
+        return redirect("/login")
 
     return decorated_function

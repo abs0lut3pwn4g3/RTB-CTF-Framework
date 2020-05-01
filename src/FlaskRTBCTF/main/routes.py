@@ -1,24 +1,10 @@
-from flask import render_template, Blueprint, redirect, url_for, request, flash
+from flask import render_template, Blueprint, redirect, url_for, request
 
 from .models import Notification, Settings, Website
 from .forms import SettingsForm, WebsiteForm
 from FlaskRTBCTF.utils import admin_only
 
 main = Blueprint("main", __name__)
-
-
-""" Before app request processor """
-
-
-@main.before_app_request
-def needs_setup():
-    settings = Settings.get_settings()
-    if settings.dummy:
-        if request.endpoint not in ("main.setup", "users.login", "static"):
-            flash("Please setup the CTF, before accessing any routes.", "info")
-            return redirect(url_for("main.setup"))
-    else:
-        return
 
 
 """ Index page """
