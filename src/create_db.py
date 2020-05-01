@@ -18,6 +18,7 @@ def populate_tags():
     db.session.add(Tag(label="osint", color="#CB7303"))
     db.session.add(Tag(label="binary", color="#AE1438"))
     db.session.add(Tag(label="forensics", color="#2B2B52"))
+    db.session.add(Tag(label="programming", color="#2B2B52"))
 
 
 def populate_categories():
@@ -28,6 +29,8 @@ def populate_categories():
         "steganography",
         "cryptography",
         "OSINT",
+        "scripting",
+        "networking",
         "misc",
     ]
     for name in category_names:
