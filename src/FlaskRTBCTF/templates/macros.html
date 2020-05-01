@@ -1,0 +1,70 @@
+<!-- Field Group Macro -->
+{% macro form_field_group_macro(field) %}
+
+    {{ field.label(class="form-control-label") }}
+    {% if field.errors %}
+        {{ field(class="form-control is-invalid", autocomplete="off") }}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ field(class="form-control", autocomplete="off") }}
+    {% endif %}
+
+{% endmacro %}
+
+<!-- Radio field -->
+{% macro form_select_field(field) %}
+
+    {{ field.label(class="form-control-label") }}
+    <div class="col-6 d-flex justify-content-between">
+        {% for subfield in field %}
+            <span >
+                <span>{{ subfield }}</span>
+                <span>{{ subfield.label }}</span>
+            </span>
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+
+<!-- Inline Field Group Macro -->
+{% macro inline_field(field, size) %}
+
+    {{ field.label() }}
+    {% if field.errors %}
+        {{ field(size=size, class="m-auto", autocomplete="off") }}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ field(size=size, class="m-auto", autocomplete="off") }}
+    {% endif %}
+
+{% endmacro %}
+
+
+<!-- Flags Submission Modal -->
+{% macro render_modal(modalId, title, form_macro1, form1, form_macro2=None, form2=None) %}
+
+<div class="modal fade" id="{{ modalId }}" tabindex="-1" role="dialog" aria-labelledby="{{ modalId }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="content-section modal-content">
+            <h4 class="title-heading border-bottom">{{ title }}</h4>
+            <div class="modal-body mx-0 px-0">
+             {% if form_macro1 %}  {{ form_macro1(form=form1) }}  {% endif %}
+             {% if form_macro2 %}  <hr/> {{ form_macro2(form=form2) }}  {% endif %}
+            </div>
+            <div class="justify-content-start px-0 modal-footer">
+                <button type="button" class="m-0 btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

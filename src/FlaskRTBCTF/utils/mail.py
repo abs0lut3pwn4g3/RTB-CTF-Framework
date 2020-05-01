@@ -1,8 +1,7 @@
-""" Utility Functions. """
-
 from flask import url_for
-from flask_mail import Message
-from FlaskRTBCTF import mail
+from flask_mail import Mail, Message
+
+mail = Mail()
 
 
 def send_reset_email(user):

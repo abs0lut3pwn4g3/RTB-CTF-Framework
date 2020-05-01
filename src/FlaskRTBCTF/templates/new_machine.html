@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% from "macros.html" import form_field_group_macro, form_select_field, inline_field %}
+
+{% block content %}
+
+<!-- Machine Form -->
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+                <legend class="border-bottom mb-4">{{ form_title }}</legend>
+                <div class="d-flex form-group">
+                    {{ inline_field(field=form.name, size=20) }}
+                    {{ inline_field(field=form.ip, size=15) }}
+                </div>
+                <div class="form-group">
+                    {{ form_select_field(field=form.os) }}
+                </div>
+                <div class="d-flex form-group">
+                    {{ inline_field(field=form.user_hash, size=25) }}
+                    {{ inline_field(field=form.user_points, size=5) }}
+                </div>
+                <div class="d-flex form-group">
+                    {{ inline_field(field=form.root_hash, size=25) }}
+                    {{ inline_field(field=form.root_points, size=5) }}
+                </div>
+                <div class="form-group">
+                    {{ form_select_field(field=form.difficulty) }}
+                </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-dark btn-hover-red") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-light">
+            Note: Hashes should be 32 length each.
+        </small>
+    </div>
+
+{% endblock content %}

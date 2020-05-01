@@ -23,4 +23,6 @@ six==1.14.0
 SQLAlchemy==1.3.16
 Werkzeug==1.0.1
 WTForms==2.2.1
-pytest-flake8==1.0.4 
+tablib==1.1.0
+Flask-Caching==1.8.0
+redis==3.4.1

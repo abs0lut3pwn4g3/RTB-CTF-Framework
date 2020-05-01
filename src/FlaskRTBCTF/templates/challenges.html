@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% from "forms.html" import challenge_flag_submission_form %}
+{% from "macros.html" import render_modal %}
+{% block content %}
+
+{% if current_user.isAdmin %}
+<a href="/admin/challenge/new" class="red-underlined-link">Add new</a>
+{% endif %}
+
+
+{% for category in categories %}
+
+<h3 class="mt-3 title-heading text-capitalize"> {{ category.name }} </h3>
+
+    {% with challenges = category.challenges %}
+    {% for chal in challenges %}
+    <div class="accordion" id="challenge-{{ category.name }}-{{ loop.index }}">
+
+        <div class="content-section">
+            <!-- Bar -->
+            <i class="mr-2 fas fa-terminal"></i>
+            <a class="red-link" data-toggle="collapse" data-target="#c-collapse-{{ category.name }}-{{ loop.index }}"
+                aria-controls="c-collapse-{{ category.name }}-{{ loop.index }}">
+                {{ chal['title'] }}
+            </a>
+            <span class="float-right">
+                {% if chal['id'] in completed %}
+                    <i data-toggle="tooltip" title="completed" class="ml-2 far fa-check-circle"></i>
+                {% elif is_finished %}
+                    <i data-toggle="tooltip" title="CTF time's up" class="ml-2 fas fa-hourglass-end"></i>
+                {% else %}
+                    <a class="btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#c-form" data-chId="{{ chal['id'] }}">
+                        <i class="far fa-flag" data-toggle="tooltip" title="submit flag">
+                        </i>
+                    </a>
+                {% endif %}
+                    <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="tooltip" title="rate challenge (coming soon)">
+                        <i class="far fa-star"></i>
+                    </a>
+            </span>
+            <!-- !Bar -->
+            <div id="c-collapse-{{ category.name }}-{{ loop.index }}" class="collapse" data-parent="#challenge-{{ category.name }}-{{ loop.index }}">
+
+                <!-- Challenge info -->
+                <div class="mt-3 content-section">
+                    <div class="card-top">
+                        <span class="d-flex align-items-center">
+                            <h5>#{{ chal['id'] }}</h5>
+                            <h6>
+                                &nbsp;-&nbsp;<code>{{ chal['updated_on'].strftime("%Y-%m-%d %I:%M %p %Z") }}</code>
+                            </h6>
+                        </span>
+                        <span class="tags-container">
+                            {% for tag in chal['tags'] %}
+                                <span style="background-color: {{ tag['color'] }}; color: white;"
+                                    class="tag">{{ tag['label'] }}
+                                </span>
+                            {% endfor %}
+                        </span>
+                    </div>
+                    <div class="mt-2 card-text">
+                        <p>{{ chal['description'] |e }}</p>
+                    </div>
+                    <div class="mt-2 flex-row">
+                        <h6 class="my-3">
+                            <i class="mr-2 fas fa-gamepad"></i>
+                            <a href="{{ chal['url'] }}" target="_blank" class="strong red-underlined-link">{{ chal['url'] }}</a>
+                        </h6>
+                        <h6 class="my-3"><i class="mr-2 fas fa-crosshairs"></i><b>{{ chal['points'] }} points</b></h6>
+                        <h6 class="my-3"><i class="mr-2 fas fa-certificate"></i><b class="text-capitalize">{{ chal['difficulty'] }}</b></h6>
+                    </div>
+                </div>
+                <!-- !Challenge info -->
+
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+    {% endwith %}
+
+{% endfor %}
+
+
+<!-- Flag Submission Forms Modal -->
+{{ render_modal(
+        modalId="c-form", title="Submit Flag", form_macro1=challenge_flag_submission_form, form1=form
+    ) 
+}}
+
+{% endblock content %}

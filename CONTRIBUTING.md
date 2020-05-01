@@ -24,9 +24,10 @@
 
 ## This project makes use of the following Flask libraries
 
-* Flask-blueprints for modularity and clean codebase,
+* Blueprints for modularity and clean codebase,
 * Flask-admin for Admin views and easy realtime management,
-* Flask-SQLAlchemy for SQL models, 
+* Flask-SQLAlchemy for SQL models,
+* Flask-Caching with redis for efficient caching,
 * Flask-login for session handling,
 * Flask-wtf for responsive forms,
 * Flask-mail for mail service,
@@ -43,7 +44,7 @@ $ black .
 ```
 
 ```bash
-$ flake8 src/ flake8 . ---max-line-length=88 --show-source --statistics
+$ flake8 src/ --max-line-length=88 --show-source --statistics
 ```
 
 if flake8 shows any errors or warnings, please fix the changes in a new commit and squash all the commits into one before submitting the PR.

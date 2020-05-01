@@ -1,22 +1,17 @@
 from datetime import datetime
 import pytz
 
-from FlaskRTBCTF.users.forms import (
+from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask_login import login_user, current_user, logout_user, login_required
+
+from FlaskRTBCTF.utils import db, bcrypt, send_reset_email
+from .forms import (
     RegistrationForm,
     LoginForm,
     RequestResetForm,
     ResetPasswordForm,
 )
-from FlaskRTBCTF.users.utils import send_reset_email
-from FlaskRTBCTF.config import organization, LOGGING
-from FlaskRTBCTF.models import User, Score, Machine
-
-from flask import render_template, url_for, flash, redirect, request, Blueprint
-from flask_login import login_user, current_user, logout_user, login_required
-from FlaskRTBCTF import db, bcrypt
-
-if LOGGING:
-    from FlaskRTBCTF.models import Logs
+from .models import User, Logs
 
 
 users = Blueprint("users", __name__)
@@ -28,10 +23,9 @@ users = Blueprint("users", __name__)
 @users.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        flash("Already Authenticated", "info")
+        flash("Already Authenticated.", "info")
         return redirect(url_for("main.home"))
 
-    box = Machine.query.filter(Machine.ip == "127.0.0.1").first()
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -41,29 +35,24 @@ def register():
         user = User(
             username=form.username.data, email=form.email.data, password=hashed_password
         )
-        score = Score(user=user, userHash=False, rootHash=False, points=0, machine=box)
-        if LOGGING:
-            log = Logs(
-                user=user,
-                accountCreationTime=datetime.now(pytz.utc),
-                visitedMachine=False,
-                machineVisitTime=None,
-                userSubmissionTime=None,
-                rootSubmissionTime=None,
-                userSubmissionIP=None,
-                rootSubmissionIP=None,
-            )
-            db.session.add(log)
+        log = Logs(
+            user=user,
+            accountCreationTime=datetime.now(pytz.utc),
+            visitedMachine=False,
+            machineVisitTime=None,
+            userSubmissionTime=None,
+            rootSubmissionTime=None,
+            userSubmissionIP=None,
+            rootSubmissionIP=None,
+        )
 
+        db.session.add(log)
         db.session.add(user)
-        db.session.add(score)
         db.session.commit()
         flash("Your account has been created! You are now able to log in.", "success")
         return redirect(url_for("users.login"))
 
-    return render_template(
-        "register.html", title="Register", form=form, organization=organization
-    )
+    return render_template("register.html", title="Register", form=form)
 
 
 @users.route("/login", methods=["GET", "POST"])
@@ -82,9 +71,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for("main.home"))
         else:
             flash("Login Unsuccessful. Please check username and password.", "danger")
-    return render_template(
-        "login.html", title="Login", form=form, organization=organization
-    )
+    return render_template("login.html", title="Login", form=form)
 
 
 @users.route("/logout")
@@ -98,7 +85,7 @@ def logout():
 @users.route("/account")
 @login_required
 def account():
-    return render_template("account.html", title="Account", organization=organization)
+    return render_template("account.html", title="Account")
 
 
 @users.route("/reset_password", methods=["GET", "POST"])
@@ -107,18 +94,18 @@ def reset_request():
         return redirect(url_for("main.home"))
     form = RequestResetForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash(
-            "An email has been sent with instructions to reset your password.", "info"
-        )
-        return redirect(url_for("users.login"))
-    return render_template(
-        "reset_request.html",
-        title="Reset Password",
-        form=form,
-        organization=organization,
-    )
+        try:
+            user = User.query.filter_by(email=form.email.data).first()
+            send_reset_email(user)
+            flash(
+                "An email has been sent with instructions to reset your password.",
+                "info",
+            )
+            return redirect(url_for("users.login"))
+        except Exception:
+            flash("Mail is not setup. Please contact admin directly.", "info")
+            return redirect(request.url)
+    return render_template("reset_request.html", title="Reset Password", form=form)
 
 
 @users.route("/reset_password/<token>", methods=["GET", "POST"])
@@ -129,8 +116,9 @@ def reset_token(token):
     user = User.verify_reset_token(token)
 
     if user is None:
-        flash("That is an invalid or expired token", "warning")
+        flash("That is an invalid or expired token", "danger")
         return redirect(url_for("users.reset_request"))
+
     form = ResetPasswordForm()
 
     if form.validate_on_submit():
@@ -142,6 +130,4 @@ def reset_token(token):
         flash("Your password has been updated! You are now able to log in", "success")
         return redirect(url_for("users.login"))
 
-    return render_template(
-        "reset_token.html", title="Reset Password", form=form, organization=organization
-    )
+    return render_template("reset_token.html", title="Reset Password", form=form)

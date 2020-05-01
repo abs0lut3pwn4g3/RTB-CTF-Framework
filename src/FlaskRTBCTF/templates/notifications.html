@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if current_user.isAdmin %}
+    <a href="/admin/notification/new/" class="ml-2 red-underlined-link">Add new</a>
+{% endif %}
 <div class="content-section">
     {% for notif in notifs %}
         <div class="content-section">
             <h3 class="title-heading">{{ notif['title'] }}</h3>
             <div class="float-right">
-            <small>Notification #{{ notif['id'] }} - posted at <code>{{ notif['timestamp'].strftime("%Y-%m-%d %I:%M %p") }} UTC</code></small>
+            <small>Notification #{{ notif['id'] }} - posted at <code>{{ notif['updated_on'].strftime("%Y-%m-%d %I:%M %p %Z") }}</code></small>
             </div><br/>
             <hr/>
             <p>{{ notif['body'] }}</p>

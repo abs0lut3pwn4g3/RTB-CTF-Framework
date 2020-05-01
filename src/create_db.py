@@ -1,61 +1,112 @@
 import pytz
 from datetime import datetime
 
-from FlaskRTBCTF import create_app, db, bcrypt
-from FlaskRTBCTF.helpers import handle_admin_pass
-from FlaskRTBCTF.models import User, Score, Notification, Machine
-from FlaskRTBCTF.config import organization, LOGGING
-
-if LOGGING:
-    from FlaskRTBCTF.models import Logs
+from FlaskRTBCTF import db, bcrypt, create_app
+from FlaskRTBCTF.main.models import Settings
+from FlaskRTBCTF.ctf.models import Machine, Challenge, Tag, Category
+from FlaskRTBCTF.users.models import User, Logs
+from FlaskRTBCTF.utils.helpers import handle_admin_pass, handle_admin_email
 
 
 app = create_app()
 
-# create_app().app_context().push()
+
+def populate_tags():
+    db.session.add(Tag(label="web", color="#2B2B52"))
+    db.session.add(Tag(label="pwn", color="#BB2CD9"))
+    db.session.add(Tag(label="reversing", color="#218F76"))
+    db.session.add(Tag(label="osint", color="#CB7303"))
+    db.session.add(Tag(label="binary", color="#AE1438"))
+    db.session.add(Tag(label="forensics", color="#2B2B52"))
+
+
+def populate_categories():
+    category_names = [
+        "binary",
+        "web",
+        "forensics",
+        "steganography",
+        "cryptography",
+        "OSINT",
+        "misc",
+    ]
+    for name in category_names:
+        db.session.add(Category(name=name))
+
+
+def populate_websites():
+    from FlaskRTBCTF.main.models import Website
+
+    web1 = Website(
+        name="Official Abs0lut3Pwn4g3 Website", url="https://Abs0lut3Pwn4g3.github.io/",
+    )
+    web2 = Website(name="Twitter", url="https://twitter.com/Abs0lut3Pwn4g3")
+    web3 = Website(
+        name="Source Code on GitHub",
+        url="https://github.com/Abs0lut3Pwn4g3/RTB-CTF-Framework",
+    )
+
+    db.session.add(web1)
+    db.session.add(web2)
+    db.session.add(web3)
+
+
+def populate_challs():
+    box = Machine(
+        name="Dummy Box. Edit/Delete this.",
+        user_hash="A" * 32,
+        root_hash="B" * 32,
+        user_points=10,
+        root_points=20,
+        os="linux",
+        ip="127.0.0.1",
+        difficulty="easy",
+    )
+    db.session.add(box)
+
+    ch1 = Challenge(
+        title="Dummy challenge. Edit/Delete this.",
+        description="blah blah",
+        flag="CTF{test}",
+        points="50",
+        url="https://ch1.example.com/",
+        difficulty="easy",
+        category=Category.query.get(2),
+        tags=[Tag.query.get(1), Tag.query.get(2)],
+    )
+    db.session.add(ch1)
+
+
 with app.app_context():
     db.create_all()
 
     default_time = datetime.now(pytz.utc)
 
-    box = Machine(
-        name="My Awesome Pwnable Box",
-        user_hash="A" * 32,
-        root_hash="B" * 32,
-        user_points=10,
-        root_points=20,
-        os="Linux",
-        ip="127.0.0.1",
-        hardness="You tell",
-    )
-    db.session.add(box)
-
     passwd = handle_admin_pass()
     admin_user = User(
         username="admin",
-        email="admin@admin.com",
+        email=handle_admin_email(),
         password=bcrypt.generate_password_hash(passwd).decode("utf-8"),
         isAdmin=True,
     )
-    admin_score = Score(
-        user=admin_user, userHash=False, rootHash=False, points=0, machine=box
-    )
     db.session.add(admin_user)
-    db.session.add(admin_score)
 
-    notif = Notification(
-        title=f"Welcome to {organization['ctfname']}",
-        body="The CTF is live now. Please read rules!",
+    admin_log = Logs(
+        user=admin_user,
+        accountCreationTime=default_time,
+        visitedMachine=True,
+        machineVisitTime=default_time,
     )
-    db.session.add(notif)
+    db.session.add(admin_log)
 
-    if LOGGING:
-        admin_log = Logs(
-            user=admin_user,
-            accountCreationTime=default_time,
-            visitedMachine=True,
-            machineVisitTime=default_time,
-        )
-        db.session.add(admin_log)
+    db.session.add(Settings(dummy=True))
+
+    populate_tags()
+    populate_categories()
+    populate_websites()
+
+    db.session.commit()
+
+    populate_challs()
 
     db.session.commit()

@@ -4,6 +4,7 @@
     <div class="content-section">
     {% if scores %}
         <h2 class="title-heading">Scoreboard</h2>
+        <small>Note: Updated every 2 minutes.</small>
         <div class="table-responsive">
             <table class="table custom-table table-borderless">
                 <thead>
@@ -15,23 +16,28 @@
                 </thead>
                 <tbody>
                 {% for score in scores %}
-                    {% if loop.index%2 != 0 %}
-                        <tr class="table-row-odd">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score['username'] }}</td>
-                            <td>{{ score['score'] }}</td>
-                        </tr>
-                    {% else %}
-                        <tr class="table-row-odd">
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ score['username'] }}</td>
-                            <td>{{ score['score'] }}</td>
-                        </tr>
-                    {% endif %}
+                    <tr class="table-row-odd">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ score.username }}</td>
+                        <td>{{ score.points(id=score.id) }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
+        {## <nav class="mt-2">
+          {% if scores.has_prev %}
+            <a class="btn btn-sm btn-dark" href="{{ url_for('ctf.scoreboard', page=scores.prev_num) }}">Previous</a>
+          {% else %}
+            <a class="btn btn-sm btn-dark disabled" href="#">Previous</a>
+          {% endif %}
+
+          {% if scores.has_next %}
+            <a class="btn btn-dark btn-sm" href="{{ url_for('ctf.scoreboard', page=scores.next_num) }}">Next</a>
+          {% else %}
+            <a class="btn btn-sm btn-dark disabled" href="#">Next</a>
+          {% endif %}
+        </nav> ##}
     {% endif %}
     </div>
 

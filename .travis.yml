@@ -19,7 +19,7 @@ before_install:
   
 install: 
   - "pip install -r src/requirements.txt"
-  - "python src/create_db.py"
+  - "python src/create_db.test.py"
 
 before_script:
   - black . --check

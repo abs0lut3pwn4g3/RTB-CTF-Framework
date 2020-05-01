@@ -1,16 +1,17 @@
-from FlaskRTBCTF.models import User
-
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
+
+from .models import User
 
 
 class RegistrationForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=4, max=24)]
     )
-    email = StringField(
+    email = EmailField(
         "Email", validators=[DataRequired(), Email(), Length(min=6, max=88)]
     )
     password = PasswordField(

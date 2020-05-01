@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% from "forms.html" import settings_form_macro, website_form_macro %}
+
+<!-- Bootstrap stepper -->
+<link rel="stylesheet" type="text/css"
+      href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+
+<div class="content-section">
+  <div class="bs-stepper">
+    <div class="bs-stepper-header" role="tablist">
+      <!-- steps here -->
+      <div class="step" data-target="#logins-part">
+        <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Admin Login</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#settings-part">
+        <button type="button" class="step-trigger" role="tab" aria-controls="settings-part" id="settings-part-trigger">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">CTF Settings</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#websites-part">
+        <button type="button" class="step-trigger" role="tab" aria-controls="websites-part" id="websites-part-trigger">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Add Websites</span>
+        </button>
+      </div>
+    </div>
+    <div class="bs-stepper-content">
+      <!-- steps content here -->
+        <div id="logins-part" class="title-heading content" role="tabpanel" aria-labelledby="logins-part-trigger">
+          <!-- Just a Dummy -->
+        </div>
+        <div id="settings-part" class="content" role="tabpanel" aria-labelledby="settings-part-trigger">
+          {{ settings_form_macro(form=settingsForm, url=url_for('main.setup', step=2)) }}
+        </div>
+        <div id="websites-part" class="content" role="tabpanel" aria-labelledby="websites-part-trigger">
+          {{ website_form_macro(form=websitesForm, url=url_for('main.setup', step=3))  }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let urlParams = new URLSearchParams(window.location.search);
+  let captured = urlParams.get('step')
+  const step = captured ? captured : '2';
+  document.addEventListener('DOMContentLoaded', function () {
+    const options = {
+      linear: true,
+      animation: true,
+      selectors: {
+        steps: '.step',
+        trigger: '.step-trigger',
+        stepper: '.bs-stepper'
+      }
+    };
+    var stepper = new Stepper(document.querySelector('.bs-stepper'), options);
+    stepper.to(step);
+  });
+</script>
+
+
+{% endblock content %}

@@ -5,6 +5,9 @@
   "addons": [
     {
       "plan": "heroku-postgresql"
+    },
+    {
+      "plan": "heroku-redis"
     }
   ],
   "buildpacks": [
@@ -20,6 +23,17 @@
     "ADMIN_PASS": {
       "description": "Administrator password",
       "generator": "secret"
+    },
+    "ADMIN_EMAIL": {
+      "description": "Administrator email"
+    },
+    "MAIL_USER": {
+      "description": "Username for mail service",
+      "required": false
+    },
+    "MAIL_PASS": {
+      "description": "Password for mail service",
+      "required": false
     }
   },
   "scripts": {

@@ -1,55 +1,42 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
-from flask_admin import Admin
-from flask_mail import Mail
-from FlaskRTBCTF.config import Config, LOGGING
 import os
 
-db = SQLAlchemy()
-bcrypt = Bcrypt()
-login_manager = LoginManager()
-admin_manager = Admin()
-login_manager.login_view = "users.login"
-login_manager.login_message_category = "info"
-mail = Mail()
+from flask import Flask
+
+from FlaskRTBCTF.config import Config
+from FlaskRTBCTF.utils import (
+    db,
+    bcrypt,
+    cache,
+    login_manager,
+    admin_manager,
+    mail,
+    inject_app_context,
+)
+from FlaskRTBCTF.users.routes import users
+from FlaskRTBCTF.ctf.routes import ctf
+from FlaskRTBCTF.main.routes import main
+
+
+_blueprints = (users, ctf, main)
+
+_extensions = (db, bcrypt, cache, login_manager, admin_manager, mail)
 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.context_processor(inject_app_context)
 
-    db.init_app(app)
-    bcrypt.init_app(app)
-    login_manager.init_app(app)
-    admin_manager.init_app(app)
-    # Add model views
-    from FlaskRTBCTF.admin.views import MyModelView
-    from FlaskRTBCTF.models import User, Score, Notification, Machine
+    for _ext in _extensions:
+        _ext.init_app(app)
 
-    if LOGGING:
-        from FlaskRTBCTF.models import Logs
-    admin_manager.add_view(MyModelView(User, db.session))
-    admin_manager.add_view(MyModelView(Score, db.session))
-    admin_manager.add_view(MyModelView(Notification, db.session))
-    admin_manager.add_view(MyModelView(Machine, db.session))
-    if LOGGING:
-        admin_manager.add_view(MyModelView(Logs, db.session))
-    mail.init_app(app)
-
-    from flask_sslify import SSLify
+    for _bp in _blueprints:
+        app.register_blueprint(_bp)
 
     # only trigger SSLify if the app is running on Heroku
     if "DYNO" in os.environ:
+        from flask_sslify import SSLify
+
         _ = SSLify(app)
-
-    from FlaskRTBCTF.users.routes import users
-    from FlaskRTBCTF.ctf.routes import ctf
-    from FlaskRTBCTF.main.routes import main
-
-    app.register_blueprint(users)
-    app.register_blueprint(ctf)
-    app.register_blueprint(main)
 
     return app
