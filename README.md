@@ -18,9 +18,10 @@
   </a>
 </p>
 
-A lightweight, easy to deploy CTF framework (in Flask) for HackTheBox style machines.
+A fast, efficient and lightweight (~100 KB) Capture The Flag framework (in Flask) inspired by the [HackTheBox](https://hackthebox.eu/) platform.
 
-The main purpose of this project is to serve as a scoring engine and CTF manager.
+The 100 second elevator-pitch is that: A Capture The Flag framework; one that is fast yet feature packed, efficient thus scalable, lightweight (insert some more pro developer adjectives) and customizable to your organization's brand while not emptying your bank A/C.
+
 
 **Want to see it in action?**
 
@@ -32,7 +33,7 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 * Machines listing with fields: name, IP, OS, points and difficulty level.
 * Challenges listing with fields: title, description, URL, points.
-* Totally configurable settings such running time, organization details, CTF name.
+* Totally configurable settings such as running time, organization details, CTF name, etc.
 * Automatic strong password for administrator
 * Well implemented controls for administrators providing features such as issuing notifications, database CRUD operations, full fledged logging,
 * Simple User Registration/login process, account management, Forgot password functionalities,
@@ -45,7 +46,7 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 Please see [INSTALLATION.md](INSTALLATION.md).
 
-## Host Your Own CTF in a minute with Heroku
+## Host a customized CTF with Heroku for free in under a minute
 
 1. Sign up on [Heroku](https://heroku.com), if you haven't already and click on the below "Deploy to Heroku" button.
 
@@ -62,6 +63,12 @@ Please see [INSTALLATION.md](INSTALLATION.md).
 #### Yay! Now you have a customized instance of the RTB-CTF-Framework live on Heroku. 🎉
 
 > Bonus: You can manage the database CRUD operations from admin views GUI; change machine settings, issue notifications to users, etc.
+
+## Inspiration
+
+The main purpose of this project is to serve as a scoring engine and CTF manager. One that is packed with features, can handle enterprise/global level traffic on a scalable yet [free heroku's dyno](#host-your-own-ctf-in-a-minute-with-heroku).
+
+[CTFd](https://github.com/ctfd/ctfd) is one of the most popular CTF framework and we have used it for multiple engagements and will surely use it again. But at the same time, CTFd is heavy (~22.2 mb) (it gives poor performance even on a $49/mo heroku dyno) and nobody has $$$ to spend on cloud, especially students (like us). So, that's where RTB-CTF-Framework (~100 KB) comes in. 
 
 ## Contributing
 
@@ -87,6 +94,7 @@ Please see [INSTALLATION.md](INSTALLATION.md).
 - [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
 
 For further guidelines, Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
+
 
 ## Live Demo
 
