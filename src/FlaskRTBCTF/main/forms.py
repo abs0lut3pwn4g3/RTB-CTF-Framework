@@ -41,16 +41,19 @@ class SettingsForm(FlaskForm):
 
                 cache.delete(key="past_running_time")
                 cache.delete(key="settings")
-                return redirect(url_for("main.setup", step=3))
+                step = 3
 
             except SQLAlchemyError:
                 db.session.rollback()
                 flash("Transaction failed. Please try again.", "danger")
-                return redirect(url_for("main.setup"), step=2)
+                step = 2
 
         else:
             flash("Form validation failed. Please try again.", "danger")
-            return redirect(url_for("main.setup", step=2))
+            step = 2
+
+        return redirect(url_for("main.setup"), step=step)
+        # lgtm [py/call/wrong-named-argument]
 
 
 class WebsiteForm(FlaskForm):
@@ -86,8 +89,9 @@ class WebsiteForm(FlaskForm):
             except SQLAlchemyError:
                 db.session.rollback()
                 flash("Transaction failed. Please try again.", "danger")
-                return redirect(url_for("main.setup"), step=3)
 
         else:
             flash("Error: Couldn't save form data.", "danger")
-            return redirect(url_for("main.setup", step=3))
+
+        return redirect(url_for("main.setup"), step=3)
+        # lgtm [py/call/wrong-named-argument]

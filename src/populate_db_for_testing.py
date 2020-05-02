@@ -1022,7 +1022,7 @@ def gen_email():
 
 
 def gen_ip():
-    return "127.0.{0}.{0}".format(random.randint(1, 100), random.randint(1, 100))
+    return "127.0.{0}.{0}".format(random.randint(1, 100))
 
 
 def populate_users():
@@ -1044,7 +1044,7 @@ def populate_users():
                 db.session.add(log)
                 if x % 5 == 0:
                     db.session.commit()
-            except:
+            except Exception as _:
                 pass
 
     db.session.commit()
@@ -1078,7 +1078,7 @@ def populate_challs():
                 db.session.add(chal)
                 if x % 5 == 0:
                     db.session.commit()
-            except:
+            except Exception as _:
                 pass
 
     db.session.commit()
@@ -1109,7 +1109,7 @@ def populate_machines():
                 db.session.add(m)
                 if x % 5 == 0:
                     db.session.commit()
-            except:
+            except Exception as _:
                 pass
 
     db.session.commit()
