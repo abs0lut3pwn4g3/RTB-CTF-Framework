@@ -52,8 +52,7 @@ class SettingsForm(FlaskForm):
             flash("Form validation failed. Please try again.", "danger")
             step = 2
 
-        return redirect(url_for("main.setup"), step=step)
-        # lgtm [py/call/wrong-named-argument]
+        return redirect(url_for("main.setup", step=step))
 
 
 class WebsiteForm(FlaskForm):
@@ -93,5 +92,4 @@ class WebsiteForm(FlaskForm):
         else:
             flash("Error: Couldn't save form data.", "danger")
 
-        return redirect(url_for("main.setup"), step=3)
-        # lgtm [py/call/wrong-named-argument]
+        return redirect(url_for("main.setup", step=3))
