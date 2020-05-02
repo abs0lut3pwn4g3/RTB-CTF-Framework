@@ -14,7 +14,7 @@ services:
       - DB_PASSWORD=eshaan
       - DB_NAME=rtbctf
       - DB_PORT=5432
-      - WORKERS=8
+      - WORKERS=4
       - ADMIN_PASS=admin
     depends_on:
       - postgres
