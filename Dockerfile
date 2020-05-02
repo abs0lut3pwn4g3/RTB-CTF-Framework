@@ -7,10 +7,8 @@ RUN export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT
     && export REDIS_URL="redis://redis:6379/0"
 
 # update and install packages
-RUN apk update \
-    && apk add libpq postgresql-dev \
-    && apk add build-base \
-    && apk add --no-cache git libssl1.1 g++ make libffi-dev
+RUN apk update --no-cache \
+    && apk add --no-cache postgresql-dev build-base g++ libffi-dev
 
 # Add a new low-privileged user
 RUN adduser --shell /sbin/login www-data -DH
