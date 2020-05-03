@@ -1119,8 +1119,8 @@ app = create_app()
 
 with app.app_context():
 
-    # populate_users()
+    populate_users()
 
     populate_challs()
 
-    # populate_machines()
+    populate_machines()
