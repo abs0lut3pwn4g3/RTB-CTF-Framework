@@ -26,7 +26,6 @@ class SettingsForm(FlaskForm):
     @admin_only
     def setup(self):
         if self.is_submitted():
-            step = 3
             try:
                 settings = Settings.query.get(1)
 
