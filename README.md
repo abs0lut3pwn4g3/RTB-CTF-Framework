@@ -66,9 +66,9 @@ Please see [INSTALLATION.md](INSTALLATION.md).
 
 ## Inspiration
 
-The main purpose of this project is to serve as a scoring engine and CTF manager. One that is packed with features, can handle enterprise/global level traffic on a scalable yet [free heroku's dyno](#host-your-own-ctf-in-a-minute-with-heroku).
+The main purpose of this project is to serve as a scoring engine and CTF manager. One that is packed with features, can handle enterprise/global level traffic on a scalable yet free heroku's dyno.
 
-[CTFd](https://github.com/ctfd/ctfd) is one of the most popular CTF framework and we have used it for multiple engagements and will surely use it again. But at the same time, CTFd is heavy (~22.2 mb) (it gives poor performance even on a $49/mo heroku dyno) and nobody has $$$ to spend on cloud, especially students (like us). So, that's where RTB-CTF-Framework (~100 KB) comes in. 
+[CTFd](https://github.com/ctfd/ctfd) is one of the most popular CTF framework and we have used it for multiple engagements and will surely use it again. But at the same time, CTFd is heavy (~22.2 mb) (it gives poor performance even on a $49/mo heroku dyno) and not everybody has $$$ to spend on cloud, especially students (like us). So, that's where RTB-CTF-Framework (~100 KB) comes in. 
 
 ## Contributing
 
