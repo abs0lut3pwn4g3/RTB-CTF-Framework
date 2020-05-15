@@ -68,3 +68,24 @@
 </div>
 
 {% endmacro %}
+
+<!--Rating Submission Modal-->
+{% macro render_rating(modalId, title, form_macro1, form1, url) %}
+
+<div class="modal fade" id="{{ modalId }}" tabindex="-1" role="dialog" aria-labelledby="{{ modalId }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="content-section modal-content">
+            <h4 class="title-heading border-bottom">{{ title }}</h4>
+            <div class="modal-body mx-0 px-0">
+                {% if form_macro1 %}  {{ form_macro1(form=form1, url=url) }}  {% endif %}
+	    </div>
+            <div class="justify-content-start px-0 modal-footer">
+                <button type="button" class="m-0 btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}
+
+

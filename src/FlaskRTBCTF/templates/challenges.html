@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% from "forms.html" import challenge_flag_submission_form %}
-{% from "macros.html" import render_modal %}
+{% from "forms.html" import challenge_flag_submission_form, rating_submission_form %}
+{% from "macros.html" import render_modal, render_rating %}
 {% block content %}
 
 {% if current_user.isAdmin %}
@@ -24,6 +24,11 @@
                 {{ chal['title'] }}
             </a>
             <span class="float-right">
+		{% if chal['avg_rating'] %}
+                    <small>{{ chal['avg_rating' ] }} /5</small>
+		{% else %}
+                   <small> No rating </small>
+		{% endif %}
                 {% if chal['id'] in completed %}
                     <i data-toggle="tooltip" title="completed" class="ml-2 far fa-check-circle"></i>
                 {% elif is_finished %}
@@ -34,8 +39,8 @@
                         </i>
                     </a>
                 {% endif %}
-                    <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="tooltip" title="rate challenge (coming soon)">
-                        <i class="far fa-star"></i>
+                    <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#c-rate" data-chId="{{ chal['id'] }}">
+		        <i class="far fa-star" data-toggle="tooltip" title="Submit Rating"></i>
                     </a>
             </span>
             <!-- !Bar -->
@@ -87,6 +92,12 @@
 {{ render_modal(
         modalId="c-form", title="Submit Flag", form_macro1=challenge_flag_submission_form, form1=form
     ) 
+}}
+
+<!--Rating Submission Modal-->
+{{ render_rating(
+	modalId="c-rate", title="Rate this challenge", form_macro1=rating_submission_form, form1=chalRatingForm, url='ctf.challenges'
+)
 }}
 
 {% endblock content %}

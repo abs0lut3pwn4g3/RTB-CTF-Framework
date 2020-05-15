@@ -92,3 +92,7 @@ class ChallengeFlagForm(FlaskForm):
             raise ValidationError("No challenge with that ID exists")
         elif ch.flag != str(flag.data):
             raise ValidationError("Incorrect flag.")
+
+
+class RatingForm(FlaskForm):
+    machine_challenge_id = HiddenField("Id", validators=[DataRequired()])

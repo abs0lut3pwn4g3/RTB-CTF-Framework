@@ -2,6 +2,8 @@ from sqlalchemy.orm import joinedload
 
 from FlaskRTBCTF.utils.models import db, TimeMixin, ReprMixin
 from FlaskRTBCTF.utils.cache import cache
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql import func
 
 
 # Machine Table
@@ -20,6 +22,16 @@ class Machine(TimeMixin, ReprMixin, db.Model):
     os = db.Column(db.String, nullable=False, default="linux")
     ip = db.Column(db.String(64), nullable=False)
     difficulty = db.Column(db.String, nullable=False, default="Easy")
+
+    @hybrid_property
+    @cache.memoize(timeout=3600 * 3)
+    def avg_rating(self):
+        avg_rating = (
+            UserMachine.query.with_entities(func.avg(UserMachine.rated))
+            .filter(UserMachine.machine_id == self.id, UserMachine.rated != 0)
+            .scalar()
+        )
+        return round(avg_rating, 2)
 
     @staticmethod
     @cache.cached(timeout=3600 * 3, key_prefix="machines")
@@ -46,6 +58,7 @@ class UserMachine(TimeMixin, db.Model):
     )
     owned_user = db.Column(db.Boolean, nullable=False, default=False)
     owned_root = db.Column(db.Boolean, nullable=False, default=False)
+    rated = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
     @cache.memoize(timeout=3600 * 3)
@@ -107,6 +120,16 @@ class Challenge(TimeMixin, ReprMixin, db.Model):
         backref=db.backref("challenges", lazy="noload"),
     )
 
+    @hybrid_property
+    @cache.memoize(timeout=3600 * 3)
+    def avg_rating(self):
+        avg_rating = (
+            UserChallenge.query.with_entities(func.avg(UserChallenge.rated))
+            .filter(UserChallenge.challenge_id == self.id, UserChallenge.rated != 0)
+            .scalar()
+        )
+        return round(avg_rating, 2)
+
 
 # UserChallenge: N to N relationship
 class UserChallenge(TimeMixin, db.Model):
@@ -126,6 +149,7 @@ class UserChallenge(TimeMixin, db.Model):
         index=True,
     )
     completed = db.Column(db.Boolean, nullable=False, default=False)
+    rated = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
     @cache.memoize(timeout=3600 * 3)

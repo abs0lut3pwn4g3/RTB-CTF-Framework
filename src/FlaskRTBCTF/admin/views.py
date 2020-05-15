@@ -94,7 +94,7 @@ class ChallengeAdminView(BaseModelView):
 
 class UserChallengeAdminView(BaseModelView):
     column_filters = ("completed",)
-    column_list = ("user_id", "challenge_id", "completed")
+    column_list = ("user_id", "challenge_id", "completed", "rated")
 
     @staticmethod
     def after_model_change(form, model, is_created):
@@ -110,7 +110,7 @@ class UserChallengeAdminView(BaseModelView):
 
 class UserMachineAdminView(BaseModelView):
     column_filters = ("owned_user", "owned_root")
-    column_list = ("user_id", "machine_id", "owned_user", "owned_root")
+    column_list = ("user_id", "machine_id", "owned_user", "owned_root", "rated")
 
     @staticmethod
     def after_model_change(form, model, is_created):

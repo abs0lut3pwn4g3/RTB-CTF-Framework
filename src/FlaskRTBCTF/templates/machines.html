@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% from "forms.html" import user_hash_form_macro, root_hash_form_macro %}
-{% from "macros.html" import render_modal %}
+{% from "forms.html" import user_hash_form_macro, root_hash_form_macro, rating_submission_form %}
+{% from "macros.html" import render_modal, render_rating %}
 {% block content %}
 
 {% if current_user.isAdmin %}
@@ -21,10 +21,16 @@
     </a>
     <span class="ml-2">
       <small>
-        {{ box['ip'] }}
+        {{ box['ip'] }} 
       </small>
     </span>
     <span class="float-right">
+      
+      {% if box['avg_rating'] %}
+        <small> {{ box['avg_rating'] }}/5 </small>
+      {% else %}
+        <small> No Rating </small>
+      {% endif %}
       {% if box['id'] in completed['user'] %}
         <i data-toggle="tooltip" title="owned user" class="ml-1 far fa-check-circle"></i>
       {% elif is_finished %}
@@ -47,8 +53,8 @@
           </i>
         </a>
       {% endif %}
-        <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="tooltip" title="rate machine (coming soon)">
-          <i class="far fa-star"></i>
+        <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#m-rate" data-boxId="{{ box['id'] }}">
+          <i class="far fa-star" data-toggle="tooltip" title="Submit Rating"></i>
         </a>
     </span>
     <!-- !Bar -->
@@ -106,5 +112,10 @@
 ) 
 }}
 
+<!--Rating Submission Modal-->
+{{ render_rating(
+  modalId="m-rate", title="Rate this box", form_macro1=rating_submission_form, form1=ratingForm, url='ctf.machines'
+)
+}}
 
 {% endblock content %}

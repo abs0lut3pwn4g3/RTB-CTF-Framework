@@ -189,3 +189,24 @@
 </form>
 
 {% endmacro %}
+
+<!-- Rating Form -->
+{% macro rating_submission_form(form, url) %}
+  
+<form id="rating-form" class="form-inline" method="POST" action="{{ url_for(url) }}">
+    {{ form.csrf_token() }}
+    {{ form.machine_challenge_id(id="machine-id-rating") }}
+    <div class="form-group">
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="Rating">
+	        <input type="submit" name="rate" class="btn btn-secondary" value="1">
+                <input type="submit" name="rate" class="btn btn-secondary" value="2">
+	        <input type="submit" name="rate" class="btn btn-secondary" value="3">
+	        <input type="submit" name="rate" class="btn btn-secondary" value="4">
+	        <input type="submit" name="rate" class="btn btn-secondary" value="5">
+	    </div>
+        </div>
+    </div>
+</form>
+
+{% endmacro %}
