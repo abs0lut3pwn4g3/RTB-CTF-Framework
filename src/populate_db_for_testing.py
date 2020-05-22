@@ -1149,7 +1149,6 @@ def populate_user_machines():
                 db.session.add(user_machine)
             except Exception as _:
                 db.session.rollback()
-                pass
 
     db.session.commit()
 
@@ -1175,7 +1174,6 @@ def populate_user_challs():
                 db.session.add(user_ch)
             except Exception as _:
                 db.session.rollback()
-                pass
 
     db.session.commit()
 
