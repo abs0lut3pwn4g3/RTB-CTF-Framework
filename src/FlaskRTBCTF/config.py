@@ -7,7 +7,7 @@ from .utils import handle_secret_key
 
 
 class Config:
-    DEBUG = False  # Turn DEBUG OFF before deployment
+    DEBUG = True  # Turn DEBUG OFF before deployment
     SECRET_KEY = handle_secret_key()
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
     # For local use, one can simply use SQLlite with: 'sqlite:///site.db'

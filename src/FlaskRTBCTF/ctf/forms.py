@@ -1,7 +1,15 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, HiddenField, RadioField
-from wtforms.validators import DataRequired, Length, ValidationError, IPAddress
+from wtforms.validators import (
+    DataRequired,
+    Length,
+    ValidationError,
+    IPAddress,
+    NumberRange,
+    AnyOf,
+)
 from wtforms.fields.html5 import IntegerField
+from wtforms.widgets import HiddenInput, SubmitInput
 from .models import Machine, Challenge
 
 
@@ -92,3 +100,18 @@ class ChallengeFlagForm(FlaskForm):
             raise ValidationError("No challenge with that ID exists")
         elif ch.flag != str(flag.data):
             raise ValidationError("Incorrect flag.")
+
+
+class RatingForm(FlaskForm):
+    machine_challenge_id = IntegerField(
+        label="ID", widget=HiddenInput(), validators=[DataRequired()]
+    )
+    rating_for = HiddenField(
+        label="Machine or Challenge?",
+        validators=[DataRequired(), AnyOf(("machine", "challenge"))],
+    )
+    rating_value = IntegerField(
+        label="Rating",
+        widget=SubmitInput(),
+        validators=[DataRequired(), NumberRange(min=1, max=5)],
+    )
