@@ -57,3 +57,16 @@ def clear_points_cache(userId, mode):
     elif mode == "m":
         cache.delete_memoized(UserMachine.completed_machines, UserMachine, userId)
     cache.delete_memoized(User.points, userId)
+
+
+def clear_rating_cache(user_id, ch_id=None, machine_id=None):
+    from ..ctf.models import Machine, Challenge, UserChallenge, UserMachine
+
+    if ch_id:
+        cache.delete_memoized(Challenge.avg_rating, ch_id)
+        cache.delete_memoized(UserChallenge.rated_challenges, UserChallenge, user_id)
+    elif machine_id:
+        cache.delete_memoized(Machine.avg_rating, machine_id)
+        cache.delete_memoized(UserMachine.rated_machines, UserMachine, user_id)
+    else:
+        pass

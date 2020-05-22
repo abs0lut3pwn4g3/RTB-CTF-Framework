@@ -9,6 +9,7 @@ from .helpers import (
     is_past_running_time,
     inject_app_context,
     clear_points_cache,
+    clear_rating_cache,
 )
 from .login_manager import login_manager, admin_only
 from .mail import mail, send_reset_email
