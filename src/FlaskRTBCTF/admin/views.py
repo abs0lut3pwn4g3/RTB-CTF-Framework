@@ -7,10 +7,11 @@ from flask_admin.form import SecureForm
 from flask_admin.contrib.sqla import ModelView
 
 from ..utils.cache import cache
-from ..utils.helpers import clear_points_cache
+from ..utils.helpers import clear_points_cache, clear_rating_cache
 
 
 class BaseModelView(ModelView):
+    can_view_details = True
     export_types = ("csv", "json")
     can_export = True
     form_base_class = SecureForm
@@ -36,7 +37,6 @@ class BaseModelView(ModelView):
 
 
 class UserAdminView(BaseModelView):
-    can_view_details = True
     column_exclude_list = ("password",)
     form_exclude_list = ("password",)
     column_searchable_list = ("username", "email")
@@ -54,9 +54,9 @@ class UserAdminView(BaseModelView):
 
 
 class MachineAdminView(BaseModelView):
-    can_view_details = True
     column_exclude_list = ("user_hash", "root_hash", "updated_on")
     column_searchable_list = ("name", "ip")
+    column_filters = ("difficulty", "user_points", "root_points", "os")
 
     @expose("/new/")
     def create_view(self):
@@ -69,9 +69,9 @@ class MachineAdminView(BaseModelView):
 
 
 class ChallengeAdminView(BaseModelView):
-    can_view_details = True
     column_exclude_list = ("description", "flag", "url")
-    column_searchable_list = ("title", "url")
+    column_searchable_list = ("title", "url", "flag")
+    column_filters = ("difficulty", "points", "category")
     form_choices = {
         "difficulty": [
             ("easy", "Easy"),
@@ -93,36 +93,39 @@ class ChallengeAdminView(BaseModelView):
 
 
 class UserChallengeAdminView(BaseModelView):
-    column_filters = ("completed",)
-    column_list = ("user_id", "challenge_id", "completed", "rated")
+    column_filters = ("completed", "user_id", "challenge_id")
+    column_list = ("user_id", "challenge_id", "completed", "rating")
+    form_choices = {
+        "rating": [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")]
+    }
 
     @staticmethod
     def after_model_change(form, model, is_created):
-        if form.completed != model.completed:
-            clear_points_cache(userId=model.user_id, mode="c")
+        clear_points_cache(userId=model.user_id, mode="c")
+        clear_rating_cache(user_id=model.user_id, ch_id=model.challenge_id)
         return
 
     @staticmethod
     def after_model_delete(model):
         clear_points_cache(userId=model.user_id, mode="c")
+        clear_rating_cache(user_id=model.user_id, ch_id=model.challenge_id)
         return
 
 
 class UserMachineAdminView(BaseModelView):
-    column_filters = ("owned_user", "owned_root")
-    column_list = ("user_id", "machine_id", "owned_user", "owned_root", "rated")
+    column_filters = ("user_id", "machine_id", "owned_user", "owned_root", "rating")
+    column_list = ("user_id", "machine_id", "owned_user", "owned_root", "rating")
 
     @staticmethod
     def after_model_change(form, model, is_created):
-        if (form.owned_user != model.owned_user) or (
-            form.owned_root != model.owned_root
-        ):
-            clear_points_cache(userId=model.user_id, mode="m")
+        clear_points_cache(userId=model.user_id, mode="m")
+        clear_rating_cache(user_id=model.user_id, machine_id=model.machine_id)
         return
 
     @staticmethod
     def after_model_delete(model):
         clear_points_cache(userId=model.user_id, mode="m")
+        clear_rating_cache(user_id=model.user_id, machine_id=model.machine_id)
         return
 
 

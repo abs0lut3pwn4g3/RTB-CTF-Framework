@@ -31,17 +31,19 @@ $(document).ready( function() {
     })
 
     // machine rating submission modal
-    $('#m-rate').on('show.bs.modal', function (event) {
-	const button = $(event.relatedTarget);
+    $('#m-form-rate').on('show.bs.modal', function (event) {
+	    const button = $(event.relatedTarget);
         const boxId = button.data('boxid'); // Extract info from data-* attributes
-        $(this).find('#machine-id-rating').val(boxId);
+        $(this).find('#rating-id').val(boxId);
+        $(this).find('#rating-for').val('machine');
     })
 
     //challenge rating submission modal
-    $('#c-rate').on('show.bs.modal', function (event) {
+    $('#c-form-rate').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget);
         const challengeId = button.data('chid'); // Extract info from data-* attributes
-        $(this).find('#machine-id-rating').val(challengeId);
+        $(this).find('#rating-id').val(challengeId);
+        $(this).find('#rating-for').val('challenge');
     })
 
 });

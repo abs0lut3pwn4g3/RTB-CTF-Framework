@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% from "forms.html" import challenge_flag_submission_form, rating_submission_form %}
-{% from "macros.html" import render_modal, render_rating %}
+{% from "macros.html" import render_modal %}
 {% block content %}
 
 {% if current_user.isAdmin %}
@@ -24,24 +24,27 @@
                 {{ chal['title'] }}
             </a>
             <span class="float-right">
-		{% if chal['avg_rating'] %}
-                    <small>{{ chal['avg_rating' ] }} /5</small>
-		{% else %}
-                   <small> No rating </small>
-		{% endif %}
+                <!-- Avg Rating -->
+                <small class="mr-3"><strong>{{ chal.avg_rating(id=chal.id) }}/5</strong></small>
+                <!-- Has completed? -->
                 {% if chal['id'] in completed %}
-                    <i data-toggle="tooltip" title="completed" class="ml-2 far fa-check-circle"></i>
+                    <!-- Has rated? -->
+                    {% if chal['id'] not in rated %}
+                        <a class="mr-2 btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#c-form-rate" data-chId="{{ chal['id'] }}">
+                            <i class="far fa-star" data-toggle="tooltip" title="submit rating">
+                            </i>
+                        </a>
+                    {% endif %}
+                    <i data-toggle="tooltip" title="completed" class="far fa-check-circle"></i>
+                <!-- Is Finished? -->
                 {% elif is_finished %}
-                    <i data-toggle="tooltip" title="CTF time's up" class="ml-2 fas fa-hourglass-end"></i>
+                    <i data-toggle="tooltip" title="CTF time's up" class="fas fa-hourglass-end"></i>
                 {% else %}
                     <a class="btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#c-form" data-chId="{{ chal['id'] }}">
                         <i class="far fa-flag" data-toggle="tooltip" title="submit flag">
                         </i>
                     </a>
                 {% endif %}
-                    <a class="ml-1 btn-sm btn-dark btn-hover-red" data-toggle="modal" href="#c-rate" data-chId="{{ chal['id'] }}">
-		        <i class="far fa-star" data-toggle="tooltip" title="Submit Rating"></i>
-                    </a>
             </span>
             <!-- !Bar -->
             <div id="c-collapse-{{ category.name }}-{{ loop.index }}" class="collapse" data-parent="#challenge-{{ category.name }}-{{ loop.index }}">
@@ -90,13 +93,13 @@
 
 <!-- Flag Submission Forms Modal -->
 {{ render_modal(
-        modalId="c-form", title="Submit Flag", form_macro1=challenge_flag_submission_form, form1=form
+        modalId="c-form", title="Submit Flag", form_macro=challenge_flag_submission_form, form=chalFlagForm
     ) 
 }}
 
 <!--Rating Submission Modal-->
-{{ render_rating(
-	modalId="c-rate", title="Rate this challenge", form_macro1=rating_submission_form, form1=chalRatingForm, url='ctf.challenges'
+{{ render_modal(
+	modalId="c-form-rate", title="Rate this challenge", form_macro=rating_submission_form, form=chalRatingForm
 )
 }}
 

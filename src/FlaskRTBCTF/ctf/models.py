@@ -1,9 +1,8 @@
 from sqlalchemy.orm import joinedload
+from sqlalchemy.sql import func
 
 from FlaskRTBCTF.utils.models import db, TimeMixin, ReprMixin
 from FlaskRTBCTF.utils.cache import cache
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.sql import func
 
 
 # Machine Table
@@ -23,15 +22,15 @@ class Machine(TimeMixin, ReprMixin, db.Model):
     ip = db.Column(db.String(64), nullable=False)
     difficulty = db.Column(db.String, nullable=False, default="Easy")
 
-    @hybrid_property
-    @cache.memoize(timeout=3600 * 3)
-    def avg_rating(self):
+    @staticmethod
+    @cache.memoize(timeout=3600)
+    def avg_rating(id):
         avg_rating = (
-            UserMachine.query.with_entities(func.avg(UserMachine.rated))
-            .filter(UserMachine.machine_id == self.id, UserMachine.rated != 0)
+            UserMachine.query.with_entities(func.avg(UserMachine.rating))
+            .filter(UserMachine.machine_id == id, UserMachine.rating != 0)
             .scalar()
         )
-        return round(avg_rating, 2)
+        return round(avg_rating, 1) if avg_rating else 0
 
     @staticmethod
     @cache.cached(timeout=3600 * 3, key_prefix="machines")
@@ -58,7 +57,7 @@ class UserMachine(TimeMixin, db.Model):
     )
     owned_user = db.Column(db.Boolean, nullable=False, default=False)
     owned_root = db.Column(db.Boolean, nullable=False, default=False)
-    rated = db.Column(db.Integer, nullable=False, default=0)
+    rating = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
     @cache.memoize(timeout=3600 * 3)
@@ -77,6 +76,17 @@ class UserMachine(TimeMixin, db.Model):
         completed["user"] = [int(id[0]) for id in _ids1]
         completed["root"] = [int(id[0]) for id in _ids2]
         return completed
+
+    @classmethod
+    @cache.memoize(timeout=3600 * 3)
+    def rated_machines(cls, user_id):
+        _ids = (
+            cls.query.with_entities(cls.machine_id)
+            .filter(cls.user_id == user_id, cls.rating != 0)
+            .all()
+        )
+        _ids = [int(id[0]) for id in _ids]
+        return _ids
 
 
 # Tag Model
@@ -120,15 +130,15 @@ class Challenge(TimeMixin, ReprMixin, db.Model):
         backref=db.backref("challenges", lazy="noload"),
     )
 
-    @hybrid_property
-    @cache.memoize(timeout=3600 * 3)
-    def avg_rating(self):
+    @staticmethod
+    @cache.memoize(timeout=3600)
+    def avg_rating(id):
         avg_rating = (
-            UserChallenge.query.with_entities(func.avg(UserChallenge.rated))
-            .filter(UserChallenge.challenge_id == self.id, UserChallenge.rated != 0)
+            UserChallenge.query.with_entities(func.avg(UserChallenge.rating))
+            .filter(UserChallenge.challenge_id == id, UserChallenge.rating != 0)
             .scalar()
         )
-        return round(avg_rating, 2)
+        return round(avg_rating, 1) if avg_rating else 0
 
 
 # UserChallenge: N to N relationship
@@ -149,7 +159,7 @@ class UserChallenge(TimeMixin, db.Model):
         index=True,
     )
     completed = db.Column(db.Boolean, nullable=False, default=False)
-    rated = db.Column(db.Integer, nullable=False, default=0)
+    rating = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
     @cache.memoize(timeout=3600 * 3)
@@ -157,6 +167,17 @@ class UserChallenge(TimeMixin, db.Model):
         _ids = (
             cls.query.with_entities(cls.challenge_id)
             .filter_by(user_id=user_id, completed=True)
+            .all()
+        )
+        _ids = [int(id[0]) for id in _ids]
+        return _ids
+
+    @classmethod
+    @cache.memoize(timeout=3600 * 3)
+    def rated_challenges(cls, user_id):
+        _ids = (
+            cls.query.with_entities(cls.challenge_id)
+            .filter(cls.user_id == user_id, cls.rating != 0)
             .all()
         )
         _ids = [int(id[0]) for id in _ids]
