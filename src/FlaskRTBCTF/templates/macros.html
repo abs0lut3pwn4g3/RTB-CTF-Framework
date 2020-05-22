@@ -49,16 +49,15 @@
 {% endmacro %}
 
 
-<!-- Flags Submission Modal -->
-{% macro render_modal(modalId, title, form_macro1, form1, form_macro2=None, form2=None) %}
+<!-- Flags Submission / Rating Submission Modal -->
+{% macro render_modal(modalId, title, form_macro, form) %}
 
 <div class="modal fade" id="{{ modalId }}" tabindex="-1" role="dialog" aria-labelledby="{{ modalId }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="content-section modal-content">
             <h4 class="title-heading border-bottom">{{ title }}</h4>
             <div class="modal-body mx-0 px-0">
-             {% if form_macro1 %}  {{ form_macro1(form=form1) }}  {% endif %}
-             {% if form_macro2 %}  <hr/> {{ form_macro2(form=form2) }}  {% endif %}
+             {% if form_macro %}  {{ form_macro(form=form) }}  {% endif %}
             </div>
             <div class="justify-content-start px-0 modal-footer">
                 <button type="button" class="m-0 btn btn-secondary" data-dismiss="modal">Close</button>
