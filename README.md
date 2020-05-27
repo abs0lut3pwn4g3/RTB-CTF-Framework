@@ -1,22 +1,26 @@
 # RootTheBox CTF Framework
 
-<p>
-  <a href="https://inventory.rawsec.ml/" target="_blank">
-    <img height="26px" alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
-  </a>
-  <img height="26px" src="https://forthebadge.com/images/badges/made-with-python.svg">
-</p>
-<p style="height:18px">
-  <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework" target="_blank">
-    <img alt="Build Status" src="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework.svg?branch=gssoc20-dev"/>
-  </a>
-  <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
-  	<img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
-  </a>
-  <a href="https://github.com/psf/black" target="_blank">
-    <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/>
-  </a>
-</p>
+<div align="center">
+    <p>
+    <a href="https://inventory.rawsec.ml/" target="_blank">
+        <img height="26px" alt="Rawsec's CyberSecurity Inventory" src="https://inventory.rawsec.ml/img/badges/Rawsec-inventoried-FF5050_for-the-badge.svg">
+    </a>
+    <img height="26px" src="https://forthebadge.com/images/badges/made-with-python.svg">
+    </p>
+</div>
+<div align="center">
+    <p style="height:18px">
+    <a href="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework" target="_blank">
+        <img alt="Build Status" src="https://travis-ci.com/abs0lut3pwn4g3/RTB-CTF-Framework.svg?branch=gssoc20-dev"/>
+    </a>
+    <a href="https://lgtm.com/projects/g/abs0lut3pwn4g3/RTB-CTF-Framework/context:python">
+  	    <img alt="Language grade: Python" src="https://img.shields.io/lgtm/grade/python/g/abs0lut3pwn4g3/RTB-CTF-Framework.svg?logo=lgtm&logoWidth=18"/>
+    </a>
+    <a href="https://github.com/psf/black" target="_blank">
+        <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/>
+    </a>
+    </p>
+</div>
 
 A fast, efficient and lightweight (~100 KB) Capture The Flag framework (in Flask) inspired by the [HackTheBox](https://hackthebox.eu/) platform.
 
