@@ -189,3 +189,21 @@
 </form>
 
 {% endmacro %}
+
+<!-- Rating Form -->
+{% macro rating_submission_form(form) %}
+  
+<form class="form-inline" method="POST" action="{{ url_for('ctf.submit_rating') }}">
+    {{ form.csrf_token() }}
+    {{ form.machine_challenge_id(id="rating-id") }}
+    {{ form.rating_for(id="rating-for") }}
+    <div class="btn-group" role="group" aria-label="Rating">
+        <input type="submit" name="rating_value" class="btn btn-dark btn-hover-red" value="1">
+        <input type="submit" name="rating_value" class="btn btn-dark btn-hover-red" value="2">
+        <input type="submit" name="rating_value" class="btn btn-dark btn-hover-red" value="3">
+        <input type="submit" name="rating_value" class="btn btn-dark btn-hover-red" value="4">
+        <input type="submit" name="rating_value" class="btn btn-dark btn-hover-red" value="5">
+    </div>
+</form>
+
+{% endmacro %}

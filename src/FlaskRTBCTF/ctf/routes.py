@@ -12,9 +12,16 @@ from FlaskRTBCTF.utils import (
     is_past_running_time,
     admin_only,
     clear_points_cache,
+    clear_rating_cache,
 )
 from .models import Machine, Category, UserChallenge, UserMachine
-from .forms import UserHashForm, RootHashForm, MachineForm, ChallengeFlagForm
+from .forms import (
+    UserHashForm,
+    RootHashForm,
+    MachineForm,
+    ChallengeFlagForm,
+    RatingForm,
+)
 
 
 ctf = Blueprint("ctf", __name__)
@@ -36,12 +43,14 @@ def scoreboard():
 def machines():
     userHashForm = UserHashForm()
     rootHashForm = RootHashForm()
+    ratingForm = RatingForm()
 
     is_finished = is_past_running_time()
 
     if request.method == "GET":
         boxes = Machine.get_all()
         completed = UserMachine.completed_machines(user_id=current_user.id)
+        rated = UserMachine.rated_machines(user_id=current_user.id)
 
         log = Logs.query.get(current_user.id)
         # check if it is the first visit to machine page for user
@@ -54,9 +63,11 @@ def machines():
             "machines.html",
             boxes=boxes,
             completed=completed,
+            rated=rated,
             is_finished=is_finished,
             userHashForm=userHashForm,
             rootHashForm=rootHashForm,
+            ratingForm=ratingForm,
         )
 
     else:
@@ -65,7 +76,6 @@ def machines():
             return redirect(url_for("ctf.machines"))
 
         machine_id = int(userHashForm.machine_id.data or rootHashForm.machine_id.data)
-
         user_machine = UserMachine.query.filter_by(
             user_id=current_user.id, machine_id=machine_id
         ).first()
@@ -160,29 +170,34 @@ def edit_machine(id):
 @ctf.route("/challenges", methods=["GET", "POST"])
 @login_required
 def challenges():
-    form = ChallengeFlagForm()
+    flagForm = ChallengeFlagForm()
+    ratingForm = RatingForm()
 
     if request.method == "GET":
-        categories = Category.get_challenges()
+        categories_challenges = Category.get_challenges()
         completed = UserChallenge.completed_challenges(user_id=current_user.id)
+        rated = UserChallenge.rated_challenges(user_id=current_user.id)
 
         return render_template(
             "challenges.html",
-            categories=categories,
-            completed=completed,
-            form=form,
             is_finished=is_past_running_time(),
+            categories=categories_challenges,
+            completed=completed,
+            rated=rated,
+            chalFlagForm=flagForm,
+            chalRatingForm=ratingForm,
         )
 
     else:
         if is_past_running_time():
             flash("Sorry! CTF has ended.", "danger")
 
-        elif form.validate_on_submit():
-            ch_id = int(form.challenge_id.data)
+        elif flagForm.validate_on_submit():
+            ch_id = int(flagForm.challenge_id.data)
             user_ch = UserChallenge.query.filter_by(
                 user_id=current_user.id, challenge_id=ch_id
             ).first()
+
             if not user_ch:
                 user_ch = UserChallenge(user_id=current_user.id, challenge_id=ch_id)
                 db.session.add(user_ch)
@@ -198,6 +213,71 @@ def challenges():
             flash("Congrats! correct flag.", "success")
 
         else:
-            flash(form.errors, "danger")
+            flash(flagForm.errors, "danger")
 
         return redirect(url_for("ctf.challenges"))
+
+
+# Rating Form Submit
+@ctf.route("/submit_rating", methods=("POST",))
+@login_required
+def submit_rating():
+    form = RatingForm()
+    if form.validate_on_submit():
+        if form.rating_for.data == "machine":
+            try:
+                user_machine = UserMachine.query.get(
+                    {
+                        "user_id": current_user.id,
+                        "machine_id": form.machine_challenge_id.data,
+                    }
+                )
+                if (
+                    user_machine
+                    and user_machine.owned_user
+                    and user_machine.owned_root
+                    and user_machine.rating == 0
+                ):
+                    user_machine.rating = form.rating_value.data
+                    db.session.commit()
+                    clear_rating_cache(
+                        user_id=current_user.id, machine_id=user_machine.machine_id
+                    )
+                    flash("Thank you for rating!", "success")
+                elif user_machine.rating != 0:
+                    flash("You can only rate once", "danger")
+                else:
+                    flash(
+                        "You can rate only after you own both System and User", "danger"
+                    )
+            except Exception as e:
+                flash(str(e), "danger")
+
+            return redirect(url_for("ctf.machines"))
+
+        elif form.rating_for.data == "challenge":
+            try:
+                user_ch = UserChallenge.query.get(
+                    {
+                        "user_id": current_user.id,
+                        "challenge_id": form.machine_challenge_id.data,
+                    }
+                )
+                if user_ch.completed and user_ch.rating == 0:
+                    user_ch.rating = form.rating_value.data
+                    db.session.commit()
+                    clear_rating_cache(
+                        user_id=current_user.id, ch_id=user_ch.challenge_id
+                    )
+                    flash("Thank you for rating!", "success")
+                elif user_ch.rating != 0:
+                    flash("You can only rate once", "danger")
+                elif not user_ch.completed:
+                    flash("You can rate only after submitting flag", "danger")
+            except Exception as e:
+                flash(str(e), "danger")
+
+            return redirect(url_for("ctf.challenges"))
+    else:
+        flash(form.errors, "danger")
+        return redirect(url_for("main.home"))

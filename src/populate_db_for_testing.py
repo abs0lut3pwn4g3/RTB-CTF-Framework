@@ -3,14 +3,22 @@ import random
 from datetime import datetime
 
 from FlaskRTBCTF import db, bcrypt, create_app
-from FlaskRTBCTF.ctf.models import Machine, Challenge, Tag, Category
+from FlaskRTBCTF.ctf.models import (
+    Machine,
+    UserMachine,
+    Challenge,
+    UserChallenge,
+    Tag,
+    Category,
+)
 from FlaskRTBCTF.users.models import User, Logs
 
 # Globals
 
-USER_AMOUNT = 10
-CHAL_AMOUNT = 10
+USER_AMOUNT = 100
+CHAL_AMOUNT = 20
 MACHINE_AMOUNT = 10
+SCORES = 100
 DEFAULT_TIME = datetime.utcnow()
 
 
@@ -1025,25 +1033,29 @@ def gen_ip():
     return "127.0.{0}.{0}".format(random.randint(1, 100))
 
 
+def gen_rating():
+    return random.randint(1, 5)
+
+
 def populate_users():
     # Generating Users
     print("GENERATING USERS")
     used = []
-    for x in range(USER_AMOUNT):
+    x = 0
+    while x < USER_AMOUNT:
         name = gen_name().rstrip(" ")
         if name not in used:
             used.append(name)
+            x += 1
             try:
                 user = User(
                     username=name,
                     email=name + gen_email(),
                     password=bcrypt.generate_password_hash(name).decode("utf-8"),
                 )
-                log = Logs(user=user,)
+                log = Logs(user=user)
                 db.session.add(user)
                 db.session.add(log)
-                if x % 5 == 0:
-                    db.session.commit()
             except Exception as _:
                 pass
 
@@ -1054,10 +1066,12 @@ def populate_challs():
     # Generating Challenges
     print("GENERATING CHALLENGES")
     used = []
-    for x in range(CHAL_AMOUNT):
+    x = 0
+    while x < CHAL_AMOUNT:
         word = gen_word()
         if word not in used:
             used.append(word)
+            x += 1
             try:
                 i = random.randint(6, 8)
                 idx = random.randint(1, 3)
@@ -1076,8 +1090,6 @@ def populate_challs():
                     ],
                 )
                 db.session.add(chal)
-                if x % 5 == 0:
-                    db.session.commit()
             except Exception as _:
                 pass
 
@@ -1089,12 +1101,14 @@ def populate_machines():
     print("GENERATING MACHINES")
     used = []
     used_ip = []
-    for x in range(MACHINE_AMOUNT):
+    x = 0
+    while x < MACHINE_AMOUNT:
         word = gen_word()
         ip = gen_ip()
         if word not in used and ip not in used_ip:
             used.append(word)
             used_ip.append(ip)
+            x += 1
             try:
                 m = Machine(
                     name=word,
@@ -1107,15 +1121,65 @@ def populate_machines():
                     difficulty=get_difficulty(),
                 )
                 db.session.add(m)
-                if x % 5 == 0:
-                    db.session.commit()
             except Exception as _:
                 pass
 
     db.session.commit()
 
 
+def populate_user_machines():
+    # dummy scores
+    print("GENERATING DUMMY MACHINE SCORES")
+    used = []
+    x = 0
+    while x < SCORES:
+        user_id = random.randint(1, USER_AMOUNT)
+        machine_id = random.randint(1, MACHINE_AMOUNT)
+        if (user_id, machine_id) not in used:
+            used.append((user_id, machine_id))
+            x += 1
+            try:
+                user_machine = UserMachine(
+                    user_id=user_id,
+                    machine_id=machine_id,
+                    owned_user=True,
+                    owned_root=True,
+                    rating=gen_rating(),
+                )
+                db.session.add(user_machine)
+            except Exception as _:
+                db.session.rollback()
+
+    db.session.commit()
+
+
+def populate_user_challs():
+    # dummy scores
+    print("GENERATING DUMMY CHALLENGE SCORES")
+    used = []
+    x = 0
+    while x < SCORES:
+        user_id = random.randint(1, USER_AMOUNT)
+        challenge_id = random.randint(1, CHAL_AMOUNT)
+        if (user_id, challenge_id) not in used:
+            used.append((user_id, challenge_id))
+            x += 1
+            try:
+                user_ch = UserChallenge(
+                    user_id=user_id,
+                    challenge_id=challenge_id,
+                    completed=True,
+                    rating=gen_rating(),
+                )
+                db.session.add(user_ch)
+            except Exception as _:
+                db.session.rollback()
+
+    db.session.commit()
+
+
 app = create_app()
+
 
 with app.app_context():
 
@@ -1124,3 +1188,7 @@ with app.app_context():
     populate_challs()
 
     populate_machines()
+
+    populate_user_machines()
+
+    populate_user_challs()
