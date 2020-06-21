@@ -53,31 +53,19 @@ if flake8 shows any errors or warnings, please fix the changes in a new commit a
 
 ## Contact
 
-##### 👨 Project Owner
+##### Join us on slack
 
-- Eshaan Bansal ([github](https://github.com/eshaan7),[linkedin](https://www.linkedin.com/in/eshaan7/))
-
-##### 👬 Mentors
-
-- Sombuddha Chakravarty ([github](https://github.com/sammy1997),[linkedin](https://www.linkedin.com/in/sombuddha-chakravarty-9482b5131/))
-
-Feel free to ask your queries!! 🙌
-
-##### Slack Channel
-
-- [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
+- [#rtb-ctf-framework on slack](https://rtb-ctf-framework.slack.com)
 
 ## Where to start ? 
 
 See: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and the following To-do list. Or just ping one of the mentors with new ideas.
 
-> Note: All PRs within the GSSoC'20 period will be merged in the `gssoc20-dev` branch.
+> Note: All PRs should be made against the latest changes in the `develop` branch.
 
 ## To-do
 
 - [ ] Ideas for additional logging techniques to prevent flag sharing, cheating and such. (Issue: [#7](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/7))
-- [ ] Support for *n* number of boxes (accordions? seperate route?). (Issue: [#17](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/17))
-- [ ] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
 - [ ] Dark theme for `admin control` panel. (Issue: [#16](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/16))
 - [ ] Testing Password reset functionality, the mail-server setup, etc.
 - [ ] More info on `home.html`
@@ -86,6 +74,8 @@ See: [Issues](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues) and th
 
 <hr/>
 
+- [x] Support for *n* number of boxes (accordions? seperate route?). (Issue: [#17](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/17))
+- [x] Rating system: Average Box rating - input, calculate, output. (Issue: [#14](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/14))
 - [x] Freeze Scoreboard automatically past running time specified (Issue: [#3](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/3))
 - [x] Adding a `Deploy to Heroku` button. (Issue: [#15](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/15))
 - [x] Adding CI, Linting, Formatting specs. (Issue: [#18](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/issues/18))
