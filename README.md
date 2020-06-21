@@ -81,19 +81,12 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
   </a>
 </p>
 
-##### 👨 Project Owner
 
-- Eshaan Bansal ([github](https://github.com/eshaan7), [linkedin](https://www.linkedin.com/in/eshaan7/))
+##### Join us on slack
 
-##### 👬  Mentors
+- [#rtb-ctf-framework on slack](https://rtb-ctf-framework.slack.com)
 
-- Sombuddha Chakravarty ([github](https://github.com/sammy1997), [linkedin](https://www.linkedin.com/in/sombuddha-chakravarty-9482b5131/))
-
-##### Slack Channel for GSSoC 2020
-
-- [#proj_root-the-box-ctf-framework](https://app.slack.com/client/TRN1H1V43/CUC71PDD2)
-
-For further guidelines, Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
 
 
 ## Live Demo
