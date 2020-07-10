@@ -11,6 +11,7 @@ from FlaskRTBCTF.utils import (
     admin_manager,
     mail,
     inject_app_context,
+    inject_security_headers,
 )
 from FlaskRTBCTF.users.routes import users
 from FlaskRTBCTF.ctf.routes import ctf
@@ -26,6 +27,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
     app.context_processor(inject_app_context)
+    app.after_request(inject_security_headers)
 
     for _ext in _extensions:
         _ext.init_app(app)

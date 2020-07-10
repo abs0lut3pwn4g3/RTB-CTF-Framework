@@ -21,7 +21,6 @@ install:
   - "pip install -r src/requirements.txt"
   - "python src/create_db.test.py"
 
-before_script:
-  - black . --check
 script:
+  - black . --check
   - flake8 . --count --max-line-length=88 --show-source --statistics

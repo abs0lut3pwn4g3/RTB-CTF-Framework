@@ -10,14 +10,6 @@ from .cache import cache
 from ..main.models import Settings, Website
 
 
-def handle_secret_key(default="you-will-never-guess"):
-    sk = os.environ.get("SECRET_KEY", default)
-    if not sk:
-        sk = secrets.token_hex(16)
-        os.environ["SECRET_KEY"] = sk
-    return sk
-
-
 def handle_admin_pass(default="admin"):
     passwd = os.environ.get("ADMIN_PASS", default)
     if not passwd:
@@ -38,6 +30,14 @@ def inject_app_context():
         flash("Please setup the CTF by going to /setup.", "info")
 
     return dict(settings=settings, websites=websites)
+
+
+def inject_security_headers(response):
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    # response.headers["Content-Security-Policy"] = "default-src 'self'"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
 
 
 @cache.cached(timeout=60, key_prefix="past_running_time")
