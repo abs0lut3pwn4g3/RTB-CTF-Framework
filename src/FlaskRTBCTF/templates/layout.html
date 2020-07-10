@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Favicon -->
-  	<link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static', filename='favicon.ico')}}"/>
+  	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico')}}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Font Awesome -->
@@ -88,7 +88,13 @@
               <p class="text-muted">
                 <ul class="list-group">
                   {% for w in websites %}
-                    <a target="_blank" href="{{ w.url }}" class="list-group-item list-group-item-action">{{ w.name }}</a>
+                    <a target="_blank" 
+                       href="{{ w.url }}" 
+                       class="list-group-item list-group-item-action" 
+                       rel="noreferrer noopener"
+                    >
+                      {{ w.name }}
+                    </a>
                   {% endfor %}
                 </ul>
               </p>

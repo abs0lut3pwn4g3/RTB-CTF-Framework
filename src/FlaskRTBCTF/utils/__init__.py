@@ -5,9 +5,9 @@ from .cache import cache
 from .helpers import (
     handle_admin_pass,
     handle_admin_email,
-    handle_secret_key,
     is_past_running_time,
     inject_app_context,
+    inject_security_headers,
     clear_points_cache,
     clear_rating_cache,
 )

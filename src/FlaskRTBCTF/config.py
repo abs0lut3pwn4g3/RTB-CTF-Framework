@@ -1,14 +1,13 @@
 import os
-
-from .utils import handle_secret_key
+import secrets
 
 # Flask related Configurations
 # Note: DO NOT FORGET TO CHANGE 'SECRET_KEY' !
 
 
 class Config:
-    DEBUG = True  # Turn DEBUG OFF before deployment
-    SECRET_KEY = handle_secret_key()
+    DEBUG = False  # Turn DEBUG OFF before deployment
+    SECRET_KEY = secrets.token_hex(16)
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
     # For local use, one can simply use SQLlite with: 'sqlite:///site.db'
     # For deployment on Heroku use: `os.environ.get('DATABASE_URL')`
@@ -16,6 +15,12 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLASK_ADMIN_SWATCH = ("journal", "paper", "yeti", "cosmo")[3]
     # TEMPLATES_AUTO_RELOAD = True
+    # Session handling
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Strict"
+    SESSION_COOKIE_SECURE = (
+        True if os.environ.get("SSL_ENABLED", False) == "True" else False
+    )
     MAIL_SERVER = "smtp.googlemail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = True

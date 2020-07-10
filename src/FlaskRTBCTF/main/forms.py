@@ -29,13 +29,13 @@ class SettingsForm(FlaskForm):
             try:
                 settings = Settings.query.get(1)
 
+                settings.dummy = False
                 settings.ctf_name = self.ctf_name.data
                 settings.organization_name = self.organization_name.data
                 settings.from_date = self.from_date.data
                 settings.from_time = self.from_time.data
                 settings.to_date = self.to_date.data
                 settings.to_time = self.to_time.data
-                settings.dummy = False
 
                 db.session.commit()
 
