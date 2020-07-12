@@ -33,6 +33,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "bash src/init_db.sh"
+    "postdeploy": "cd /app/src && export FLASK_APP='FlaskRTBCTF:create_app()' && sh init_db.sh"
   }
 }

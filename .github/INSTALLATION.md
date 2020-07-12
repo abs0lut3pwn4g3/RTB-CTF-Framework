@@ -25,7 +25,8 @@ $ cd src/
 3. With `virtual environment` activated, install requirements, init db,
 
 ```bash
-[venv]$ pip install -r requirements.txt 
+[venv]$ pip install -r requirements.txt
+[venv]$ export FLASK_APP="FlaskRTBCTF:create_app()"
 [venv]$ chmod +x init_db.sh && ./init_db.sh # Only required on first run
 ```
 
