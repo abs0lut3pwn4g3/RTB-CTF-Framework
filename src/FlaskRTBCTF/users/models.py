@@ -4,10 +4,12 @@ from itertools import zip_longest
 
 from flask import current_app
 from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from ..ctf.models import UserChallenge, Challenge, UserMachine, Machine
 from ..utils.models import db
 from ..utils.cache import cache
+from ..utils.bcrypt import bcrypt
 from ..utils.login_manager import login_manager
 
 
@@ -22,9 +24,17 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, index=True)
     username = db.Column(db.String(24), unique=True, nullable=False)
     email = db.Column(db.String(88), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    _password = db.Column(db.String(64), nullable=False)
     isAdmin = db.Column(db.Boolean, default=False)
     logs = db.relationship("Logs", backref="user", lazy=True, uselist=False)
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, pwd):
+        self._password = bcrypt.generate_password_hash(pwd).decode("utf-8")
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
@@ -94,4 +104,4 @@ class Logs(db.Model):
     rootSubmissionIP = db.Column(db.String, nullable=True)
 
     def __repr__(self):
-        return f"Logs('{self.user_id}','{self.visitedMachine}')"
+        return f"Logs('{self.user_id}', vistedMachine: '{self.visitedMachine}')"

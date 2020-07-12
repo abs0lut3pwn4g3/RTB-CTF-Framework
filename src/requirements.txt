@@ -24,3 +24,6 @@ WTForms==2.2.1
 tablib==1.1.0
 Flask-Caching==1.9.0
 redis==3.5.3
+meinheld==1.0.2
+Flask-Minify==0.25
+Flask-Migrate==2.5.3

@@ -14,3 +14,5 @@ from .helpers import (
 from .login_manager import login_manager, admin_only
 from .mail import mail, send_reset_email
 from .models import db
+from .minify import static_minify
+from .migrate import migrate

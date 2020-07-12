@@ -37,8 +37,16 @@ class BaseModelView(ModelView):
 
 
 class UserAdminView(BaseModelView):
-    column_exclude_list = ("password",)
-    form_exclude_list = ("password",)
+    column_exclude_list = ("password", "_password")
+    column_details_exclude_list = column_exclude_list
+    column_descriptions = {
+        "_password": """
+        you can change the password here manually,
+        it will be automatically hashed on save
+        """,
+        "isAdmin": "Think twice before checking this field.",
+    }
+    form_columns = ("username", "email", "isAdmin", "password")
     column_searchable_list = ("username", "email")
 
     @expose("/new/")
