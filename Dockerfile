@@ -1,6 +1,6 @@
-FROM python:3.8.2-alpine3.11
+FROM python:3.8.3-alpine3.12
 
-MAINTAINER eshaan7bansal@gmail.com
+LABEL maintainer="eshaan7bansal@gmail.com"
 
 # Env
 RUN export DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}" \
@@ -16,8 +16,8 @@ RUN adduser --shell /sbin/login www-data -DH
 # Install RTB-CTF-Framework
 WORKDIR /usr/src/app
 COPY src ./
-RUN pip install --no-cache-dir -r requirements.txt \
-    && chown -R www-data ./
+RUN chown -R www-data ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 USER www-data
 

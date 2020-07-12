@@ -14,13 +14,11 @@ def handle_admin_pass(default="admin"):
     passwd = os.environ.get("ADMIN_PASS", default)
     if not passwd:
         passwd = secrets.token_hex(16)
-        os.environ["ADMIN_PASS"] = passwd
     return passwd
 
 
 def handle_admin_email(default="admin@admin.com"):
-    em = os.environ.get("ADMIN_EMAIL", default)
-    return em
+    return os.environ.get("ADMIN_EMAIL", default)
 
 
 def inject_app_context():

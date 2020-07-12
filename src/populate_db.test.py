@@ -2,7 +2,7 @@
 import random
 from datetime import datetime
 
-from FlaskRTBCTF import db, bcrypt, create_app
+from FlaskRTBCTF import db, create_app
 from FlaskRTBCTF.ctf.models import (
     Machine,
     UserMachine,
@@ -1048,11 +1048,7 @@ def populate_users():
             used.append(name)
             x += 1
             try:
-                user = User(
-                    username=name,
-                    email=name + gen_email(),
-                    password=bcrypt.generate_password_hash(name).decode("utf-8"),
-                )
+                user = User(username=name, email=name + gen_email(), password=name,)
                 log = Logs(user=user)
                 db.session.add(user)
                 db.session.add(log)

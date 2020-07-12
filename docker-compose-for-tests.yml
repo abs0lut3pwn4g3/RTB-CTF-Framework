@@ -7,15 +7,8 @@ services:
     restart: unless-stopped
     expose:
       - "8000"
-    environment:
-      - DEBUG=False
-      - SECRET_KEY=changeme
-      - DB_USER=eshaan
-      - DB_PASSWORD=eshaan
-      - DB_NAME=rtbctf
-      - DB_PORT=5432
-      - WORKERS=4
-      - ADMIN_PASS=admin
+    env_file:
+      - .env
     depends_on:
       - postgres
       - redis
@@ -26,18 +19,15 @@ services:
     restart: unless-stopped
     expose:
       - "5432"
-    environment:
-      - POSTGRES_USER=eshaan
-      - POSTGRES_PASSWORD=eshaan
-      - POSTGRES_DB=rtbctf
+    env_file:
+      - .env_postgres
 
   redis:
-    image: redis:6.0-rc4-alpine
+    image: redis:alpine3.12
     container_name: rtb_redis
     restart: unless-stopped
     expose:
       - "6379"
-
   
   nginx:
     image: library/nginx:1.16.1-alpine

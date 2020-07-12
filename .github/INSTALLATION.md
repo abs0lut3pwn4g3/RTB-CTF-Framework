@@ -2,11 +2,11 @@
 
 ### Requirements
 
-* Tested on `Python 3.8.2`
+* Tested on `Python 3.8.3`
 * Python Packages: [`src/requirements.txt`](src/requirements.txt).
 * OS Packages: PostgreSQL version 11 or greater, `libpq-dev`, `python3-dev` packages. Please refer [here](https://tutorials.technology/solved_errors/9-Error-pg_config-executable-not-found.html).
 
-### Build locally and run
+### Build locally and run (Development)
 
 1. Git clone the repo and `cd ` into it
 
@@ -22,20 +22,33 @@ $ source venv/bin/activate
 $ cd src/
 ```
 
-3. With `virtual environment` activated, install requirements, init db and run !
+3. With `virtual environment` activated, install requirements, init db,
 
 ```bash
 [venv]$ pip install -r requirements.txt 
-[venv]$ python create_db.py # Only required on first run
-[venv]$ python run.py
+[venv]$ chmod +x init_db.sh && ./init_db.sh # Only required on first run
 ```
 
-> Warning: If you make any change to [`config.py`](https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework/blob/master/src/FlaskRTBCTF/config.py) logging/config class/score settings. It's highly recommended to create a new DB instance.
+4. Now we can run our application,
 
-### Docker
+    - For development server,
 
-> Note: The Docker support is not tested for production yet. It's recommended to use Heroku for production.
+    ```bash
+    [venv]$ python run.py 
+    ```
 
-```bash
-$ docker-compose up
-```
+    - Production server
+
+    ```bash
+    [venv]$ ./runserver.sh
+    ```
+
+### Docker (Production)
+
+1. Define certain environment variables present in files `.env` and `.env_postgres`.
+
+2. After having configured these environment variables, just execute,
+
+    ```bash
+    $ docker-compose up
+    ```

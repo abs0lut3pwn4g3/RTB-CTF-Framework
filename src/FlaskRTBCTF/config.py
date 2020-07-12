@@ -1,13 +1,11 @@
 import os
-import secrets
 
 # Flask related Configurations
-# Note: DO NOT FORGET TO CHANGE 'SECRET_KEY' !
 
 
 class Config:
     DEBUG = False  # Turn DEBUG OFF before deployment
-    SECRET_KEY = secrets.token_hex(16)
+    SECRET_KEY = os.environ.get("SECRET_KEY", "you-will-never-guess")
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
     # For local use, one can simply use SQLlite with: 'sqlite:///site.db'
     # For deployment on Heroku use: `os.environ.get('DATABASE_URL')`

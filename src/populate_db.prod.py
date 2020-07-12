@@ -1,7 +1,7 @@
 import pytz
 from datetime import datetime
 
-from FlaskRTBCTF import db, bcrypt, create_app
+from FlaskRTBCTF import db, create_app
 from FlaskRTBCTF.main.models import Settings
 from FlaskRTBCTF.ctf.models import Machine, Challenge, Tag, Category
 from FlaskRTBCTF.users.models import User, Logs
@@ -81,24 +81,27 @@ def populate_challs():
 
 
 with app.app_context():
-    db.create_all()
+    s = Settings.query.get(1)
+    a = User.query.filter_by(username="admin").first()
+    if s or a:
+        print("populate_db.prod: Skipping since, database is already populated!")
+        exit()
 
-    default_time = datetime.now(pytz.utc)
+    now_time = datetime.now(pytz.utc)
 
-    passwd = handle_admin_pass()
     admin_user = User(
         username="admin",
         email=handle_admin_email(),
-        password=bcrypt.generate_password_hash(passwd).decode("utf-8"),
+        password=handle_admin_pass(),
         isAdmin=True,
     )
     db.session.add(admin_user)
 
     admin_log = Logs(
         user=admin_user,
-        accountCreationTime=default_time,
+        accountCreationTime=now_time,
         visitedMachine=True,
-        machineVisitTime=default_time,
+        machineVisitTime=now_time,
     )
     db.session.add(admin_log)
 
@@ -111,5 +114,7 @@ with app.app_context():
     db.session.commit()
 
     populate_challs()
+
+    print("populate_db.prod: Database populated with some default data!")
 
     db.session.commit()

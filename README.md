@@ -44,7 +44,7 @@ The 100 second elevator-pitch is that: A Capture The Flag framework; one that is
 
 ## Build locally
 
-Please see [INSTALLATION.md](INSTALLATION.md).
+Please see [INSTALLATION.md](.github/INSTALLATION.md).
 
 ## Host a customized CTF with Heroku for free in under a minute
 
@@ -83,7 +83,7 @@ The main purpose of this project is to serve as a scoring engine and CTF manager
 
 - [#rtb-ctf-framework on slack](https://rtb-ctf-framework.slack.com)
 
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md)
+Please refer to [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 
 ## Live Demo

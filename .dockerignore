@@ -5,3 +5,10 @@ venv/
 *.db
 .idea/
 .github/
+.lgtm.yml
+Procfile
+app.json
+setup.cfg
+runtime.txt
+migrations/
+*.test.py

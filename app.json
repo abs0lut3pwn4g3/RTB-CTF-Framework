@@ -33,6 +33,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "python3 src/create_db.py"
+    "postdeploy": "bash src/init_db.sh"
   }
 }
