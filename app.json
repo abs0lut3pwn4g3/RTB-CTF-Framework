@@ -16,6 +16,10 @@
     }
   ],
   "env": {
+    "SECRET_KEY": {
+      "description": "Flask app instance's SECRET_KEY",
+      "generator": "secret"
+    },
     "ADMIN_PASS": {
       "description": "Administrator password",
       "generator": "secret"
