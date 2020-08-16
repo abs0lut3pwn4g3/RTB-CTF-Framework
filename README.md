@@ -88,6 +88,6 @@ Please refer to [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 # License
 
-This project is available under a dual license: a commercial one suitable for closed source projects and a GPL license that can be used in open source software.
+This project is available under a dual license: a commercial one suitable for closed source projects and a A-GPL license that can be used in open source software.
 
-Depending on your needs, you must choose one of them and follow its policies. A detail of the policies and agreements for each license type are available in the [LICENSE.COMMERCIAL](LICENSE.COMMERCIAL) and [LICENSE.GPL](LICENSE.GPL) files.
+Depending on your needs, you must choose one of them and follow its policies. A detail of the policies and agreements for each license type are available in the [LICENSE.COMMERCIAL](LICENSE.COMMERCIAL) and [LICENSE.AGPL](LICENSE.AGPL) files.
