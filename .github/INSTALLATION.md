@@ -46,9 +46,11 @@ $ cd src/
 
 ### Docker (Production)
 
-1. Define certain environment variables present in files `.env` and `.env_postgres`.
+1. You need `docker` and `docker-compose` installed on your host machine. (refer [here](https://docs.docker.com/engine/install/) and [here](https://docs.docker.com/compose/install/))
 
-2. After having configured these environment variables, just execute,
+2. Define certain environment variables present in files `.env` and `.env_postgres`.
+
+3. After having configured these environment variables, just execute,
 
     ```bash
     $ docker-compose up
