@@ -41,12 +41,19 @@ The 100 second elevator-pitch is that: A Capture The Flag framework; one that is
 * Real time scoreboard tracking,
 * Efficient caching so it's fast
 * Easily deployable on Heroku.
+* You can manage the database CRUD operations from admin views GUI; change machine settings, issue notifications to users, etc.
 
 ## Build locally
 
 Please see [INSTALLATION.md](.github/INSTALLATION.md).
 
-## Host a customized CTF with Heroku for free in under a minute
+## Host a customized version of RTB-CTF-Framework on the cloud in under a minute
+
+### Zeet.co
+
+[![Deploy](https://deploy.zeet.co/RTB-CTF-Framework.svg)](https://deploy.zeet.co/?url=https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework)
+
+### Heroku (free tier)
 
 1. Sign up on [Heroku](https://heroku.com), if you haven't already and click on the below "Deploy to Heroku" button.
 
@@ -61,8 +68,6 @@ Please see [INSTALLATION.md](.github/INSTALLATION.md).
 4. Finally, you'll want to `/setup` the CTF Settings and,
 
 #### Yay! Now you have a customized instance of the RTB-CTF-Framework live on Heroku. 🎉
-
-> Bonus: You can manage the database CRUD operations from admin views GUI; change machine settings, issue notifications to users, etc.
 
 ## Inspiration
 
