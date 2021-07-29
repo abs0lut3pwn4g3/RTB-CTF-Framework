@@ -19,7 +19,7 @@ services:
     expose:
       - "5432"
     env_file:
-    - .env_postgres
+      - .env_postgres
 
   redis:
     image: redis:alpine3.12
@@ -27,9 +27,9 @@ services:
     restart: unless-stopped
     expose:
       - "6379"
-  
+
   nginx:
-    image: library/nginx:1.16.1-alpine
+    image: library/nginx:1.21-alpine
     container_name: rtb_nginx
     restart: unless-stopped
     hostname: nginx

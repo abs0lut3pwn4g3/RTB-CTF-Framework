@@ -6,7 +6,10 @@ import os
 class Config:
     DEBUG = False  # Turn DEBUG OFF before deployment
     SECRET_KEY = os.environ.get("SECRET_KEY", "you-will-never-guess")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
+    _uri = os.environ.get("DATABASE_URL") or "sqlite:///site.db"
+    if _uri.startswith("postgres://"):
+        _uri = _uri.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URI = _uri
     # For local use, one can simply use SQLlite with: 'sqlite:///site.db'
     # For deployment on Heroku use: `os.environ.get('DATABASE_URL')`
     # in all other cases: `os.environ.get('SQLALCHEMY_DATABASE_URI')`
