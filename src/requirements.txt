@@ -13,6 +13,7 @@ psycopg2==2.9.1
 redis==3.5.3
 gunicorn
 meinheld
+greenlet==1.1.0
 pytz==2019.3
 six==1.14.0
 WTForms==2.2.1
