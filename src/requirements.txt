@@ -1,6 +1,6 @@
 Flask==1.1.4
 markupsafe==2.0.1
-Flask-Admin==1.5.8
+Flask-Admin==1.6.1
 Flask-Bcrypt==0.7.1
 Flask-Login==0.5.0
 Flask-Mail==0.9.1
