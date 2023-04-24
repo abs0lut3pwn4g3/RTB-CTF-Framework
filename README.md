@@ -25,7 +25,7 @@ The 100 second elevator-pitch is that: A Capture The Flag framework; one that is
 
 **Want to see it in action?**
 
-   A live demo of the app is available at: <https://rtblivedemo.herokuapp.com/>.
+   A live demo of the app is available at: https://rtbctfframework.up.railway.app/.
 
    You can login and mess around as the admin user `admin:admin` (i.e. username:password combinations) or register your own.
 
