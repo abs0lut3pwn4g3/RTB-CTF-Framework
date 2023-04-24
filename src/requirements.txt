@@ -4,6 +4,7 @@ Flask-Admin==1.6.1
 Flask-Bcrypt==0.7.1
 Flask-Login==0.5.0
 Flask-Mail==0.9.1
+sqlalchemy==1.4.47
 Flask-SQLAlchemy==2.5.1
 Flask-SSLify==0.1.5
 Flask-WTF==0.15.1
