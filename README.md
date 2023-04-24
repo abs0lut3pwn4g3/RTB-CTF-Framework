@@ -49,6 +49,10 @@ Please see [INSTALLATION.md](.github/INSTALLATION.md).
 
 ## Host a customized version of RTB-CTF-Framework on the cloud in under a minute
 
+### Railway.app
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/Znjax0?referralCode=t4HzEf)
+
 ### Zeet.co
 
 [![Deploy](https://deploy.zeet.co/RTB-CTF-Framework.svg)](https://deploy.zeet.co/?url=https://github.com/abs0lut3pwn4g3/RTB-CTF-Framework)
