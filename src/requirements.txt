@@ -21,4 +21,4 @@ six==1.14.0
 WTForms==2.2.1
 tablib==1.1.0
 flake8==3.7.9
-black==19.10b0
+black==24.3.0
